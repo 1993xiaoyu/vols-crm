@@ -1,5 +1,5 @@
 <template>
-    <div class="aed-box">我是响应系统</div>
+    <div class="aed-box">我是响应系统ss</div>
 </template>
 
 <script setup>
