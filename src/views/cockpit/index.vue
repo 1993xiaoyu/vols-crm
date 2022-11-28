@@ -84,6 +84,7 @@
                 left: '1240px',
             }"
             title="实时救援监控"
+            class="map-box"
         >
             <DataDivisionBox />
         </ContainerBox>

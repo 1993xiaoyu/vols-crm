@@ -1,8 +1,20 @@
 <template>
+    <div class="division-box">
+        <div class="division-num">
+            <div class="division-num__item">
+                <div class="division-num__item-title">月累计救援量(次)</div>
+                <div class="division-num__item-num">68,214</div>
+            </div>
+            <div class="division-num__item">
+                <div class="division-num__item-title">年累计救援量(次)</div>
+                <div class="division-num__item-num">68,214</div>
+            </div>
+        </div>
+    </div>
     <div
         class="map-box"
         id="mapBox"
-        :style="{ width: '1360px', height: '580px', marginTop: '20px' }"
+        :style="{ width: '1360px', height: '580px' }"
     ></div>
 </template>
 
@@ -12,11 +24,13 @@ import { onMounted } from 'vue';
 var map = null;
 
 const initMap = () => {
-    map = new BMapGL.Map('mapBox');
+    map = new BMapGL.Map('mapBox', {
+        backgroundColor: [0, 0, 0, 0],
+    });
     //设置地图的中心点如合肥的坐标
-    var point = new BMapGL.Point(116.404, 39.925);
+    var point = new BMapGL.Point(106.624499, 26.655185);
     // 初始化地图，设置中心点坐标和地图级别
-    map.centerAndZoom(point, 10);
+    map.centerAndZoom(point, 8);
     //禁止拖拽
     map.disableDragging();
     map.disableDoubleClickZoom();
@@ -24,127 +38,81 @@ const initMap = () => {
     map.disableKeyboard();
     map.disableScrollWheelZoom();
     map.setTilt(50);
+
     getBoundary();
 };
 
 const getBoundary = () => {
-    var bd = new BMapGL.Boundary();
-    bd.get('北京市', function (rs) {
-        var count = rs.boundaries.length; //行政区域的点有多少个
-        if (count === 0) {
-            return;
-        }
+    var bdary = new BMapGL.Boundary();
+    bdary.get('贵州省', function (rs) {
+        for (var i = 0; i < rs.boundaries.length; i++) {
+            var xyArr = rs.boundaries[i].split(';');
+            var ptArr = [];
 
-        // const EN_JW = '180, 90;';
-        // const NW_JW = '-180,  90;';
-        // const WS_JW = '-180, -90;';
-        // const SE_JW = '180, -90;';
-        // 东南西北四个角添加一个覆盖物
-        // const ply1 = new BMapGL.Polygon(
-        //     rs.boundaries[0] + SE_JW + SE_JW + WS_JW + NW_JW + EN_JW + SE_JW,
-        //     5000,
-        //     {
-        //         strokeColor: 'none',
-        //         fillColor: '#fff',
-        //         fillOpacity: 1,
-        //         strokeOpacity: 1,
-        //     }
-        // );
-        // map.addOverlay(ply1);
-
-        var pointArray = [];
-        for (var i = 0; i < count; i++) {
-            var path = [];
-            var str = rs.boundaries[i].replace(' ', '');
-            var points = str.split(';');
-            for (var j = 0; j < points.length; j++) {
-                var lng = points[j].split(',')[0];
-                var lat = points[j].split(',')[1];
-                path.push(new BMapGL.Point(lng, lat));
+            for (var j = 0; j < xyArr.length; j++) {
+                var tmp = xyArr[j].split(',');
+                var pt = new BMapGL.Point(tmp[0], tmp[1]);
+                ptArr.push(pt);
             }
-            var prism = new BMapGL.Prism(path, 5000, {
+
+            var mapmask = new BMapGL.MapMask(ptArr, {
+                isBuildingMask: true,
+                isPoiMask: true,
+                isMapMask: true,
+                showRegion: 'inside',
+            });
+
+            map.addOverlay(mapmask);
+
+            var prism = new BMapGL.Prism(ptArr, 10000, {
                 topFillColor: '#5679ea',
-                topFillOpacity: 0.5,
+                topFillOpacity: 0.7,
                 sideFillColor: '#5679ea',
-                sideFillOpacity: 0.9,
+                sideFillOpacity: 1,
             });
             map.addOverlay(prism);
-            pointArray = pointArray.concat(prism.getPath());
         }
+        getRegion();
     });
-
-    // const bdary = new BMapGL.Boundary();
-    // bdary.get('贵州省', (rs) => {
-    //     const count = rs.boundaries.length;
-    //     if (count === 0) {
-    //         return;
-    //     }
-    //     const EN_JW = '180, 90;';
-    //     const NW_JW = '-180,  90;';
-    //     const WS_JW = '-180, -90;';
-    //     const SE_JW = '180, -90;';
-    //     // 东南西北四个角添加一个覆盖物
-    //     const ply1 = new BMapGL.Prism(
-    //         rs.boundaries[0] + SE_JW + SE_JW + WS_JW + NW_JW + EN_JW + SE_JW,
-    //         5000,
-    //         {
-    //             strokeColor: 'none',
-    //             fillColor: '#fff',
-    //             fillOpacity: 1,
-    //             strokeOpacity: 1,
-    //         }
-    //     );
-    //     map.addOverlay(ply1);
-    //     var pointArray = [];
-    //     // 绘制‘贵州省’整体的外轮廓
-    //     for (let i = 0; i < count; i++) {
-    //         const ply = new BMapGL.Prism(rs.boundaries[i], 5000, {
-    //             strokeWeight: 0.5,
-    //             strokeColor: '#006BE9',
-    //             fillColor: '#006BE9',
-    //         });
-    //         map.addOverlay(ply);
-    //         pointArray = pointArray.concat(ply.getPath());
-    //     }
-
-    //     map.setViewport(pointArray, {
-    //         enableAnimation: false,
-    //     }); // 调整视野
-    //     // getRegion();
-    // });
 };
 
 var dataArr = [
     {
-        name: '安顺市',
+        name: '安顺',
         cp: [105.9082, 25.9882],
+        fillColor: '#002E65',
     },
     {
-        name: '贵阳市',
+        name: '贵阳',
         cp: [106.6992, 26.7682],
+        fillColor: '#003A7F',
     },
     {
-        name: '遵义市',
+        name: '遵义',
         cp: [106.908, 28.1744],
+        fillColor: '#0051AF',
     },
     {
         name: '黔东南苗族侗族自治州',
         cp: [108.519944, 26.835886],
+        fillColor: '#006BE9',
     },
     {
         name: '毕节市',
         cp: [105.1611, 27.0648],
+        fillColor: '#1C94EB',
     },
     {
         name: '黔南布依族苗族自治州',
         cp: [107.235181, 25.705737],
+        fillColor: '#61B3FF',
     },
     {
         name: '黔西南布依族苗族自治州',
         cp: [105.5347, 25.3949],
     },
     {
-        name: '六盘水市',
+        name: '六盘水',
         cp: [104.7546, 26.0925],
     },
     {
@@ -163,14 +131,14 @@ const getRegion = () => {
                     strokeWeight: 0.5,
                     strokeColor: '#fff',
                     fillOpacity: 0.6,
-                    fillColor: '#006BE9',
+                    fillColor: element['fillColor'] || '#006BE9',
                 });
                 map.addOverlay(ply);
             }
-            citySetLabel(
-                new BMapGL.Point(element['cp'][0], element['cp'][1]),
-                element['name']
-            );
+            // citySetLabel(
+            //     new BMapGL.Point(element['cp'][0], element['cp'][1]),
+            //     element['name']
+            // );
         });
     });
 };
@@ -195,6 +163,65 @@ onMounted(() => {
 </script>
 <style lang="less">
 .map-box {
-    margin-top: 20px;
+    .container-box__title {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    background-image: none !important;
+}
+</style>
+
+<style lang="less" scoped>
+.division-box {
+    .division-num {
+        position: absolute;
+        top: 66px;
+        left: 24px;
+
+        &__item {
+            width: 180px;
+            height: 90px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            line-height: 14px;
+            color: #fff;
+            font-weight: 400;
+            background: linear-gradient(
+                rgba(42, 225, 181, 1) 0%,
+                rgba(12, 180, 235, 1) 100%
+            );
+            margin-right: 20px;
+            border-radius: 8px;
+            &:nth-child(2) {
+                background: linear-gradient(
+                    rgba(249, 198, 97, 1) 0%,
+                    rgba(253, 135, 134, 1) 100%
+                );
+            }
+
+            &-title {
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    width: 20px;
+                    height: 15px;
+                    background: url('../assets/vector.png');
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    margin-right: 6px;
+                }
+            }
+            &-num {
+                font-size: 28px;
+                line-height: 28px;
+                margin-top: 10px;
+                font-weight: 700;
+            }
+        }
+    }
 }
 </style>
