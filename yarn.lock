@@ -243,6 +243,14 @@ delayed-stream@~1.0.0:
   resolved "https://registry.npmmirror.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
+echarts@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.4.0.tgz#a9a8e5367293a397408d3bf3e2638b869249ce04"
+  integrity sha512-uPsO9VRUIKAdFOoH3B0aNg7NRVdN7aM39/OjovjO9MwmWsAkfGyeXJhK+dbRi51iDrQWliXV60/XwLA7kg3z0w==
+  dependencies:
+    tslib "2.3.0"
+    zrender "5.4.0"
+
 element-plus@^2.2.22:
   version "2.2.25"
   resolved "https://registry.npmmirror.com/element-plus/-/element-plus-2.2.25.tgz#ebf1e8a57300eb2d8ed337cf23ee5a566bebc402"
@@ -675,6 +683,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmmirror.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+tslib@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
 tslib@^2.3.0:
   version "2.4.1"
   resolved "https://registry.npmmirror.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
@@ -721,3 +734,10 @@ vue@^3.2.41:
     "@vue/runtime-dom" "3.2.45"
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
+
+zrender@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.npmmirror.com/zrender/-/zrender-5.4.0.tgz#d4f76e527b2e3bbd7add2bdaf27a16af85785576"
+  integrity sha512-rOS09Z2HSVGFs2dn/TuYk5BlCaZcVe8UDLLjj1ySYF828LATKKdxuakSZMvrDz54yiKPDYVfjdKqcX8Jky3BIA==
+  dependencies:
+    tslib "2.3.0"

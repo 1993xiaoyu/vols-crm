@@ -12,6 +12,7 @@ const props = defineProps({
 
 <style lang="less" scoped>
 .container-box {
+    position: absolute;
     box-sizing: border-box;
     background: rgba(6, 13, 30, 0.3);
     border: 1px solid rgba(0, 136, 207, 0.3);
