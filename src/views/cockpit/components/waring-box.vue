@@ -5,8 +5,6 @@
             stripe
             style="width: 100%"
             :border="false"
-            :header-cell-style="{ paddingLeft: '30px' }"
-            :cell-style="{ paddingLeft: '30px' }"
         >
             <el-table-column
                 prop="abnormalMode"
@@ -17,7 +15,7 @@
             <el-table-column
                 prop="abnormalContent"
                 label="预警内容"
-                width="420"
+                width="320"
                 show-overflow-tooltip
             />
             <el-table-column prop="level" label="预警等级" />
@@ -82,9 +80,19 @@ onMounted(() => {
         line-height: 14px;
         font-size: 14px;
         padding: 11px 0;
+
+        .cell {
+            padding-left: 30px;
+            box-sizing: border-box;
+        }
     }
     .el-table .el-table__cell {
         padding: 11px 0;
+        box-sizing: border-box;
+        .cell {
+            padding-left: 30px;
+            box-sizing: border-box;
+        }
     }
     .el-table td.el-table__cell,
     .el-table th.el-table__cell.is-leaf {

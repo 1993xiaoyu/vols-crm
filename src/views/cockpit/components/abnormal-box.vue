@@ -1,5 +1,5 @@
 <template>
-    <div class="waring-box">
+    <div class="abnormal-box">
         <el-table
             :data="abnormalObj.list"
             stripe
@@ -67,7 +67,7 @@ onMounted(() => {
 </script>
 
 <style lang="less">
-.waring-box {
+.abnormal-box {
     .el-table__inner-wrapper::before {
         display: none;
     }

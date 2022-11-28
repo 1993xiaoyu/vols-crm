@@ -85,7 +85,7 @@
             }"
             title="实时救援监控"
         >
-            <div>我是地图</div>
+            <DataDivisionBox />
         </ContainerBox>
 
         <ContainerBox
@@ -108,8 +108,9 @@
                 left: '2620px',
             }"
             title="紧急救援现场"
+            class="scene-box"
         >
-            <div>紧急救援现场</div>
+            <SceneBox />
         </ContainerBox>
 
         <ContainerBox
@@ -158,11 +159,20 @@ import AedBox from './components/aed-box.vue';
 import WorkBox from './components/work-box.vue';
 import WaringBox from './components/waring-box.vue';
 import RespondBox from './components/respond-box.vue';
+import DataDivisionBox from './components/data-division-box.vue';
 import ResponseTimeBox from './components/response-time-box.vue';
 import DiseaseBox from './components/disease-box.vue';
 import AbnormalBox from './components/abnormal-box.vue';
+import SceneBox from './components/scene-box.vue';
 </script>
 
+<style lang="less">
+.cockpit-box {
+    .anchorBL {
+        display: none;
+    }
+}
+</style>
 <style lang="less" scoped>
 .cockpit-box {
     width: 100%;
@@ -182,8 +192,7 @@ import AbnormalBox from './components/abnormal-box.vue';
     .center-box {
         position: absolute;
         top: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 960px;
         width: 1920px;
         height: 1080px;
         background: url(./assets/center-bg.png);
