@@ -121,7 +121,7 @@
             }"
             title="反应时间统计"
         >
-            <div>反应时间统计</div>
+            <ResponseTimeBox />
         </ContainerBox>
 
         <ContainerBox
@@ -158,6 +158,7 @@ import AedBox from './components/aed-box.vue';
 import WorkBox from './components/work-box.vue';
 import WaringBox from './components/waring-box.vue';
 import RespondBox from './components/respond-box.vue';
+import ResponseTimeBox from './components/response-time-box.vue';
 import DiseaseBox from './components/disease-box.vue';
 import AbnormalBox from './components/abnormal-box.vue';
 </script>

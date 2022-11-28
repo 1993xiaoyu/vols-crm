@@ -31,6 +31,11 @@ export function getCensusAbnormal(params) {
 export function getCensusRespond(params) {
     return net.get(`${baseURL}/census/respond`, params);
 }
+
+export function getCensuResponseTime(params) {
+    return net.get(`${baseURL}/census/response-time`, params);
+}
+
 export function getCensuDisease(params) {
     return net.get(`${baseURL}/census/disease`, params);
 }
