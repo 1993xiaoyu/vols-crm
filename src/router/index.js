@@ -22,6 +22,12 @@ const routes = [
         name: 'list',
         component: () => import('../views/list/index.vue'),
     },
+    {
+        path: '/login',
+        name: 'login',
+        meta: { isFullScreen: true },
+        component: () => import('../views/login/index.vue'),
+    },
 ];
 
 const router = createRouter({

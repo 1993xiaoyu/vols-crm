@@ -46,7 +46,9 @@ const net = {
             _axios({
                 url,
                 params,
-                headers: { 'Content-Type': 'application/jsoncharset=UTF-8' },
+                headers: {
+                    'content-type': 'application/json',
+                },
                 method: 'GET',
             })
                 .then((res) => {
@@ -67,7 +69,9 @@ const net = {
             _axios({
                 url,
                 data: params,
-                headers: { 'Content-Type': 'application/jsoncharset=UTF-8' },
+                headers: {
+                    'content-type': 'application/json',
+                },
                 method: 'POST',
             })
                 .then((res) => {
