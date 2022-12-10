@@ -36,7 +36,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusVoluteer } from '@/network/volunteer.js';
+import { getCensusVoluteer } from '@/network/cockpit.js';
 import { formatNum } from '@/utils/common.js';
 const voluteerObj = reactive({
     todayClockNum: '',

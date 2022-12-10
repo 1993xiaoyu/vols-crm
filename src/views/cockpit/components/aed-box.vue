@@ -15,7 +15,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusAed } from '@/network/volunteer.js';
+import { getCensusAed } from '@/network/cockpit.js';
 import { formatNum } from '@/utils/common.js';
 import aedBg1 from '../assets/aed-bg1.png';
 import aedBg2 from '../assets/aed-bg2.png';

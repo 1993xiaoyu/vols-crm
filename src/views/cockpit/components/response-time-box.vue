@@ -51,7 +51,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensuResponseTime } from '@/network/volunteer.js';
+import { getCensuResponseTime } from '@/network/cockpit.js';
 const responseTimeObj = reactive({
     averageResponseTime: '',
     averageSetOutTime: '',

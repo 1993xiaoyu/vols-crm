@@ -32,7 +32,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusWaring } from '@/network/volunteer.js';
+import { getCensusWaring } from '@/network/cockpit.js';
 
 const waringObj = reactive({
     list: [
