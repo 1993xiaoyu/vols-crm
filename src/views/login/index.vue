@@ -1,6 +1,11 @@
 <template>
     <div class="login-box">
-        <div class="login-box__left"></div>
+        <div class="login-box__left">
+            <div class="login-box__left-logo"></div>
+            <div class="login-box__left-title">
+                5分钟社会救援圈 信息驾驶舱平台
+            </div>
+        </div>
         <div class="login-box__right">
             <el-form
                 label-position="top"
@@ -36,7 +41,7 @@
     </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { login } from '@/network/index.js';
 import { useRouter } from 'vue-router';
 
@@ -49,7 +54,7 @@ const loginForm = reactive({
 });
 
 const onSubmit = async () => {
-    const { username, password } = loginForm;
+    const { username, password, rememberMe } = loginForm;
     if (!username) {
         return;
     }
@@ -118,18 +123,38 @@ const onSubmit = async () => {
 .login-box {
     width: 100%;
     height: 100%;
-    background-image: url(./assets/19-2129.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    &__right {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 45%;
+    background: #eef2fc;
+    display: flex;
+    &__left {
+        width: 1079px;
         height: 100%;
-        background: #eef2fc;
-        z-index: 2;
+        background-image: url(./assets/bg.png);
+        background-size: cover;
+        background-repeat: no-repeat;
         display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        &-logo {
+            width: 257px;
+            height: 257px;
+            background-image: url(./assets/logo.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        &-title {
+            color: #ffffff;
+            font-size: 37px;
+            line-height: 70px;
+            text-align: center;
+            margin-top: 70px;
+        }
+    }
+    &__right {
+        width: 841px;
+        display: flex;
+        flex: 1;
         align-items: center;
         justify-content: center;
         &-fp {

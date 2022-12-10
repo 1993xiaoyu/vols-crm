@@ -50,6 +50,7 @@ const handleSideBar = (item) => {
     if (!item) {
         return;
     }
+
     setCurrSideBarName(item);
     if (item.children && item.children.length) {
         handleSecondSideBar(item.children[0]);
@@ -77,7 +78,7 @@ watch(
                 (item) => item.name === parentName
             );
 
-            setCurrSideBarName(currParData[0]);
+            // setCurrSideBarName(currParData[0]);
         }
     },
     { immediate: true }

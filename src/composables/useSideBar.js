@@ -1,24 +1,38 @@
 import { reactive } from 'vue';
 
+import WorkIcon from '@/assets/work.png';
+import WorkCheckedIcon from '@/assets/work-checkd.png';
+import RescueIcon from '@/assets/rescue.png';
+import RescueCheckedIcon from '@/assets/rescue-checked.png';
+import StaffIcon from '@/assets/staff.png';
+import StaffCheckedIcon from '@/assets/staff-checked.png';
+import AedIcon from '@/assets/aed.png';
+import AedCheckedIcon from '@/assets/aed-checked.png';
+import PowerIcon from '@/assets/power.png';
+import PowerCheckedIcon from '@/assets/power-checked.png';
+
 export default function useSideBar() {
     const sideBarConfig = reactive({
         list: [
             {
                 title: '工作台',
                 name: 'list',
-                icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                icon: WorkIcon,
+                activedIcon: WorkCheckedIcon,
                 children: [],
             },
             {
                 title: '救援中心',
                 name: 'commandList',
-                icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                icon: RescueIcon,
+                activedIcon: RescueCheckedIcon,
                 children: [],
             },
             {
                 title: '人员及机构管理',
                 name: 'worker',
-                icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                icon: StaffIcon,
+                activedIcon: StaffCheckedIcon,
                 children: [
                     {
                         title: ' 志愿者管理',
@@ -40,13 +54,15 @@ export default function useSideBar() {
             {
                 title: 'AED设备管理',
                 name: 'aedList',
-                icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                icon: AedIcon,
+                activedIcon: AedCheckedIcon,
                 children: [],
             },
             {
                 title: '系统管理',
                 name: 'services',
-                icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                icon: PowerIcon,
+                activedIcon: PowerCheckedIcon,
                 children: [
                     {
                         title: '用户管理',
