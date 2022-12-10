@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        title="新增志愿者"
+        :title="currDialogType === 'add' ? '新增志愿者' : '编辑志愿者'"
         width="60%"
         class="volunteer-dialog"
     >
@@ -10,8 +10,6 @@
             :model="ruleForm"
             :rules="rules"
             label-width="100px"
-            class="demo-ruleForm"
-            :size="formSize"
             status-icon
             :inline="true"
         >
@@ -102,7 +100,7 @@
                 <el-button type="primary" @click="submitForm(ruleFormRef)"
                     >确定</el-button
                 >
-                <el-button @click="resetForm(ruleFormRef)">取消</el-button>
+                <el-button @click="closeDialog(ruleFormRef)">取消</el-button>
             </div>
         </el-form>
     </el-dialog>
@@ -110,7 +108,7 @@
 
 <script setup>
 import { reactive, ref, computed } from 'vue';
-import { volunteerAdd } from '@/network/volunteer.js';
+import { volunteerAdd, volunteerEdit } from '@/network/volunteer.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeEditDialogShow']);
 
@@ -121,9 +119,8 @@ const props = defineProps({
     },
 });
 
-const formSize = ref('default');
 const ruleFormRef = ref();
-const ruleForm = ref({
+const defData = {
     volunteerName: '',
     volunteerState: '',
     volunteerSex: '1',
@@ -139,7 +136,8 @@ const ruleForm = ref({
     trainHospital: '',
     trainAddress: '',
     trainDate: '',
-});
+};
+const ruleForm = ref({});
 
 const rules = reactive({
     volunteerName: [
@@ -153,14 +151,14 @@ const rules = reactive({
         {
             required: true,
             message: '请选择志愿者职业',
-            trigger: 'change',
+            trigger: 'blur',
         },
     ],
     volunteerEducation: [
         {
             required: true,
             message: '请选择志愿者学历',
-            trigger: 'change',
+            trigger: 'blur',
         },
     ],
 
@@ -197,16 +195,21 @@ const rules = reactive({
     ],
 });
 
+const currDialogType = ref('add');
+
 const submitForm = async (formEl) => {
     if (!formEl) return;
     await formEl.validate((valid) => {
         if (valid) {
-            volunteerAdd({
+            const currFun =
+                currDialogType.value === 'add' ? volunteerAdd : volunteerEdit;
+            currFun({
                 ...ruleForm.value,
             }).then((res) => {
                 if (res.code === 0) {
-                    ElMessage({ type: 'success', message: '新增志愿者成功' });
+                    ElMessage({ type: 'success', message: '操作成功' });
                     emit('closeEditDialogShow', false);
+                    initDialog();
                 } else {
                     ElMessage({
                         type: 'error',
@@ -218,10 +221,16 @@ const submitForm = async (formEl) => {
     });
 };
 
-const resetForm = () => {
+const closeDialog = () => {
+    initDialog();
     emit('closeEditDialogShow', false);
     // if (!formEl) return;
     // formEl.resetFields();
+};
+
+const initDialog = () => {
+    currDialogType.value = 'add';
+    ruleForm.value = defData;
 };
 
 const dialogVisible = computed({
@@ -229,12 +238,14 @@ const dialogVisible = computed({
         return props.show;
     },
     set(val) {
+        initDialog();
         return val;
     },
 });
 
 const setDialogData = (item) => {
     ruleForm.value = item;
+    currDialogType.value = 'edit';
 };
 
 defineExpose({ setDialogData });

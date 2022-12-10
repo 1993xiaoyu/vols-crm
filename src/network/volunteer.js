@@ -10,6 +10,9 @@ export function volunteerAdd(params) {
     return net.post(`${baseURL}/system/volunteer/add`, params);
 }
 
+export function volunteerEdit(params) {
+    return net.post(`${baseURL}/system/volunteer/edit`, params);
+}
 export function volunteerList(params) {
     return net.get(`${baseURL}/system/volunteer/list`, params);
 }
