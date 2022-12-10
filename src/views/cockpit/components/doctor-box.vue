@@ -18,7 +18,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusDoctor } from '@/network/index.js';
+import { getCensusDoctor } from '@/network/volunteer.js';
 import { formatNum } from '@/utils/common.js';
 
 const doctorList = [

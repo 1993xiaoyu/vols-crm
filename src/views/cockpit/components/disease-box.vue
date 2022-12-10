@@ -9,7 +9,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, reactive } from 'vue';
-import { getCensuDisease } from '@/network/index.js';
+import { getCensuDisease } from '@/network/volunteer.js';
 
 import * as echarts from 'echarts';
 

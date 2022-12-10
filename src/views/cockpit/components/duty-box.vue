@@ -22,7 +22,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusDuty } from '@/network/index.js';
+import { getCensusDuty } from '@/network/volunteer.js';
 
 const dutyObj = reactive({
     list: [],

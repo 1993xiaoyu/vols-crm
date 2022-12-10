@@ -28,7 +28,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusRespond } from '@/network/index.js';
+import { getCensusRespond } from '@/network/volunteer.js';
 
 const waringObj = reactive({
     list: [],

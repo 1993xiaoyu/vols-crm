@@ -30,7 +30,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusAbnormal } from '@/network/index.js';
+import { getCensusAbnormal } from '@/network/volunteer.js';
 
 const abnormalObj = reactive({
     list: [
