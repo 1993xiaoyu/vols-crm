@@ -38,17 +38,17 @@ export default function useSideBar() {
                     {
                         title: ' 志愿者管理',
                         name: 'volunteerList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                     {
                         title: '一线送护人员管理',
                         name: 'doctorList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                     {
                         title: '机构及区域管理',
                         name: 'organList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                 ],
             },
@@ -68,22 +68,22 @@ export default function useSideBar() {
                     {
                         title: '用户管理',
                         name: 'userList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                     {
                         title: '角色及权限管理',
                         name: 'roleList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                     {
                         title: '预警中心',
                         name: 'warningList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                     {
                         title: '系统日志',
                         name: 'logList',
-                        icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
+                        icon: '',
                     },
                 ],
             },
