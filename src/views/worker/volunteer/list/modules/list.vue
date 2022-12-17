@@ -84,7 +84,8 @@ const pageParams = reactive({
 const getList = async () => {
     const params = {
         ...props.searchData,
-        ...pageParams,
+        pageSize: pageParams.pageSize,
+        pageNum: pageParams.pageNum,
     };
     const res = await volunteerList(params);
     tableData.value = res.rows || [];

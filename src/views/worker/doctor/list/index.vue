@@ -1,16 +1,56 @@
 <template>
-    <div class="voluteeer-box">
-        <Search />
-        <List />
+    <div class="doctor-box">
+        <Search @editDialogShow="editDialogShow" @searchList="searchList" />
+        <List
+            ref="listRef"
+            :searchData="searchData"
+            @emitVolunteer="emitVolunteer"
+        />
+        <EditDialog
+            v-model="dialogShow"
+            ref="editDialogRef"
+            @closeEditDialogShow="editDialogShow"
+        />
     </div>
 </template>
 <script setup>
+import { ref, reactive, onMounted } from 'vue';
 import List from './modules/list.vue';
 import Search from './modules/search.vue';
+import EditDialog from '../components/edit-dialog.vue';
+
+const searchData = reactive({
+    userName: '',
+    status: '',
+    hospital: '',
+});
+const listRef = ref();
+const editDialogRef = ref();
+
+const dialogShow = ref(false);
+const editDialogShow = (data) => {
+    dialogShow.value = data;
+};
+
+const searchList = (data) => {
+    searchData.userName = data.userName || '';
+    searchData.status = data.status || '';
+    searchData.hospital = data.hospital || '';
+
+    listRef.value.getList();
+};
+
+const emitVolunteer = (data) => {
+    dialogShow.value = true;
+    editDialogRef.value.setDialogData(data);
+};
+onMounted(() => {
+    listRef.value.getList();
+});
 </script>
 
 <style lang="less" scoped>
-.voluteeer-box {
+.doctor-box {
     background: #fff;
     padding: 30px;
     width: 100%;

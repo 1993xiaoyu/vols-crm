@@ -1,28 +1,62 @@
 <template>
     <div class="voluteeer-detail">
         <div class="voluteeer-detail-title">
-            一线医护人员 - 刘非凡{{ userId }}
+            志愿者详情 - {{ detailObj.volunteerName }}
             <div>
-                <el-button @click="handle(ruleFormRef)" type="primary"
-                    >编辑志愿者信息</el-button
-                >
-                <el-button @click="handle(ruleFormRef)">删除志愿者</el-button>
                 <el-button @click="goBack">返回</el-button>
             </div>
         </div>
+        <el-tabs
+            v-model="activeName"
+            class="demo-tabs"
+            @tab-click="handleClick"
+        >
+            <el-tab-pane label="基础信息" name="1">
+                <BasicDetail :detailObj="detailObj" />
+            </el-tab-pane>
+            <el-tab-pane label="打卡记录" name="2">
+                <Attendance :detailObj="detailObj" />
+            </el-tab-pane>
+            <el-tab-pane label="救援记录" name="3">
+                <Rescue :detailObj="detailObj" />
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 <script setup>
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, onMounted, ref } from 'vue';
+import { volunteerList } from '@/network/volunteer.js';
+import BasicDetail from './modules/basic-detail.vue';
+import Attendance from './modules/attendance.vue';
+import Rescue from './modules/rescue.vue';
+
 const instance = getCurrentInstance();
 const { $router, $route } = instance.appContext.config.globalProperties;
-const userId = $route.query.userId;
-const handle = () => {
-    console.log('===');
+const id = $route.query.id;
+const activeName = ref('1');
+const detailObj = ref({});
+
+// 请求列表
+const getDetail = async () => {
+    const params = {
+        ids: id,
+    };
+    const res = await volunteerList(params);
+    const currData = res.rows || [];
+    detailObj.value = currData[0] || {};
 };
+
+const handleClick = (tab) => {
+    console.log(tab);
+};
+
 const goBack = () => {
     $router.go(-1);
 };
+
+onMounted(() => {
+    getDetail();
+});
 </script>
 
 <style lang="less" scoped>
@@ -38,6 +72,7 @@ const goBack = () => {
         line-height: 28px;
         display: flex;
         justify-content: space-between;
+        margin-bottom: 30px;
     }
 }
 </style>

@@ -66,7 +66,7 @@ export default function useSideBar() {
                 children: [
                     {
                         title: '用户管理',
-                        name: 'product',
+                        name: 'doctorList',
                         icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
                     },
                     {

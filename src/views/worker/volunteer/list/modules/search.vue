@@ -23,20 +23,28 @@
             </el-select>
         </el-form-item>
 
-        <el-form-item>
+        <div class="btn-box">
             <el-button type="primary" @click="submitForm">查询</el-button>
             <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-            <el-button @click="resetForm(ruleFormRef)">导入</el-button>
-            <el-button @click="resetForm(ruleFormRef)">导出</el-button>
+            <el-button @click="handleUpload">导入</el-button>
+            <el-button @click="handleExport">导出</el-button>
             <el-button @click="volunteerDialogShow" type="primary"
                 >新增志愿者</el-button
             >
-        </el-form-item>
+        </div>
     </el-form>
+    <Upload
+        v-model="uploadDialogShow"
+        @closeUploadDialogShow="closeUploadDialogShow"
+    />
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue';
+import Upload from './upload.vue';
+import { exportData } from '@/network/volunteer.js';
+import { ElMessage } from 'element-plus';
+
 const emit = defineEmits(['editDialogShow', 'searchList']);
 
 const ruleFormRef = ref();
@@ -46,6 +54,7 @@ const ruleForm = reactive({
     trainTime: '',
 });
 
+const uploadDialogShow = ref(false);
 const submitForm = () => {
     emit('searchList', { ...ruleForm });
 };
@@ -58,4 +67,35 @@ const resetForm = (formEl) => {
 const volunteerDialogShow = () => {
     emit('editDialogShow', true);
 };
+
+const handleUpload = () => {
+    uploadDialogShow.value = true;
+};
+
+const closeUploadDialogShow = () => {
+    uploadDialogShow.value = false;
+};
+
+// 导出数据
+const handleExport = async () => {
+    const params = {
+        ...ruleForm,
+    };
+    const res = await exportData(params);
+
+    if (res.msg) {
+        window.open(res.msg, '_self');
+    } else {
+        ElMessage({
+            type: 'waring',
+            message: '下载失败，请稍后再试',
+        });
+    }
+};
 </script>
+<style lang="less" scoped>
+.btn-box {
+    text-align: right;
+    margin-bottom: 60px;
+}
+</style>

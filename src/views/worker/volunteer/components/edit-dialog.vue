@@ -93,6 +93,7 @@
                     type="datetime"
                     placeholder="请选择时间"
                     style="width: 100%"
+                    value-format="YYYY-MM-DD HH:MM"
                 />
             </el-form-item>
 
