@@ -14,6 +14,7 @@
                 type="date"
                 placeholder="请选择"
                 style="width: 100%"
+                value-format="YYYY-MM-DD"
             />
         </el-form-item>
         <el-form-item label="人员状态" prop="volunteerState">

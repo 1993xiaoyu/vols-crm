@@ -20,12 +20,17 @@ _axios.interceptors.request.use(
 // /* 请求之后的操作 */
 _axios.interceptors.response.use(
     (res) => {
-        console.log(res);
         // 在这里关闭请求时的loading动画效果
         // 这里用于处理返回的结果，比如如果是返回401无权限，可能会是跳回到登录页的操作，结合自己的业务逻辑写
         // 一定结合自己的后端的返回代码进行操作
         // if (res.data.code === 401) {
         //   console.log('无权限操作')
+        // }
+
+        // if (res.data.code === 0) {
+        //     console.log(res.data.data);
+
+        //     return res.data.data;
         // }
         return res;
     },
@@ -75,7 +80,11 @@ const net = {
                 method: 'POST',
             })
                 .then((res) => {
-                    resolve(res.data);
+                    if (res.status === 200 && res.data.code === 0) {
+                        resolve(res.data.data);
+                    } else {
+                        console.log('网络异常');
+                    }
                     return res;
                 })
                 .catch((error) => {

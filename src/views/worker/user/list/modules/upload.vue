@@ -53,7 +53,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { importTemplate } from '@/network/doctor.js';
+import { importTemplate } from '@/network/user.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeUploadDialogShow']);
 const uploadRef = ref();
@@ -94,7 +94,8 @@ const handleChange = (uploadFile) => {
 const beforeUpload = () => {
     const file = fileList.value;
     console.log(file, '==file');
-    const typeAll = ['xsxl', 'XSXL'];
+    const typeAll = ['xlsx', 'XLSX'];
+
     const type = file.name.split('.')[1];
     const size = file.size / 1024 / 1024;
     let isRight = true;

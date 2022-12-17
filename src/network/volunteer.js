@@ -2,9 +2,11 @@
 import net from '@/utils/request.js';
 
 // const baseURL =
-('https://www.fastmock.site/mock/c919bdc1243c48c3cd5b17074af581a0/api');
+//('https://www.fastmock.site/mock/c919bdc1243c48c3cd5b17074af581a0/api');
 
 const baseURL = 'http://47.98.113.76/api';
+
+// const baseURL = '/api';
 
 export function volunteerAdd(params) {
     return net.post(`${baseURL}/system/volunteer/add`, params);
@@ -14,7 +16,7 @@ export function volunteerEdit(params) {
     return net.post(`${baseURL}/system/volunteer/edit`, params);
 }
 export function volunteerList(params) {
-    return net.get(`${baseURL}/system/volunteer/list`, params);
+    return net.post(`${baseURL}/system/volunteer/list`, params);
 }
 
 export function volunteerRemove(params) {
@@ -23,7 +25,7 @@ export function volunteerRemove(params) {
 
 // 志愿者导入模板下载
 export function importTemplate(params) {
-    return net.post(`${baseURL}/system/volunteer/importTemplate`, params);
+    return net.get(`${baseURL}/system/volunteer/importTemplate`, params);
 }
 
 // 志愿者导入模板导入

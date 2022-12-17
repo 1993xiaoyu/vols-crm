@@ -18,7 +18,11 @@
                 <el-input v-model="ruleForm.volunteerName" />
             </el-form-item>
             <el-form-item label="状态" prop="volunteerState">
-                <el-switch v-model="ruleForm.volunteerState" />
+                <el-switch
+                    v-model="ruleForm.volunteerState"
+                    active-value="1"
+                    inactive-value="0"
+                />
             </el-form-item>
             <el-form-item label="性别" prop="volunteerSex">
                 <el-radio-group v-model="ruleForm.volunteerSex">

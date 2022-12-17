@@ -31,11 +31,12 @@
 </template>
 
 <script setup>
+import { watch, ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import leftSideBar from '@/components/left-sidebar/index.vue';
 import pageHeader from '@/components/page-header/index.vue';
 import secondSideBar from '@/components/second-sidebar/index.vue';
-import { watch, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import useSideBar from '@/composables/useSideBar';
 
 const {
@@ -43,6 +44,7 @@ const {
     secondSideBarConfig,
     setCurrSideBarName,
     setSecondCurrSideBarName,
+    getMenuData,
 } = useSideBar();
 const router = useRouter();
 
@@ -83,6 +85,10 @@ watch(
     },
     { immediate: true }
 );
+
+onMounted(() => {
+    getMenuData();
+});
 </script>
 <style lang="less" scoped>
 #app {

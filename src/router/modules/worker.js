@@ -7,41 +7,35 @@ const userRoutes = [
         component: RouterView,
         children: [
             {
-                path: 'volunteerList',
-                name: 'volunteerList',
+                path: 'userList',
+                name: 'userList',
+                meta: { parentName: 'worker' },
+                component: () => import('@/views/worker/user/list/index.vue'),
+            },
+
+            {
+                path: 'roleList',
+                name: 'roleList',
+                meta: { parentName: 'worker' },
+                component: () => import('@/views/worker/role/list/index.vue'),
+            },
+            {
+                path: 'roleDetail',
+                name: 'roleDetail',
+                component: () => import('@/views/worker/role/detail/index.vue'),
+            },
+            {
+                path: 'warningList',
+                name: 'warningList',
                 meta: { parentName: 'worker' },
                 component: () =>
-                    import('@/views/worker/volunteer/list/index.vue'),
+                    import('@/views/worker/warning/list/index.vue'),
             },
             {
-                path: 'volunteerDetail',
-                name: 'volunteerDetail',
-                component: () =>
-                    import('@/views/worker/volunteer/detail/index.vue'),
-            },
-            {
-                path: 'doctorList',
-                name: 'doctorList',
+                path: 'logList',
+                name: 'logList',
                 meta: { parentName: 'worker' },
-                component: () => import('@/views/worker/doctor/list/index.vue'),
-            },
-            {
-                path: 'doctorDetail',
-                name: 'doctorDetail',
-                component: () =>
-                    import('@/views/worker/doctor/detail/index.vue'),
-            },
-            {
-                path: 'organList',
-                name: 'organList',
-                meta: { parentName: 'worker' },
-                component: () => import('@/views/worker/organ/list/index.vue'),
-            },
-            {
-                path: 'organDetail',
-                name: 'organDetail',
-                component: () =>
-                    import('@/views/worker/organ/detail/index.vue'),
+                component: () => import('@/views/worker/log/list/index.vue'),
             },
         ],
     },

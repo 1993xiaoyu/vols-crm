@@ -14,7 +14,7 @@ export function userEdit(params) {
     return net.post(`${baseURL}/system/user/edit`, params);
 }
 export function userList(params) {
-    return net.get(`${baseURL}/system/user/list`, params);
+    return net.post(`${baseURL}/system/user/list`, params);
 }
 
 export function userRemove(params) {
@@ -23,7 +23,7 @@ export function userRemove(params) {
 
 // 导入模板下载
 export function importTemplate(params) {
-    return net.post(`${baseURL}/system/user/importTemplate`, params);
+    return net.get(`${baseURL}/system/user/importTemplate`, params);
 }
 
 // 导入模板导入

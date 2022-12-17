@@ -1,4 +1,5 @@
 import { reactive } from 'vue';
+import { getMenu } from '@/network/index.js';
 
 import WorkIcon from '@/assets/work.png';
 import WorkCheckedIcon from '@/assets/work-checkd.png';
@@ -30,7 +31,7 @@ export default function useSideBar() {
             },
             {
                 title: '人员及机构管理',
-                name: 'worker',
+                name: 'resources',
                 icon: StaffIcon,
                 activedIcon: StaffCheckedIcon,
                 children: [
@@ -60,34 +61,34 @@ export default function useSideBar() {
             },
             {
                 title: '系统管理',
-                name: 'services',
+                name: 'worker',
                 icon: PowerIcon,
                 activedIcon: PowerCheckedIcon,
                 children: [
                     {
                         title: '用户管理',
-                        name: 'doctorList',
+                        name: 'userList',
                         icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
                     },
                     {
                         title: '角色及权限管理',
-                        name: 'product',
+                        name: 'roleList',
                         icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
                     },
                     {
                         title: '预警中心',
-                        name: 'product',
+                        name: 'warningList',
                         icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
                     },
                     {
                         title: '系统日志',
-                        name: 'product',
+                        name: 'logList',
                         icon: 'https://image1.guazistatic.com/qn221121214352f45fd931c2e36ee35829971671226ca9.png',
                     },
                 ],
             },
         ],
-        currSideBarName: 'worker',
+        currSideBarName: 'resources',
         currSideBarTitle: '人员及机构管理',
     });
 
@@ -96,6 +97,11 @@ export default function useSideBar() {
         currSideBarName: '',
         currSideBarTitle: '',
     });
+
+    const getMenuData = async () => {
+        const res = await getMenu();
+        console.log(res, '===res');
+    };
 
     const getSecondLevelSideBar = () => {
         const { list, currSideBarName } = sideBarConfig;
@@ -134,5 +140,7 @@ export default function useSideBar() {
 
         setCurrSideBarName,
         setSecondCurrSideBarName,
+
+        getMenuData,
     };
 }

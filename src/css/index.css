@@ -27,3 +27,9 @@
 .el-tabs__active-bar{
     background-color: #7175FC;
 }
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner{
+    background-color: #7175FC;
+    border-color: #7175FC;
+}

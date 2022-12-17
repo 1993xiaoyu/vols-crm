@@ -38,7 +38,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import Upload from './upload.vue';
-import { exportData } from '@/network/doctor.js';
+import { exportData } from '@/network/user.js';
 import { ElMessage } from 'element-plus';
 
 const emit = defineEmits(['editDialogShow', 'searchList']);

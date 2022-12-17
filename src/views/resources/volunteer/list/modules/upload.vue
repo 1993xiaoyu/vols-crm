@@ -103,7 +103,7 @@ const handleChange = (uploadFile) => {
 const beforeUpload = () => {
     const file = fileList.value;
     console.log(file, '==file');
-    const typeAll = ['xsxl', 'XSXL'];
+    const typeAll = ['xlsx', 'XLSX'];
     const type = file.name.split('.')[1];
     const size = file.size / 1024 / 1024;
     let isRight = true;

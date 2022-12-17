@@ -1,30 +1,23 @@
 <template>
     <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="userId" label="ID" width="120" fixed="left" />
-        <el-table-column prop="userName" label="姓名" width="180" />
-        <el-table-column prop="status" label="人员状态" width="180">
+        <el-table-column
+            prop="roleName"
+            label="角色名称"
+            width="120"
+            fixed="left"
+        />
+        <el-table-column prop="status" label="状态" width="180">
             <template #default="scope">
                 <el-tag :type="scope.row.status ? 'success' : 'warning'">
-                    {{ scope.row.status ? '开启' : '冻结' }}
+                    {{ !scope.row.status ? '开启' : '停用' }}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="roles" label="关联角色" width="180">
-            <template #default="scope">
-                <div>
-                    {{ scope.row.roles.join(',') }}
-                </div>
-            </template>
-        </el-table-column>
-        <el-table-column prop="phoneNumber" label="电话号" width="180" />
-        <el-table-column prop="email" label="邮箱" width="180" />
+        <el-table-column prop="remark" label="角色描述" width="180" />
+        <el-table-column prop="phoneNumber" label="关联用户数量" />
+        <el-table-column prop="update_by" label="最近操作人" />
 
-        <el-table-column prop="sex" label="性别" width="120" />
-        <el-table-column prop="hospital" label="所属机构" width="180" />
-        <el-table-column prop="homeAddress" label="家庭住址" width="180" />
-        <el-table-column prop="idiccid" label="身份证号" width="180" />
-        <el-table-column prop="birthday" label="出生年月" width="180" />
-        <el-table-column prop="createTime" label="创建时间" width="180" />
+        <el-table-column prop="update_time" label="最近操作时间" />
         <el-table-column label="操作" fixed="right" width="180">
             <template #default="scope">
                 <el-button
@@ -40,7 +33,7 @@
                     type="primary"
                     size="small"
                     @click="handleDel(scope.row)"
-                    >删除</el-button
+                    >停用</el-button
                 >
             </template>
         </el-table-column>
@@ -57,9 +50,8 @@
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
-import { userList, userRemove } from '@/network/doctor.js';
+import { roleList } from '@/network/role.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
-const emit = defineEmits(['emitVolunteer']);
 const props = defineProps({
     searchData: {
         type: Object,
@@ -81,7 +73,7 @@ const getList = async () => {
         pageSize: pageParams.pageSize,
         pageNum: pageParams.pageNum,
     };
-    const res = await userList(params);
+    const res = await roleList(params);
     tableData.value = res.rows || [];
     pageParams.total = res.total || 0;
 };
@@ -117,7 +109,10 @@ const handleDel = (item) => {
 
 // 编辑
 const handleEdit = (item) => {
-    emit('emitVolunteer', item);
+    router.push({
+        name: 'roleDetail',
+        query: { roleId: item.roleId },
+    });
 };
 
 defineExpose({ getList });

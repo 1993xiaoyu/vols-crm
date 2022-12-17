@@ -27,7 +27,11 @@
             </el-form-item>
 
             <el-form-item label="状态" prop="status">
-                <el-switch v-model="ruleForm.status" />
+                <el-switch
+                    v-model="ruleForm.status"
+                    active-value="1"
+                    inactive-value="0"
+                />
             </el-form-item>
 
             <el-form-item label="所属机构" prop="hospital" required>
@@ -83,7 +87,7 @@
 
 <script setup>
 import { reactive, ref, computed } from 'vue';
-import { userAdd, userEdit } from '@/network/doctor.js';
+import { userAdd, userEdit } from '@/network/user.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeEditDialogShow']);
 
@@ -99,7 +103,7 @@ const defData = {
     roleIds: '',
     userName: '',
     sex: '',
-    status: true,
+    status: '1',
     hospital: '',
     phoneNumber: '',
     email: '',
@@ -169,6 +173,7 @@ const initDialog = () => {
 
 const dialogVisible = computed({
     get() {
+        initDialog();
         return props.show;
     },
     set(val) {
