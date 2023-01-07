@@ -1,12 +1,8 @@
 <template>
     <div class="duty-box">
         <div v-for="item in dutyObj.list" :key="item.id" class="duty-box__item">
-            <img
-                :src="
-                    item.avatar ||
-                    'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-                "
-            />
+            <!-- <img :src="'doctor' + item.avatar" /> -->
+            <span class="duty-box__avatar"></span>
             <div class="duty-box__detail">
                 <div>
                     {{ item.name }}
@@ -27,6 +23,7 @@ import { getCensusDuty } from '@/network/cockpit.js';
 const dutyObj = reactive({
     list: [],
 });
+
 const getCensusDutyData = async () => {
     const res = await getCensusDuty();
 
@@ -50,6 +47,27 @@ onMounted(() => {
             height: 70px;
             border-radius: 50%;
             margin-right: 16px;
+        }
+        .duty-box__avatar {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-right: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #2a67b3;
+        }
+
+        &:first-child .duty-box__avatar {
+            background-image: url('../assets/doctor1.jpg');
+        }
+        &:nth-child(2) .duty-box__avatar {
+            background-image: url('../assets/doctor2.jpeg');
+        }
+        &:last-child .duty-box__avatar {
+            background-image: url('../assets/doctor3.jpg');
         }
     }
 

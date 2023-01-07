@@ -17,6 +17,7 @@ const props = defineProps({
     background: rgba(6, 13, 30, 0.3);
     border: 1px solid rgba(0, 136, 207, 0.3);
     margin-bottom: 20px;
+    overflow: hidden;
     &__title {
         display: inline-block;
         color: #fff;

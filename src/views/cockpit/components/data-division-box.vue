@@ -3,7 +3,7 @@
         <div class="division-num">
             <div class="division-num__item">
                 <div class="division-num__item-title">月累计救援量(次)</div>
-                <div class="division-num__item-num">68,214</div>
+                <div class="division-num__item-num">5247</div>
             </div>
             <div class="division-num__item">
                 <div class="division-num__item-title">年累计救援量(次)</div>
@@ -14,7 +14,7 @@
     <div
         class="map-box"
         id="mapBox"
-        :style="{ width: '1360px', height: '580px' }"
+        :style="{ width: '1358px', height: '580px' }"
     ></div>
 </template>
 
@@ -28,134 +28,152 @@ const initMap = () => {
         backgroundColor: [0, 0, 0, 0],
     });
     //设置地图的中心点如合肥的坐标
-    var point = new BMapGL.Point(106.624499, 26.655185);
-    // 初始化地图，设置中心点坐标和地图级别
-    map.centerAndZoom(point, 8);
+    var point = new BMapGL.Point(113.918909, 22.56794);
+
+    map.centerAndZoom(point, 14);
+
+    //创建地址解析器实例
+    var myGeo = new BMapGL.Geocoder();
+    // 将地址解析结果显示在地图上，并调整地图视野
+    myGeo.getPoint(
+        '广州省宝安区人民医院',
+        function (point) {
+            if (point) {
+                map.centerAndZoom(point, 14);
+                map.addOverlay(
+                    new BMapGL.Marker(point, { title: '广州省宝安区人民医院' })
+                );
+            } else {
+                alert('您选择的地址没有解析到结果！');
+            }
+        },
+        '广州省'
+    );
     //禁止拖拽
     map.disableDragging();
     map.disableDoubleClickZoom();
     map.disablePinchToZoom();
     map.disableKeyboard();
     map.disableScrollWheelZoom();
-    map.setTilt(50);
+    //  map.setTilt(50);
 
-    getBoundary();
+    // getBoundary();
 };
 
-const getBoundary = () => {
-    var bdary = new BMapGL.Boundary();
-    bdary.get('贵州省', function (rs) {
-        for (var i = 0; i < rs.boundaries.length; i++) {
-            var xyArr = rs.boundaries[i].split(';');
-            var ptArr = [];
+// const getBoundary = () => {
+//     var bdary = new BMapGL.Boundary();
+//     bdary.get('广州省宝安区', function (rs) {
+//         for (var i = 0; i < rs.boundaries.length; i++) {
+//             var xyArr = rs.boundaries[i].split(';');
+//             var ptArr = [];
 
-            for (var j = 0; j < xyArr.length; j++) {
-                var tmp = xyArr[j].split(',');
-                var pt = new BMapGL.Point(tmp[0], tmp[1]);
-                ptArr.push(pt);
-            }
+//             for (var j = 0; j < xyArr.length; j++) {
+//                 var tmp = xyArr[j].split(',');
+//                 var pt = new BMapGL.Point(tmp[0], tmp[1]);
+//                 ptArr.push(pt);
+//             }
 
-            var mapmask = new BMapGL.MapMask(ptArr, {
-                isBuildingMask: true,
-                isPoiMask: true,
-                isMapMask: true,
-                showRegion: 'inside',
-            });
+//             var mapmask = new BMapGL.MapMask(ptArr, {
+//                 isBuildingMask: true,
+//                 isPoiMask: true,
+//                 isMapMask: true,
+//                 showRegion: 'inside',
+//             });
 
-            map.addOverlay(mapmask);
+//             map.addOverlay(mapmask);
 
-            var prism = new BMapGL.Prism(ptArr, 10000, {
-                topFillColor: '#5679ea',
-                topFillOpacity: 0.7,
-                sideFillColor: '#5679ea',
-                sideFillOpacity: 1,
-            });
-            map.addOverlay(prism);
-        }
-        getRegion();
-    });
-};
+//             var prism = new BMapGL.Prism(ptArr, 10000, {
+//                 topFillColor: '#5679ea',
+//                 topFillOpacity: 0.7,
+//                 sideFillColor: '#5679ea',
+//                 sideFillOpacity: 1,
+//             });
+//             map.addOverlay(prism);
+//         }
+//         // getRegion();
+//     });
+// };
 
-var dataArr = [
-    {
-        name: '安顺',
-        cp: [105.9082, 25.9882],
-        fillColor: '#002E65',
-    },
-    {
-        name: '贵阳',
-        cp: [106.6992, 26.7682],
-        fillColor: '#003A7F',
-    },
-    {
-        name: '遵义',
-        cp: [106.908, 28.1744],
-        fillColor: '#0051AF',
-    },
-    {
-        name: '黔东南苗族侗族自治州',
-        cp: [108.519944, 26.835886],
-        fillColor: '#006BE9',
-    },
-    {
-        name: '毕节市',
-        cp: [105.1611, 27.0648],
-        fillColor: '#1C94EB',
-    },
-    {
-        name: '黔南布依族苗族自治州',
-        cp: [107.235181, 25.705737],
-        fillColor: '#61B3FF',
-    },
-    {
-        name: '黔西南布依族苗族自治州',
-        cp: [105.5347, 25.3949],
-    },
-    {
-        name: '六盘水',
-        cp: [104.7546, 26.0925],
-    },
-    {
-        name: '铜仁市',
-        cp: [108.6218, 28.0096],
-    },
-];
+// var dataArr = [
+//     {
+//         name: '安顺',
+//         cp: [105.9082, 25.9882],
+//         fillColor: '#002E65',
+//     },
+//     {
+//         name: '贵阳',
+//         cp: [106.6992, 26.7682],
+//         fillColor: '#003A7F',
+//     },
+//     {
+//         name: '遵义',
+//         cp: [106.908, 28.1744],
+//         fillColor: '#0051AF',
+//     },
+//     {
+//         name: '黔东南苗族侗族自治州',
+//         cp: [108.519944, 26.835886],
+//         fillColor: '#006BE9',
+//     },
+//     {
+//         name: '毕节市',
+//         cp: [105.1611, 27.0648],
+//         fillColor: '#1C94EB',
+//     },
+//     {
+//         name: '黔南布依族苗族自治州',
+//         cp: [107.235181, 25.705737],
+//         fillColor: '#61B3FF',
+//     },
+//     {
+//         name: '黔西南布依族苗族自治州',
+//         cp: [105.5347, 25.3949],
+//     },
+//     {
+//         name: '六盘水',
+//         cp: [104.7546, 26.0925],
+//     },
+//     {
+//         name: '铜仁市',
+//         cp: [108.6218, 28.0096],
+//     },
+// ];
 
-const getRegion = () => {
-    dataArr.forEach((element) => {
-        var bdary = new BMapGL.Boundary();
-        bdary.get(element['name'], (rs) => {
-            var count = rs.boundaries.length;
-            for (let i = 0; i < count; i++) {
-                var ply = new BMapGL.Polygon(rs.boundaries[i], {
-                    strokeWeight: 0.5,
-                    strokeColor: '#fff',
-                    fillOpacity: 0.6,
-                    fillColor: element['fillColor'] || '#006BE9',
-                });
-                map.addOverlay(ply);
-            }
-            // citySetLabel(
-            //     new BMapGL.Point(element['cp'][0], element['cp'][1]),
-            //     element['name']
-            // );
-        });
-    });
-};
+// const getRegion = () => {
+//     dataArr.forEach((element) => {
+//         var bdary = new BMapGL.Boundary();
+//         bdary.get(element['name'], (rs) => {
+//             var count = rs.boundaries.length;
+//             for (let i = 0; i < count; i++) {
+//                 var ply = new BMapGL.Polygon(rs.boundaries[i], {
+//                     strokeWeight: 0.5,
+//                     strokeColor: '#fff',
+//                     fillOpacity: 0.6,
+//                     fillColor: element['fillColor'] || '#006BE9',
+//                 });
+//                 map.addOverlay(ply);
+//             }
+//             // citySetLabel(
+//             //     new BMapGL.Point(element['cp'][0], element['cp'][1]),
+//             //     element['name']
+//             // );
+//         });
+//     });
+// };
 
-const citySetLabel = (cityCenter, cityName) => {
-    var label = new BMapGL.Label(cityName, {
-        offset: new BMapGL.Size(-20, -10),
-        position: cityCenter,
-    });
-    label.setStyle({
-        border: 'none',
-        background: 'transparent',
-        'font-size': '0.25rem',
-        color: '#fff',
-    });
-    map.addOverlay(label);
-};
+// const citySetLabel = (cityCenter, cityName) => {
+//     var label = new BMapGL.Label(cityName, {
+//         offset: new BMapGL.Size(-20, -10),
+//         position: cityCenter,
+//     });
+//     label.setStyle({
+//         border: 'none',
+//         background: 'transparent',
+//         'font-size': '0.25rem',
+//         color: '#fff',
+//     });
+//     map.addOverlay(label);
+// };
 
 onMounted(() => {
     initMap();
@@ -176,8 +194,9 @@ onMounted(() => {
 .division-box {
     .division-num {
         position: absolute;
-        top: 66px;
+        top: 60px;
         left: 24px;
+        z-index: 100;
 
         &__item {
             width: 180px;
@@ -223,5 +242,10 @@ onMounted(() => {
             }
         }
     }
+}
+#mapBox {
+    position: absolute;
+    top: 62px;
+    left: 1px;
 }
 </style>
