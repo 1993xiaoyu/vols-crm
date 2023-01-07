@@ -5,20 +5,24 @@
             stripe
             style="width: 100%"
             :border="false"
-            :header-cell-style="{ paddingLeft: '30px' }"
-            :cell-style="{ paddingLeft: '30px' }"
+            :header-cell-style="{ paddingLeft: '20px' }"
+            :cell-style="{ paddingLeft: '20px' }"
         >
             <el-table-column
                 prop="address"
                 label="救援事件地点"
-                width="220"
+                width="200"
                 show-overflow-tooltip
             >
             </el-table-column>
             <el-table-column prop="phoneNum" label="呼救人手机号" />
 
             <el-table-column prop="status" label="响应状态" />
-            <el-table-column prop="volunteerStatus" label="志愿者响应状态" />
+            <el-table-column
+                prop="volunteerStatus"
+                label="志愿者响应状态"
+                width="140"
+            />
 
             <el-table-column prop="time" label="已呼救时长"> </el-table-column>
         </el-table>
@@ -82,7 +86,8 @@ onMounted(() => {
     }
 
     .el-table .cell {
-        line-height: 14px;
+        line-height: 26px;
+        font-size: 16px;
     }
     .el-table--striped
         .el-table__body

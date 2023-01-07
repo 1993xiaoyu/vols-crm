@@ -1,6 +1,6 @@
 <template>
     <div class="aed-box">
-        <div id="myEcharts" :style="{ width: '516px', height: '205px' }"></div>
+        <div id="myEcharts" :style="{ width: '300px', height: '103px' }"></div>
     </div>
 </template>
 

@@ -36,7 +36,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .duty-box {
-    padding: 37px 40px;
+    padding: 37px 20px;
     display: flex;
 
     &__item {
@@ -79,8 +79,8 @@ onMounted(() => {
         flex-direction: column;
         justify-content: center;
         &-tip {
-            font-size: 14px;
-            line-height: 21px;
+            font-size: 12px;
+            line-height: 1.2;
             color: rgba(255, 255, 255, 0.65);
             margin-top: 10px;
         }

@@ -135,7 +135,7 @@ onMounted(() => {
         top: 40px;
         left: 50%;
         transform: translateX(-50%);
-        background: url('../assets/response-time-bg2.png');
+        background-image: url('../assets/response-time-bg2.png');
         .item-box {
             margin-top: 55px;
             margin-left: 0px;

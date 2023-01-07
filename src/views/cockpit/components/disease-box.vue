@@ -2,7 +2,7 @@
     <div class="disease-box">
         <div
             id="diseaseChart"
-            :style="{ width: '590px', height: '313px' }"
+            :style="{ width: '295px', height: '146px' }"
         ></div>
     </div>
 </template>
@@ -74,7 +74,6 @@ const initChart = () => {
 .disease-box {
     #diseaseChart {
         margin: 0 auto;
-        margin-top: -30px;
     }
 }
 </style>

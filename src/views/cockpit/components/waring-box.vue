@@ -9,20 +9,18 @@
             <el-table-column
                 prop="abnormalMode"
                 label="预警模块"
-                width="320"
                 show-overflow-tooltip
             />
             <el-table-column
                 prop="abnormalContent"
                 label="预警内容"
-                width="320"
+                width="250"
                 show-overflow-tooltip
             />
             <el-table-column prop="level" label="预警等级" />
             <el-table-column
                 prop="date"
                 label="预警时间"
-                width="220"
                 show-overflow-tooltip
             />
         </el-table>
@@ -114,7 +112,7 @@ onMounted(() => {
     }
 
     .el-table .cell {
-        line-height: 14px;
+        line-height: 26px;
     }
     .el-table--striped
         .el-table__body

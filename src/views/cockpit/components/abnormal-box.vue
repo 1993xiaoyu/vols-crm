@@ -5,21 +5,20 @@
             stripe
             style="width: 100%"
             :border="false"
-            :header-cell-style="{ paddingLeft: '30px' }"
-            :cell-style="{ paddingLeft: '30px' }"
         >
             <el-table-column
                 prop="history"
-                label="社康/街道医院"
-                width="220"
+                label="社康/医院"
+                width="139"
                 show-overflow-tooltip
             >
             </el-table-column>
-            <el-table-column prop="status" label="状态"> </el-table-column>
+            <el-table-column prop="status" label="状态" width="50">
+            </el-table-column>
             <el-table-column
                 prop="date"
                 label="上次上线时间"
-                width="220"
+                width="125"
                 show-overflow-tooltip
             >
             </el-table-column>
@@ -102,7 +101,7 @@ onMounted(() => {
     }
 
     .el-table .cell {
-        line-height: 14px;
+        line-height: 26px;
     }
     .el-table--striped
         .el-table__body

@@ -4,149 +4,51 @@
             <div class="center-box__title">5分钟急救圈信息驾驶舱平台</div>
         </div>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '441px',
-                top: '100px',
-                left: '20px',
-            }"
-            title="志愿者统计"
-        >
+        <ContainerBox class="box1" title="志愿者统计">
             <VoluteerBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '182px',
-                top: '100px',
-                left: '630px',
-            }"
-            title="今日值班人员"
-        >
+        <ContainerBox class="box2" title="今日值班人员">
             <DutyBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '238px',
-                top: '300px',
-                left: '630px',
-            }"
-            title="急救导师/专家"
-        >
+        <ContainerBox class="box3" title="急救导师/专家">
             <DoctorBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '1200px',
-                height: '183px',
-                top: '565px',
-                left: '20px',
-            }"
-            title="AED盘点"
-        >
+        <ContainerBox class="box4" title="AED盘点">
             <AedBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '292px',
-                top: '768px',
-                left: '20px',
-            }"
-            title="响应系统状态"
-        >
+        <ContainerBox class="box5" title="响应系统状态">
             <WorkBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '292px',
-                top: '768px',
-                left: '630px',
-            }"
-            title="响应异常清单"
-        >
+        <ContainerBox class="box6" title="响应异常清单">
             <AbnormalBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '1360px',
-                height: '646px',
-                top: '102px',
-                left: '1240px',
-            }"
-            title="实时救援监控"
-            class="map-box"
-        >
+        <ContainerBox title="实时救援监控" class="map-box box7">
             <DataDivisionBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '1360px',
-                height: '292px',
-                top: '768px',
-                left: '1240px',
-            }"
-            title="待响应紧急事件"
-        >
+        <ContainerBox class="box8" title="待响应事件">
             <RespondBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '1200px',
-                height: '313px',
-                top: '102px',
-                left: '2620px',
-            }"
-            title="紧急救援现场"
-            class="scene-box"
-        >
+        <ContainerBox title="紧急救援现场" class="scene-box box9">
             <SceneBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '313px',
-                top: '434px',
-                left: '2620px',
-            }"
-            title="反应时间统计"
-        >
+        <ContainerBox class="box10" title="反应时间统计">
             <ResponseTimeBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '590px',
-                height: '313px',
-                top: '434px',
-                left: '3230px',
-            }"
-            title="今日疾病分类"
-        >
+        <ContainerBox class="box11" title="今日疾病分类">
             <DiseaseBox />
         </ContainerBox>
 
-        <ContainerBox
-            :style="{
-                width: '1200px',
-                height: '292px',
-                top: '768px',
-                left: '2620px',
-            }"
-            title="预警信息"
-        >
+        <ContainerBox class="box12" title="预警信息">
             <WaringBox />
         </ContainerBox>
     </div>
@@ -169,6 +71,8 @@ import SceneBox from './components/scene-box.vue';
 
 <style lang="less">
 .cockpit-box {
+    // transform: scale(0.5);
+
     .anchorBL {
         display: none;
     }
@@ -177,8 +81,8 @@ import SceneBox from './components/scene-box.vue';
 <style lang="less" scoped>
 .cockpit-box {
     width: 100%;
-    min-width: 3840px;
-    min-height: 1080px;
+    // min-width: 3840px;
+    // min-height: 1080px;
     height: 100%;
     overflow: auto;
     padding: 100px 20px 50px 20px;
@@ -193,9 +97,10 @@ import SceneBox from './components/scene-box.vue';
     .center-box {
         position: absolute;
         top: 0;
-        left: 960px;
-        width: 1920px;
-        height: 1080px;
+        left: 50%;
+        margin-left: -480px;
+        width: 960px;
+        height: 540px;
         background: url(./assets/center-bg.png);
         background-repeat: no-repeat;
         background-size: contain;
@@ -209,5 +114,88 @@ import SceneBox from './components/scene-box.vue';
             transform: translateX(-50%);
         }
     }
+}
+.box1 {
+    width: 590px;
+    height: 441px;
+    top: 100px;
+    left: 20px;
+}
+
+.box2 {
+    width: 590px;
+    height: 182px;
+    top: 100px;
+    left: 630px;
+}
+
+.box3 {
+    width: 590px;
+    height: 238px;
+    top: 300px;
+    left: 630px;
+}
+
+.box4 {
+    width: 1200px;
+    height: 183px;
+    top: 565px;
+    left: 20px;
+}
+
+.box5 {
+    width: 590px;
+    height: 292px;
+    top: 768px;
+    left: 20px;
+}
+
+.box6 {
+    width: 590px;
+    height: 292px;
+    top: 768px;
+    left: 630px;
+}
+
+.box7 {
+    width: 1360px;
+    height: 646px;
+    top: 102px;
+    left: 1240px;
+}
+
+.box8 {
+    width: 1360px;
+    height: 292px;
+    top: 768px;
+    left: 1240px;
+}
+
+.box9 {
+    width: 1200px;
+    height: 313px;
+    top: 102px;
+    left: 2620px;
+}
+
+.box10 {
+    width: 590px;
+    height: 313px;
+    top: 434px;
+    left: 2620px;
+}
+
+.box11 {
+    width: 590px;
+    height: 313px;
+    top: 434px;
+    left: 3230px;
+}
+
+.box12 {
+    width: 1200px;
+    height: 292px;
+    top: 768px;
+    left: 2620px;
 }
 </style>

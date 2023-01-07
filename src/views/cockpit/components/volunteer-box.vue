@@ -118,7 +118,7 @@ onMounted(() => {
         height: 272px;
         top: 40px;
         left: 208px;
-        background: url('../assets/voluteer-bg2.png');
+        background-image: url('../assets/voluteer-bg2.png');
         .item-box {
             margin-top: -40px;
         }

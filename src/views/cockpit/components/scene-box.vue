@@ -82,7 +82,10 @@ onMounted(() => {
         }
     }
     &__right {
-        flex: 1;
+        img {
+            width: 640px;
+            height: 313px;
+        }
     }
 }
 </style>

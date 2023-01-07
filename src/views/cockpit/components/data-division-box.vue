@@ -2,11 +2,11 @@
     <div class="division-box">
         <div class="division-num">
             <div class="division-num__item">
-                <div class="division-num__item-title">月累计救援量(次)</div>
+                <div class="division-num__item-title">月累计量(次)</div>
                 <div class="division-num__item-num">5247</div>
             </div>
             <div class="division-num__item">
-                <div class="division-num__item-title">年累计救援量(次)</div>
+                <div class="division-num__item-title">年累计量(次)</div>
                 <div class="division-num__item-num">68,214</div>
             </div>
         </div>
@@ -14,7 +14,7 @@
     <div
         class="map-box"
         id="mapBox"
-        :style="{ width: '1358px', height: '580px' }"
+        :style="{ width: '747px', height: '320px' }"
     ></div>
 </template>
 
@@ -226,12 +226,13 @@ onMounted(() => {
                 &::before {
                     content: '';
                     display: inline-block;
-                    width: 20px;
-                    height: 15px;
+                    width: 30px;
+                    height: 20px;
                     background: url('../assets/vector.png');
                     background-repeat: no-repeat;
                     background-size: contain;
                     margin-right: 6px;
+                    margin-left: 6px;
                 }
             }
             &-num {
