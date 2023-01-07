@@ -9,7 +9,6 @@
             <el-table-column
                 prop="history"
                 label="社康/医院"
-                width="139"
                 show-overflow-tooltip
             >
             </el-table-column>

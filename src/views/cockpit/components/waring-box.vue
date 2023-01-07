@@ -21,6 +21,7 @@
             <el-table-column
                 prop="date"
                 label="预警时间"
+                width="150"
                 show-overflow-tooltip
             />
         </el-table>

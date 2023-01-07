@@ -2,7 +2,7 @@
     <div class="respinseTime-box">
         <div class="respinseTime-box__item item1">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均响应时间</span>
+                <span class="respinseTime-box__item-title">平均响应</span>
                 <div>
                     {{ responseTimeObj.averageResponseTime
                     }}<span class="unit-style">秒</span>
@@ -11,7 +11,7 @@
         </div>
         <div class="respinseTime-box__item item2">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均出车时间</span>
+                <span class="respinseTime-box__item-title">平均出车</span>
                 <div>
                     {{ responseTimeObj.averageSetOutTime
                     }}<span class="unit-style">分钟</span>
@@ -21,7 +21,7 @@
 
         <div class="respinseTime-box__item item3">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均救援时长</span>
+                <span class="respinseTime-box__item-title">平均救援</span>
                 <div>
                     {{ responseTimeObj.averageRescueTime
                     }}<span class="unit-style">分钟</span>
@@ -30,7 +30,7 @@
         </div>
         <div class="respinseTime-box__item item4">
             <div class="item-box">
-                <span class="respinseTime-box__item-title"> 平均到达时间</span>
+                <span class="respinseTime-box__item-title"> 平均到达</span>
                 <div>
                     {{ responseTimeObj.averageArriveTime
                     }}<span class="unit-style">分钟</span>
@@ -39,7 +39,7 @@
         </div>
         <div class="respinseTime-box__item item5">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均到院时间</span>
+                <span class="respinseTime-box__item-title">平均到院</span>
                 <div>
                     {{ responseTimeObj.averageArriveHospitalTime
                     }}<span class="unit-style">分钟</span>

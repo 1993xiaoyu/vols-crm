@@ -11,11 +11,15 @@
             <el-table-column
                 prop="address"
                 label="救援事件地点"
-                width="200"
+                width="180"
                 show-overflow-tooltip
             >
             </el-table-column>
-            <el-table-column prop="phoneNum" label="呼救人手机号" />
+            <el-table-column
+                prop="phoneNum"
+                label="呼救人手机号"
+                show-overflow-tooltip
+            />
 
             <el-table-column prop="status" label="响应状态" />
             <el-table-column
