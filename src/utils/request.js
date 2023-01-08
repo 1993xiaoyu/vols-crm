@@ -57,6 +57,8 @@ const net = {
                 method: 'GET',
             })
                 .then((res) => {
+                    console.log(res, '===getRes');
+
                     if (res.status === 200 && res.data.code === 0) {
                         resolve(res.data.data);
                     } else {
@@ -80,6 +82,7 @@ const net = {
                 method: 'POST',
             })
                 .then((res) => {
+                    console.log(res, '===poatRes');
                     if (res.status === 200 && res.data.code === 0) {
                         resolve(res.data.data);
                     } else {

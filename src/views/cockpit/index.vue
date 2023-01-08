@@ -51,6 +51,8 @@
         <ContainerBox class="box12" title="预警信息">
             <WaringBox />
         </ContainerBox>
+
+        <div class="test-text">测试版</div>
     </div>
 </template>
 <script setup>
@@ -197,5 +199,11 @@ import SceneBox from './components/scene-box.vue';
     height: 292px;
     top: 768px;
     left: 2620px;
+}
+.test-text {
+    position: fixed;
+    left: 60%;
+    font-size: 60px;
+    color: red;
 }
 </style>

@@ -4,7 +4,7 @@ import net from '@/utils/request.js';
 // const baseURL =
 //     'https://www.fastmock.site/mock/c919bdc1243c48c3cd5b17074af581a0/api';
 
-const baseURL = 'http://47.98.113.76/api';
+const baseURL = 'http://101.42.31.6/api';
 
 export function login(params) {
     return net.post(`${baseURL}/login`, params);

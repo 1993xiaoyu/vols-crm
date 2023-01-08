@@ -27,7 +27,7 @@
                     </div>
 
                     <el-upload
-                        action="http://47.98.113.76/api/system/volunteer/importData"
+                        action="http://101.42.31.6/api/system/volunteer/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"
