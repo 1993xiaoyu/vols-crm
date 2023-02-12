@@ -1,9 +1,10 @@
 import axios from 'axios'; // 引入
+import { ElMessage } from 'element-plus';
 
 const config = {
     // baseURL: baseURL,
     // 因为跨域了，所以这里如果写的话会自动拼接，会有两份，所以隐藏了
-    timeout: 30000, // 设置最大请求时间
+    timeout: 3000000, // 设置最大请求时间
 };
 const _axios = axios.create(config);
 
@@ -47,10 +48,14 @@ _axios.interceptors.response.use(
 // 按理来说应该也可以封装其他的方法
 const net = {
     get(url = '', params = {}) {
+        const tenantUserInfo = JSON.parse(
+            localStorage.getItem('TenantUserInfo') ||
+                '{"access_token":"czmfvx7MuVS0ywzBwUQtml16KbcBVlXeCXapXdo1","tenant_id":"bc18fdb4yyryy","uid":"1611370458219806720"}'
+        );
         return new Promise((resolve, reject) => {
             _axios({
                 url,
-                params,
+                params: { ...params, ...tenantUserInfo },
                 headers: {
                     'content-type': 'application/json',
                 },
@@ -62,7 +67,10 @@ const net = {
                     if (res.status === 200 && res.data.code === 0) {
                         resolve(res.data.data);
                     } else {
-                        console.log('网络异常');
+                        ElMessage({
+                            type: 'error',
+                            message: res.data.msg || '系统异常，稍后再试',
+                        });
                     }
                     return res;
                 })
@@ -72,21 +80,34 @@ const net = {
         });
     },
     post(url = '', params = {}) {
+        const tenantUserInfo =
+            {} ||
+            JSON.parse(
+                localStorage.getItem('TenantUserInfo') ||
+                    '{"access_token":"czmfvx7MuVS0ywzBwUQtml16KbcBVlXeCXapXdo1","tenant_id":"bc18fdb4yyryy","uid":"1611370458219806720"}'
+            );
         return new Promise((resolve, reject) => {
             _axios({
                 url,
-                data: params,
+                data: { ...params, ...tenantUserInfo },
                 headers: {
                     'content-type': 'application/json',
                 },
                 method: 'POST',
             })
                 .then((res) => {
-                    console.log(res, '===poatRes');
+                    console.log(res, '===getRes');
+
                     if (res.status === 200 && res.data.code === 0) {
-                        resolve(res.data.data);
+                        resolve({
+                            ...res.data.data,
+                            message: res.data.msg,
+                        });
                     } else {
-                        console.log('网络异常');
+                        ElMessage({
+                            type: 'error',
+                            message: res.data.msg || '系统异常，稍后再试',
+                        });
                     }
                     return res;
                 })

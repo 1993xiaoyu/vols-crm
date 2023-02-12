@@ -41,7 +41,7 @@ export default function useSideBar() {
                         icon: '',
                     },
                     {
-                        title: '一线送护人员管理',
+                        title: '医护人员管理',
                         name: 'doctorList',
                         icon: '',
                     },
@@ -121,12 +121,12 @@ export default function useSideBar() {
         });
     };
 
-    const setCurrSideBarName = (data) => {
-        const sideData = !data ? sideBarConfig.list[0] : data;
+    const setCurrSideBarName = (sideData) => {
+        //const sideData = !data ? sideBarConfig.list[0] : data;
         sideBarConfig.currSideBarName = sideData.name;
         sideBarConfig.currSideBarTitle = sideData.title;
 
-        getSecondLevelSideBar();
+        // getSecondLevelSideBar();
     };
 
     const setSecondCurrSideBarName = (data) => {

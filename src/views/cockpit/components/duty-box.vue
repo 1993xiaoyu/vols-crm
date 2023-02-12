@@ -36,24 +36,24 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .duty-box {
-    padding: 37px 20px;
+    padding: 14px 10px 10px;
     display: flex;
 
     &__item {
         display: inline-flex;
         flex: 1;
         img {
-            width: 70px;
-            height: 70px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            margin-right: 16px;
+            margin-right: 8px;
         }
         .duty-box__avatar {
             display: inline-block;
-            width: 70px;
-            height: 70px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            margin-right: 16px;
+            margin-right: 8px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -73,16 +73,16 @@ onMounted(() => {
 
     &__detail {
         color: #fff;
-        line-height: 18px;
-        font-size: 18px;
+        line-height: 9px;
+        font-size: 9px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         &-tip {
-            font-size: 12px;
+            font-size: 6px;
             line-height: 1.2;
             color: rgba(255, 255, 255, 0.65);
-            margin-top: 10px;
+            margin-top: 5px;
         }
     }
 }

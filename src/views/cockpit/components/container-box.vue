@@ -18,14 +18,15 @@ const props = defineProps({
     border: 1px solid rgba(0, 136, 207, 0.3);
     margin-bottom: 20px;
     overflow: hidden;
+    font-size: 0;
     &__title {
         display: inline-block;
         color: #fff;
-        font-size: 20px;
+        font-size: 10px;
         font-weight: 400;
-        line-height: 36px;
-        padding: 0px 50px 0px 20px;
-        height: 36px;
+        line-height: 18px;
+        padding: 0px 25px 0px 10px;
+        height: 18px;
         background: url('../assets/title-bg.png');
         background-size: contain;
         background-repeat: no-repeat;

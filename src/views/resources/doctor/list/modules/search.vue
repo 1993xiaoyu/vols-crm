@@ -8,16 +8,13 @@
         <el-form-item label="关键字" prop="volunteerId">
             <el-input v-model="ruleForm.volunteerId" />
         </el-form-item>
-        <el-form-item prop="trainTime" label="加入时间">
-            <el-date-picker
-                v-model="ruleForm.trainTime"
-                type="date"
-                placeholder="请选择"
-                style="width: 100%"
-                value-format="YYYY-MM-DD"
-            />
+        <el-form-item label="医院" prop="volunteerState">
+            <el-select v-model="ruleForm.volunteerState" placeholder="请选择">
+                <el-option label="开启" value="0" />
+                <el-option label="冻结" value="1" />
+            </el-select>
         </el-form-item>
-        <el-form-item label="人员状态" prop="volunteerState">
+        <el-form-item label="科室" prop="volunteerState">
             <el-select v-model="ruleForm.volunteerState" placeholder="请选择">
                 <el-option label="开启" value="0" />
                 <el-option label="冻结" value="1" />
@@ -30,7 +27,7 @@
             <el-button @click="handleUpload">导入</el-button>
             <el-button @click="handleExport">导出</el-button>
             <el-button @click="volunteerDialogShow" type="primary"
-                >新增志愿者</el-button
+                >新增人员</el-button
             >
         </div>
     </el-form>
@@ -85,7 +82,6 @@ const handleExport = async () => {
     const res = await exportData(params);
 
     if (res.msg) {
-        //  http://test.forjhntech.online/1779c482-4d6c-425f-be63-eb361338a8ab_%E5%BF%97%E6%84%BF%E8%80%85%E6%95%B0%E6%8D%AE.xlsx
         window.open(
             `/api/common/download?fileName=${res.msg}&delete=true`,
             '_self'

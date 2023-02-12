@@ -21,6 +21,19 @@ const userRoutes = [
                     import('@/views/resources/volunteer/detail/index.vue'),
             },
             {
+                path: 'doctorList',
+                name: 'doctorList',
+                meta: { parentName: 'resources' },
+                component: () =>
+                    import('@/views/resources/doctor/list/index.vue'),
+            },
+            {
+                path: 'doctorDetail',
+                name: 'doctorDetail',
+                component: () =>
+                    import('@/views/resources/doctor/detail/index.vue'),
+            },
+            {
                 path: 'organList',
                 name: 'organList',
                 meta: { parentName: 'resources' },

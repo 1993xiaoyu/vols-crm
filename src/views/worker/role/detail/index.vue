@@ -16,12 +16,15 @@
             <el-form-item label="角色名称" prop="roleName" required>
                 <el-input v-model="ruleForm.roleName" />
             </el-form-item>
+            <el-form-item label="角色Key" prop="roleKey" required>
+                <el-input v-model="ruleForm.roleKey" placeholder="英文名称" />
+            </el-form-item>
 
             <el-form-item label="状态" prop="status">
                 <el-switch
                     v-model="ruleForm.status"
-                    active-value="1"
-                    inactive-value="0"
+                    active-value="0"
+                    inactive-value="1"
                 />
             </el-form-item>
 
@@ -51,28 +54,32 @@
             <el-button type="primary" @click="submitForm(ruleFormRef)"
                 >保存</el-button
             >
-            <el-button @click="resetForm(ruleFormRef)">清空</el-button>
+            <el-button @click="resetForm(ruleFormRef)" v-if="!roleId"
+                >清空</el-button
+            >
         </div>
     </div>
 </template>
 <script setup>
 import { getCurrentInstance, onMounted, ref, reactive } from 'vue';
-import { roleList, roleAdd } from '@/network/role.js';
+import { roleList, roleAdd, roleEdit } from '@/network/role.js';
 import { ElMessage } from 'element-plus';
 
 const instance = getCurrentInstance();
 const { $router, $route } = instance.appContext.config.globalProperties;
 const roleId = $route.query.roleId;
-const detailObj = ref({});
 
 const treeRef = ref();
 const ruleFormRef = ref();
-const defData = {
+
+const ruleForm = ref({
     roleName: '',
-    status: '1',
+    roleKey: '',
+    status: '0',
     remark: '',
-};
-const ruleForm = ref({});
+    roleSort: '3',
+    dataScope: '2', // 1全部数据 2 自定义
+});
 
 const treeDataObj = reactive({
     data: [
@@ -144,8 +151,13 @@ const getDetail = async () => {
         roleId,
     };
     const res = await roleList(params);
-    const currData = res.rows || [];
-    detailObj.value = currData[0] || {};
+    const currData = (res.list || [])[0] || {};
+
+    ruleForm.value.roleName = currData.roleName;
+    ruleForm.value.status = currData.status;
+    ruleForm.value.remark = currData.remark;
+    ruleForm.value.roleKey = currData.roleKey;
+    defData = currData;
 };
 
 // 返回
@@ -158,7 +170,7 @@ const submitForm = async (formEl) => {
     if (!formEl) return;
     await formEl.validate((valid) => {
         if (valid) {
-            const menuIds = treeRef.value.getCheckedKeys();
+            const menuIds = [1] || treeRef.value.getCheckedKeys();
 
             if (!menuIds.length) {
                 ElMessage({
@@ -170,7 +182,8 @@ const submitForm = async (formEl) => {
                     ...ruleForm.value,
                     menuIds,
                 };
-                roleAdd(params).then((res) => {
+                const currFun = roleId ? roleEdit : roleAdd;
+                currFun(params).then((res) => {
                     if (res.code === 0) {
                         ElMessage({
                             type: 'success',
@@ -200,7 +213,6 @@ onMounted(() => {
     if (roleId) {
         getDetail();
     }
-    ruleForm.value = defData;
 });
 </script>
 

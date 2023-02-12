@@ -6,7 +6,7 @@
                 <div class="aed-box__detail-num">
                     {{ formatNum(aedObj[item.valueKey]) }}
                 </div>
-                <span>{{ item.title }}</span>
+                <span class="aed-box__detail-title">{{ item.title }}</span>
             </div>
         </div>
     </div>
@@ -15,7 +15,10 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusAed } from '@/network/cockpit.js';
+//import { getCensusAed } from '@/network/cockpit.js';
+
+import { getAedStatisticss } from '@/network/monitor.js';
+
 import { formatNum } from '@/utils/common.js';
 import aedBg1 from '../assets/aed-bg1.png';
 import aedBg2 from '../assets/aed-bg2.png';
@@ -40,19 +43,19 @@ const aedObj = reactive({
     earlyWarningNum: 0,
 });
 const getCensusAedData = async () => {
-    const res = await getCensusAed();
+    const res = await getAedStatisticss();
     const {
-        aedTootal,
-        normalNum,
-        checkingWaringNum,
-        batteryWaringNum,
+        total_cnt,
+        normal_cnt,
+        repair_cnt,
+        damage_cnt,
         disconnectNum,
         earlyWarningNum,
-    } = res;
-    aedObj.aedTootal = aedTootal;
-    aedObj.normalNum = normalNum;
-    aedObj.checkingWaringNum = checkingWaringNum;
-    aedObj.batteryWaringNum = batteryWaringNum;
+    } = res.data;
+    aedObj.aedTootal = total_cnt;
+    aedObj.normalNum = normal_cnt;
+    aedObj.checkingWaringNum = repair_cnt;
+    aedObj.batteryWaringNum = damage_cnt;
     aedObj.disconnectNum = disconnectNum;
     aedObj.earlyWarningNum = earlyWarningNum;
 };
@@ -63,26 +66,27 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .aed-box {
-    padding: 50px 40px 42px 40px;
+    padding: 15px 20px 21px 20px;
     display: flex;
 
     &__item {
         display: inline-flex;
         flex: 1;
         img {
-            width: 60px;
-            height: 60px;
-            margin-right: 12px;
+            width: 30px;
+            height: 30px;
+            margin-right: 6px;
         }
     }
 
     &__detail {
         color: #fff;
-        line-height: 14px;
-        font-size: 14px;
+        line-height: 10px;
+        font-size: 10px;
         &-num {
-            font-size: 26px;
-            line-height: 39px;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 3px;
             background-image: -webkit-linear-gradient(
                 rgba(0, 126, 241, 1) 0%,
                 rgba(6, 250, 255, 1) 100%
@@ -90,6 +94,9 @@ onMounted(() => {
 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        &-title {
+            transform: scale(0.8);
         }
     }
 }

@@ -7,6 +7,7 @@
             :border="false"
             :header-cell-style="{ paddingLeft: '20px' }"
             :cell-style="{ paddingLeft: '20px' }"
+            @row-click="handleRow"
         >
             <el-table-column
                 prop="address"
@@ -16,19 +17,20 @@
             >
             </el-table-column>
             <el-table-column
-                prop="phoneNum"
-                label="呼救人手机号"
+                prop="mobile"
+                label="呼救人手机"
                 show-overflow-tooltip
             />
 
-            <el-table-column prop="status" label="响应状态" />
+            <el-table-column prop="emergency_status_str" label="响应状态" />
             <el-table-column
-                prop="volunteerStatus"
-                label="志愿者响应状态"
-                width="140"
+                prop="emergency_status_str"
+                label="志愿者状态"
+                width="150"
             />
 
-            <el-table-column prop="time" label="已呼救时长"> </el-table-column>
+            <el-table-column prop="duration" label="已呼救时长">
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -36,18 +38,63 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusRespond } from '@/network/cockpit.js';
+import {
+    getEventList,
+    getEventDetails,
+    getEventStatistics,
+} from '@/network/monitor.js';
 
 const waringObj = reactive({
-    list: [],
+    list: [
+        {
+            address: '福田站',
+            submit_time: 1675051390,
+            emergency_status_str: '已完成',
+            latitude: 22.53812218,
+            mobile: '18612518278',
+            img_cnt: 0,
+            duration: 67,
+            emergency_id: 'bc6a1sxhoyryy',
+            emergency_type: 4,
+            emergency_type_str: '视频呼救',
+            head_url:
+                'https://static-1307211266.cos.ap-shanghai.myqcloud.com/o6Dbe5TK-UVoapASMs4HmDi1t1U4/1663938331864572493_364_1663938331558',
+            emergency_status: 6,
+            name: 'yineima',
+            time_tag: '2023-01-30',
+            video_cnt: 2,
+            longitude: 114.05724335,
+        },
+    ],
 });
 const getCensusRespondData = async () => {
-    const res = await getCensusRespond();
+    const res = await getEventList({
+        page: 1,
+        size: 10,
+        c: '1611370458219806720',
+    });
 
-    waringObj.list = res.list || [];
+    waringObj.list = res.data || [];
 };
+
+const handleRow = async (row) => {
+    const res = await getEventDetails({
+        emergency_id: row.emergency_id,
+        emergency_type: row.emergency_type,
+    });
+
+    console.log(res, '===getEventDetails');
+};
+
+const getCensusStatistics = async () => {
+    const res = await getEventStatistics({ platform: 0 });
+
+    console.log(res, '===getEventStatistics');
+};
+
 onMounted(() => {
     getCensusRespondData();
+    getCensusStatistics();
 });
 </script>
 
@@ -63,12 +110,12 @@ onMounted(() => {
     .el-table th.el-table__cell {
         background-color: rgba(8, 15, 34, 0.7);
         color: #fff;
-        line-height: 14px;
-        font-size: 14px;
-        padding: 11px 0;
+        line-height: 7px;
+        font-size: 7px;
+        padding: 5px 0;
     }
     .el-table .el-table__cell {
-        padding: 11px 0;
+        padding: 5px 0;
     }
     .el-table td.el-table__cell,
     .el-table th.el-table__cell.is-leaf {
@@ -90,8 +137,8 @@ onMounted(() => {
     }
 
     .el-table .cell {
-        line-height: 26px;
-        font-size: 16px;
+        line-height: 13px;
+        font-size: 13px;
     }
     .el-table--striped
         .el-table__body

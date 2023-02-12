@@ -68,6 +68,19 @@ const onSubmit = async () => {
         rememberMe,
     });
     if (!res.code) {
+        const tenantUserInfo = {
+            access_token: '',
+            tenant_id: '',
+            uid: '',
+        };
+        if (res.token_info) {
+            const { token_info, scope_info } = res;
+            tenantUserInfo.access_token = token_info.access_token;
+            tenantUserInfo.tenant_id = scope_info.S.scope_lists[0].tenant_id;
+            tenantUserInfo.uid = token_info.uid;
+        }
+
+        localStorage.setItem('TenantUserInfo', JSON.stringify(tenantUserInfo));
         router.push({ name: 'list' });
     } else {
         alertMessage = res.message || '请检查账号密码';

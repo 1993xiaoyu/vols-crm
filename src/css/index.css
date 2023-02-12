@@ -33,3 +33,26 @@
     background-color: #7175FC;
     border-color: #7175FC;
 }
+
+.el-menu,
+.el-sub-menu__title:hover,
+.el-menu-item:hover{
+    background-color: #04074a;
+}
+
+.el-sub-menu__title,
+.el-menu-item{
+    color: #fff;
+}
+
+.el-menu{
+    border-right: none;
+}
+
+.el-sub-menu .el-menu-item{
+    padding-left: 60px !important;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover>td.el-table__cell{
+    background-color: #080f22;
+}

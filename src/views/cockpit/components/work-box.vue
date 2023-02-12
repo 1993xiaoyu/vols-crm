@@ -1,6 +1,9 @@
 <template>
-    <div class="aed-box">
-        <div id="myEcharts" :style="{ width: '300px', height: '103px' }"></div>
+    <div class="work-box">
+        <div
+            id="myEcharts"
+            :style="{ width: `${260 / 196}rem`, height: `${190 / 196}rem` }"
+        ></div>
     </div>
 </template>
 
@@ -51,8 +54,8 @@ const initChart = () => {
             },
         },
         grid: {
-            left: '3%',
-            right: '4%',
+            left: '1%',
+            right: '5%',
             bottom: '3%',
             top: '0px',
             containLabel: true,
@@ -145,8 +148,8 @@ const initChart = () => {
 </script>
 
 <style lang="less" scoped>
-.aed-box {
-    padding-top: 30px;
+.work-box {
+    padding-top: 15px;
     #myEcharts {
         margin: 0 auto;
     }

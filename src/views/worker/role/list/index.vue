@@ -14,9 +14,8 @@ import List from './modules/list.vue';
 import Search from './modules/search.vue';
 
 const searchData = reactive({
-    userName: '',
+    roleName: '',
     status: '',
-    hospital: '',
 });
 const listRef = ref();
 
@@ -26,9 +25,8 @@ const editDialogShow = (data) => {
 };
 
 const searchList = (data) => {
-    searchData.userName = data.userName || '';
+    searchData.roleName = data.roleName || '';
     searchData.status = data.status || '';
-    searchData.hospital = data.hospital || '';
 
     listRef.value.getList();
 };

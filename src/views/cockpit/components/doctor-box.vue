@@ -8,7 +8,7 @@
             <span class="duty-box__item-title">
                 {{ item.title }}
             </span>
-            <span class="duty-box__detail-num">{{
+            <span class="duty-box__item-num">{{
                 formatNum(doctorObj[item.valueKey])
             }}</span>
         </div>
@@ -49,7 +49,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .duty-box {
-    padding: 37px 40px 12px 40px;
+    padding: 12px 10px 6px 10px;
     display: flex;
     flex-wrap: wrap;
 
@@ -57,24 +57,24 @@ onMounted(() => {
         display: inline-flex;
         justify-content: space-between;
         color: #ffffff;
-        padding: 0 20px;
-        width: 245px;
+        padding: 0 10px;
+        width: 149px;
         box-sizing: border-box;
-        line-height: 56px;
-        height: 56px;
+        line-height: 28px;
+        height: 28px;
         background: rgba(16, 139, 219, 0.2);
         border: 1px solid rgb(13, 151, 246);
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         &-title {
-            font-size: 14px;
+            font-size: 7px;
         }
 
         &-num {
-            font-size: 20px;
+            font-size: 10px;
             font-weight: 700;
         }
         &:nth-child(2n) {
-            margin-left: 15px;
+            margin-left: 8px;
         }
     }
 }

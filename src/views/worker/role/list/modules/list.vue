@@ -9,15 +9,14 @@
         <el-table-column prop="status" label="状态" width="180">
             <template #default="scope">
                 <el-tag :type="scope.row.status ? 'success' : 'warning'">
-                    {{ !scope.row.status ? '开启' : '停用' }}
+                    {{ scope.row.status === '0' ? '开启' : '停用' }}
                 </el-tag>
             </template>
         </el-table-column>
         <el-table-column prop="remark" label="角色描述" width="180" />
         <el-table-column prop="phoneNumber" label="关联用户数量" />
-        <el-table-column prop="update_by" label="最近操作人" />
-
-        <el-table-column prop="update_time" label="最近操作时间" />
+        <el-table-column prop="updateBy" label="最近操作人" />
+        <el-table-column prop="updateTime" label="最近操作时间" />
         <el-table-column label="操作" fixed="right" width="180">
             <template #default="scope">
                 <el-button
@@ -50,7 +49,7 @@
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
-import { roleList } from '@/network/role.js';
+import { roleList, roleRemove } from '@/network/role.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
 const props = defineProps({
     searchData: {
@@ -74,7 +73,7 @@ const getList = async () => {
         pageNum: pageParams.pageNum,
     };
     const res = await roleList(params);
-    tableData.value = res.rows || [];
+    tableData.value = res.list || [];
     pageParams.total = res.total || 0;
 };
 
@@ -86,20 +85,20 @@ const handleCurrentChange = (val) => {
 
 // 删除
 const handleDel = (item) => {
-    ElMessageBox.confirm('确定删除该用户吗?')
+    ElMessageBox.confirm('确定停用该角色吗?')
         .then(() => {
             const params = {
-                ids: item.userId,
+                ids: item.roleId,
             };
 
-            userRemove(params).then((res) => {
+            roleRemove(params).then((res) => {
                 if (res.code === 0) {
-                    ElMessage({ type: 'success', message: '删除成功' });
+                    ElMessage({ type: 'success', message: '停用成功' });
                     getList();
                 } else {
                     ElMessage({
                         type: 'error',
-                        message: res.message || '删除失败,请重试',
+                        message: res.message || '停用失败,请重试',
                     });
                 }
             });

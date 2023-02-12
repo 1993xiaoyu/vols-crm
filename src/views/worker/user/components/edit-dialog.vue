@@ -18,6 +18,17 @@
             <el-form-item label="姓名" prop="userName" required>
                 <el-input v-model="ruleForm.userName" />
             </el-form-item>
+            <el-form-item label="昵称" prop="loginName" required>
+                <el-input v-model="ruleForm.loginName" />
+            </el-form-item>
+
+            <el-form-item label="手机号" prop="phoneNumber" required>
+                <el-input v-model="ruleForm.phoneNumber" />
+            </el-form-item>
+
+            <el-form-item label="邮箱" prop="email">
+                <el-input v-model="ruleForm.email" />
+            </el-form-item>
 
             <el-form-item label="性别" prop="sex">
                 <el-radio-group v-model="ruleForm.sex">
@@ -29,8 +40,8 @@
             <el-form-item label="状态" prop="status">
                 <el-switch
                     v-model="ruleForm.status"
-                    active-value="1"
-                    inactive-value="0"
+                    active-value="0"
+                    inactive-value="1"
                 />
             </el-form-item>
 
@@ -41,19 +52,12 @@
                     <el-option label="所属机构3" value="3" />
                 </el-select>
             </el-form-item>
-            <el-form-item label="手机号" prop="phoneNumber" required>
-                <el-input v-model="ruleForm.phoneNumber" />
-            </el-form-item>
-
-            <el-form-item label="邮箱" prop="email">
-                <el-input v-model="ruleForm.email" />
-            </el-form-item>
 
             <el-form-item label="身份证号" prop="idicciid">
                 <el-input v-model="ruleForm.idicciid" />
             </el-form-item>
 
-            <el-form-item label="出生时间" prop="birthday">
+            <!-- <el-form-item label="出生时间" prop="birthday">
                 <el-date-picker
                     v-model="ruleForm.birthday"
                     type="date"
@@ -61,7 +65,7 @@
                     style="width: 100%"
                     value-format="YYYY-MM-DD"
                 />
-            </el-form-item>
+            </el-form-item> -->
 
             <el-form-item label="用户角色" prop="roleIds">
                 <el-select
@@ -103,12 +107,13 @@ const defData = {
     roleIds: '',
     userName: '',
     sex: '',
-    status: '1',
+    status: '0',
     hospital: '',
     phoneNumber: '',
     email: '',
     idicciid: '',
     birthday: '',
+    loginName: '',
 };
 const ruleForm = ref({});
 

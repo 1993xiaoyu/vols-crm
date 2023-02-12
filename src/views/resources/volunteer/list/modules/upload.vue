@@ -27,10 +27,12 @@
                     </div>
 
                     <el-upload
-                        action="http://101.42.31.6/api/system/volunteer/importData"
+                        action="http://test.forjhntech.online/api/system/volunteer/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"
+                        :on-success="handleSuccess"
+                        :on-error="handleError"
                         accept="xsxl"
                         :limit="1"
                         :multiple="false"
@@ -53,7 +55,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { importTemplate, importData } from '@/network/volunteer.js';
+import { importTemplate } from '@/network/volunteer.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeUploadDialogShow']);
 const uploadRef = ref();
@@ -78,7 +80,10 @@ const fileList = ref();
 const handleImportTemplate = async () => {
     const res = await importTemplate();
     if (res.msg) {
-        window.open(res.msg, '_self');
+        window.open(
+            `/api/common/download?fileName=${res.msg}&delete=true`,
+            '_self'
+        );
     } else {
         ElMessage({
             type: 'waring',
@@ -87,22 +92,12 @@ const handleImportTemplate = async () => {
     }
 };
 
-// 导入
-const handleImportData = async () => {
-    const params = {
-        name: '',
-    };
-    const res = await importData(params);
-    console.log(res);
-};
-
 const handleChange = (uploadFile) => {
     fileList.value = uploadFile;
 };
 
 const beforeUpload = () => {
     const file = fileList.value;
-    console.log(file, '==file');
     const typeAll = ['xlsx', 'XLSX'];
     const type = file.name.split('.')[1];
     const size = file.size / 1024 / 1024;
@@ -134,6 +129,21 @@ const submitUpload = () => {
 const closeDialog = () => {
     fileList.value = '';
     emit('closeUploadDialogShow', false);
+};
+const handleSuccess = (res) => {
+    console.log(res, '===success');
+    ElMessage({
+        type: 'success',
+        message: '上传成功',
+    });
+    closeDialog();
+};
+const handleError = (res) => {
+    ElMessage({
+        type: 'waring',
+        message: '请检查文件，上传失败',
+    });
+    console.log(res, '===error');
 };
 </script>
 

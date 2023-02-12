@@ -71,15 +71,15 @@ onMounted(() => {
     position: relative;
     color: #fff;
     box-sizing: border-box;
-    font-size: 28px;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 42px;
+    line-height: 21px;
 
     &__item {
         position: absolute;
         display: inline-block;
-        width: 141.26px;
-        height: 202.64px;
+        width: 71px;
+        height: 101px;
         text-align: center;
         background: url('../assets/voluteer-bg1.png');
         background-repeat: no-repeat;
@@ -88,48 +88,48 @@ onMounted(() => {
         justify-content: center;
 
         .item-box {
-            margin-left: -14px;
+            margin-left: -7px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         &-title {
             color: rgba(255, 255, 255, 0.65);
 
-            font-size: 16px;
+            font-size: 8px;
             font-weight: 400;
-            line-height: 24px;
+            line-height: 12px;
         }
     }
 
     .item1 {
-        top: -30px;
-        left: 80px;
+        top: -10px;
+        left: 40px;
     }
     .item2 {
-        top: -30px;
-        left: 386px;
+        top: -10px;
+        left: 193px;
     }
     .item3 {
-        width: 175px;
-        height: 272px;
-        top: 40px;
-        left: 208px;
+        width: 88px;
+        height: 136px;
+        top: 30px;
+        left: 104px;
         background-image: url('../assets/voluteer-bg2.png');
         .item-box {
-            margin-top: -40px;
+            margin-top: -20px;
         }
     }
     .item4 {
-        top: 174px;
-        left: 46px;
+        top: 90px;
+        left: 23px;
     }
     .item5 {
-        top: 174px;
-        left: 420px;
+        top: 90px;
+        left: 210px;
     }
 }
 </style>

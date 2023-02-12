@@ -1,10 +1,10 @@
 // 封装一些用的API，不用把URL写在页面中，直接调用即可
 import net from '@/utils/request.js';
 
-const baseURL =
-    'https://www.fastmock.site/mock/c919bdc1243c48c3cd5b17074af581a0/api';
+// const baseURL =
+('https://www.fastmock.site/mock/c919bdc1243c48c3cd5b17074af581a0/api');
 
-// const baseURL = 'http://101.42.31.6/api';
+const baseURL = 'http://test.forjhntech.online/api';
 
 export function userAdd(params) {
     return net.post(`${baseURL}/system/user/add`, params);
@@ -35,3 +35,9 @@ export function importData(params) {
 export function exportData(params) {
     return net.post(`${baseURL}/system/user/export`, params);
 }
+
+// 导入模板下载
+export function download(params) {
+    return net.get(`${baseURL}/common/download`, params);
+}
+//common/download?fileName=文件名&delete=true

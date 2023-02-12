@@ -9,7 +9,7 @@ export function getCensusVoluteer(params) {
 }
 
 export function getCensusAed(params) {
-    return net.get(`${baseURL}/census/aed`, params);
+    return net.get(`${baseURL}/cockpit/aedStatistics`, params);
 }
 
 export function getCensusDuty(params) {

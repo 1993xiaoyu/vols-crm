@@ -77,14 +77,14 @@ onMounted(() => {
     }
     &__left {
         img {
-            width: 600px;
-            height: 313px;
+            width: 300px;
+            height: 170px;
         }
     }
     &__right {
         img {
-            width: 640px;
-            height: 313px;
+            width: 320px;
+            height: 170px;
         }
     }
 }

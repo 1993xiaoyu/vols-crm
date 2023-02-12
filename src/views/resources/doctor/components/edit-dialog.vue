@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        :title="currDialogType === 'add' ? '新增志愿者' : '编辑志愿者'"
+        :title="currDialogType === 'add' ? '新增医护人员' : '编辑医护人员'"
         width="60%"
         class="volunteer-dialog"
     >
@@ -30,21 +30,24 @@
                     <el-radio label="1">女</el-radio>
                 </el-radio-group>
             </el-form-item>
+            <el-form-item label="手机号" prop="volunteerPhone" required>
+                <el-input v-model="ruleForm.volunteerPhone" />
+            </el-form-item>
 
-            <el-form-item label="职业" prop="volunteerOccupation" required>
+            <el-form-item label="医院" prop="volunteerOccupation" required>
                 <el-select
                     v-model="ruleForm.volunteerOccupation"
-                    placeholder="请选择职业"
+                    placeholder="请选择医院"
                 >
                     <el-option label="教师" value="1" />
                     <el-option label="医生" value="2" />
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="学历" prop="volunteerEducation" required>
+            <el-form-item label="科室" prop="volunteerEducation" required>
                 <el-select
                     v-model="ruleForm.volunteerEducation"
-                    placeholder="请选择学历"
+                    placeholder="请选择科室"
                 >
                     <el-option label="博士" value="1" />
                     <el-option label="研究生" value="2" />
@@ -54,11 +57,7 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="手机号" prop="volunteerPhone">
-                <el-input v-model="ruleForm.volunteerPhone" />
-            </el-form-item>
-
-            <el-form-item label="所在街道" prop="volunteerStreet">
+            <el-form-item label="职称" prop="volunteerStreet" required>
                 <el-input v-model="ruleForm.volunteerStreet" />
             </el-form-item>
 
@@ -66,60 +65,12 @@
                 <el-input v-model="ruleForm.volunteerHomeAddress" />
             </el-form-item>
 
-            <el-form-item label="公司名称" prop="volunteerCompanyName">
-                <el-input v-model="ruleForm.volunteerCompanyName" />
-            </el-form-item>
-
-            <el-form-item label="公司地址" prop="volunteerCompanyAddress">
-                <el-input v-model="ruleForm.volunteerCompanyAddress" />
-            </el-form-item>
-
             <el-form-item label="身份证号" prop="volunteerIdiccid">
                 <el-input v-model="ruleForm.volunteerIdiccid" />
             </el-form-item>
 
-            <div class="volunteer-dialog__title">培训信息</div>
-            <el-form-item label="班级标号" prop="classNo" required>
-                <el-input v-model="ruleForm.classNo" />
-            </el-form-item>
-
-            <el-form-item label="培训医院" prop="trainHospital" required>
-                <el-input v-model="ruleForm.trainHospital" />
-            </el-form-item>
-
-            <el-form-item label="培训地点" prop="trainAddress" required>
-                <el-input v-model="ruleForm.trainAddress" />
-            </el-form-item>
-
-            <el-form-item label="培训日期" prop="trainDate" required>
-                <el-date-picker
-                    v-model="ruleForm.trainDate"
-                    type="date"
-                    placeholder="请选择培训日期"
-                    style="width: 100%"
-                    value-format="YYYY-MM-DD"
-                />
-            </el-form-item>
-            <el-form-item label="开始时间" prop="startTime" required>
-                <el-time-select
-                    v-model="ruleForm.startTime"
-                    :max-time="ruleForm.endTime"
-                    placeholder="请选择培训开始时间"
-                    start="09:00"
-                    step="00:30"
-                    end="18:00"
-                />
-            </el-form-item>
-
-            <el-form-item label="结束时间" prop="endTime" required>
-                <el-time-select
-                    v-model="ruleForm.endTime"
-                    :min-time="ruleForm.startTime"
-                    placeholder="请选择培训结束时间"
-                    start="09:00"
-                    step="00:30"
-                    end="18:00"
-                />
+            <el-form-item label="公司地址" prop="volunteerCompanyAddress">
+                <el-input v-model="ruleForm.volunteerCompanyAddress" />
             </el-form-item>
 
             <div class="volunteer-dialog__btns">
@@ -158,13 +109,6 @@ const defData = {
     volunteerCompanyName: '',
     volunteerCompanyAddress: '',
     volunteerIdiccid: '',
-    classNo: '',
-    trainHospital: '',
-    trainAddress: '',
-    trainDate: '',
-    trainTime: [],
-    startTime: '',
-    endTime: '',
 };
 const ruleForm = ref({});
 
@@ -172,21 +116,21 @@ const rules = reactive({
     volunteerName: [
         {
             required: true,
-            message: '请填写志愿者名字',
+            message: '请填写姓名',
             trigger: 'blur',
         },
     ],
     volunteerOccupation: [
         {
             required: true,
-            message: '请选择志愿者职业',
+            message: '请选择科室',
             trigger: 'blur',
         },
     ],
     volunteerEducation: [
         {
             required: true,
-            message: '请选择志愿者学历',
+            message: '请选择医院',
             trigger: 'blur',
         },
     ],
@@ -194,7 +138,7 @@ const rules = reactive({
     classNo: [
         {
             required: true,
-            message: '请填写志愿者班级编号',
+            message: '请填写手机号',
             trigger: 'blur',
         },
     ],
@@ -202,7 +146,7 @@ const rules = reactive({
     trainHospital: [
         {
             required: true,
-            message: '请填写志愿者培训医院',
+            message: '请填写职称',
             trigger: 'blur',
         },
     ],
@@ -211,28 +155,6 @@ const rules = reactive({
         {
             required: true,
             message: '请填写志愿者培训地址',
-            trigger: 'blur',
-        },
-    ],
-    trainDate: [
-        {
-            type: 'date',
-            required: true,
-            message: '请选择志愿者培训日期',
-            trigger: 'change',
-        },
-    ],
-    startTime: [
-        {
-            required: true,
-            message: '请选择志愿者培训开始时间',
-            trigger: 'blur',
-        },
-    ],
-    endTime: [
-        {
-            required: true,
-            message: '请选择志愿者培训结束时间',
             trigger: 'blur',
         },
     ],

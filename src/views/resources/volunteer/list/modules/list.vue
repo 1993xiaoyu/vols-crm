@@ -1,18 +1,13 @@
 <template>
     <el-table :data="tableData" style="width: 100%">
-        <el-table-column
-            prop="volunteerId"
-            label="志愿者ID"
-            width="180"
-            fixed="left"
-        />
+        <el-table-column prop="id" label="志愿者ID" width="180" fixed="left" />
         <el-table-column prop="volunteerName" label="姓名" width="180" />
         <el-table-column prop="volunteerState" label="人员状态" width="180">
             <template #default="scope">
                 <el-tag
                     :type="scope.row.volunteerState ? 'success' : 'warning'"
                 >
-                    {{ scope.row.volunteerState ? '开启' : '冻结' }}
+                    {{ scope.row.volunteerState === '0' ? '开启' : '冻结' }}
                 </el-tag>
             </template>
         </el-table-column>
@@ -88,7 +83,7 @@ const getList = async () => {
         pageNum: pageParams.pageNum,
     };
     const res = await volunteerList(params);
-    tableData.value = res.rows || [];
+    tableData.value = res.list || [];
     pageParams.total = res.total || 0;
 };
 

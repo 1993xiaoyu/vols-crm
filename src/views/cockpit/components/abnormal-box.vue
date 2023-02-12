@@ -73,12 +73,12 @@ onMounted(() => {
     .el-table th.el-table__cell {
         background-color: #080f22;
         color: #fff;
-        line-height: 14px;
-        font-size: 14px;
-        padding: 11px 0;
+        line-height: 7px;
+        font-size: 7px;
+        padding: 5px 0;
     }
     .el-table .el-table__cell {
-        padding: 11px 0;
+        padding: 5px 0;
     }
     .el-table td.el-table__cell,
     .el-table th.el-table__cell.is-leaf {
@@ -100,7 +100,7 @@ onMounted(() => {
     }
 
     .el-table .cell {
-        line-height: 26px;
+        line-height: 13px;
     }
     .el-table--striped
         .el-table__body

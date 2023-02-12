@@ -3,54 +3,55 @@
         <div class="center-box">
             <div class="center-box__title">5分钟急救圈信息驾驶舱平台</div>
         </div>
+        <div class="cockpit-detail">
+            <ContainerBox class="box1" title="志愿者统计">
+                <VoluteerBox />
+            </ContainerBox>
 
-        <ContainerBox class="box1" title="志愿者统计">
-            <VoluteerBox />
-        </ContainerBox>
+            <ContainerBox class="box2" title="今日值班人员">
+                <DutyBox />
+            </ContainerBox>
 
-        <ContainerBox class="box2" title="今日值班人员">
-            <DutyBox />
-        </ContainerBox>
+            <ContainerBox class="box3" title="急救导师/专家">
+                <DoctorBox />
+            </ContainerBox>
 
-        <ContainerBox class="box3" title="急救导师/专家">
-            <DoctorBox />
-        </ContainerBox>
+            <ContainerBox class="box4" title="AED盘点">
+                <AedBox />
+            </ContainerBox>
 
-        <ContainerBox class="box4" title="AED盘点">
-            <AedBox />
-        </ContainerBox>
+            <ContainerBox class="box5" title="响应系统状态">
+                <WorkBox />
+            </ContainerBox>
 
-        <ContainerBox class="box5" title="响应系统状态">
-            <WorkBox />
-        </ContainerBox>
+            <ContainerBox class="box6" title="响应异常清单">
+                <AbnormalBox />
+            </ContainerBox>
 
-        <ContainerBox class="box6" title="响应异常清单">
-            <AbnormalBox />
-        </ContainerBox>
+            <ContainerBox title="实时救援监控" class="map-box box7">
+                <DataDivisionBox />
+            </ContainerBox>
 
-        <ContainerBox title="实时救援监控" class="map-box box7">
-            <DataDivisionBox />
-        </ContainerBox>
+            <ContainerBox class="box8" title="待响应事件">
+                <RespondBox />
+            </ContainerBox>
 
-        <ContainerBox class="box8" title="待响应事件">
-            <RespondBox />
-        </ContainerBox>
+            <ContainerBox title="紧急救援现场" class="scene-box box9">
+                <SceneBox />
+            </ContainerBox>
 
-        <ContainerBox title="紧急救援现场" class="scene-box box9">
-            <SceneBox />
-        </ContainerBox>
+            <ContainerBox class="box10" title="反应时间统计">
+                <ResponseTimeBox />
+            </ContainerBox>
 
-        <ContainerBox class="box10" title="反应时间统计">
-            <ResponseTimeBox />
-        </ContainerBox>
+            <ContainerBox class="box11" title="今日疾病分类">
+                <DiseaseBox />
+            </ContainerBox>
 
-        <ContainerBox class="box11" title="今日疾病分类">
-            <DiseaseBox />
-        </ContainerBox>
-
-        <ContainerBox class="box12" title="预警信息">
-            <WaringBox />
-        </ContainerBox>
+            <ContainerBox class="box12" title="预警信息">
+                <WaringBox />
+            </ContainerBox>
+        </div>
 
         <div class="test-text">测试版</div>
     </div>
@@ -100,15 +101,15 @@ import SceneBox from './components/scene-box.vue';
         position: absolute;
         top: 0;
         left: 50%;
-        margin-left: -480px;
-        width: 960px;
-        height: 540px;
+        margin-left: -400px;
+        width: 800px;
+        height: 270px;
         background: url(./assets/center-bg.png);
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: cover;
         &__title {
-            font-size: 36px;
-            line-height: 36px;
+            font-size: 30px;
+            line-height: 30px;
             color: #fff;
             position: absolute;
             top: 20px;
@@ -118,92 +119,96 @@ import SceneBox from './components/scene-box.vue';
     }
 }
 .box1 {
-    width: 590px;
-    height: 441px;
-    top: 100px;
-    left: 20px;
+    width: 295px;
+    height: 240px;
+    top: 120px;
+    left: 10px;
 }
 
 .box2 {
-    width: 590px;
-    height: 182px;
-    top: 100px;
-    left: 630px;
+    width: 330px;
+    height: 91px;
+    top: 120px;
+    left: 315px;
 }
 
 .box3 {
-    width: 590px;
-    height: 238px;
-    top: 300px;
-    left: 630px;
+    width: 330px;
+    height: 119px;
+    top: 240px;
+    left: 315px;
 }
 
 .box4 {
-    width: 1200px;
-    height: 183px;
-    top: 565px;
-    left: 20px;
+    width: 637px;
+    height: 92px;
+    top: 392px;
+    left: 10px;
 }
 
 .box5 {
-    width: 590px;
-    height: 292px;
-    top: 768px;
-    left: 20px;
+    width: 295px;
+    height: 256px;
+    top: 520px;
+    left: 10px;
+    background-color: rgba(10, 17, 37, 1);
 }
 
 .box6 {
-    width: 590px;
-    height: 292px;
-    top: 768px;
-    left: 630px;
+    width: 332px;
+    height: 256px;
+    top: 520px;
+    left: 315px;
+    background-color: rgba(10, 17, 37, 1);
 }
 
 .box7 {
-    width: 1360px;
-    height: 646px;
-    top: 102px;
-    left: 1240px;
+    width: 680px;
+    height: 365px;
+    top: 120px;
+    left: 655px;
 }
 
 .box8 {
-    width: 1360px;
-    height: 292px;
-    top: 768px;
-    left: 1240px;
+    width: 680px;
+    height: 256px;
+    top: 520px;
+    left: 655px;
+    background-color: rgba(10, 17, 37, 1);
 }
 
 .box9 {
-    width: 1200px;
-    height: 313px;
-    top: 102px;
-    left: 2620px;
+    width: 602px;
+    height: 170px;
+    top: 120px;
+    left: 1345px;
 }
 
 .box10 {
-    width: 590px;
-    height: 313px;
-    top: 434px;
-    left: 2620px;
+    width: 295px;
+    height: 167px;
+    top: 317px;
+    left: 1345px;
 }
 
 .box11 {
-    width: 590px;
-    height: 313px;
-    top: 434px;
-    left: 3230px;
+    width: 295px;
+    height: 167px;
+    top: 317px;
+    left: 1650px;
+    background-color: rgba(10, 17, 37, 1);
 }
 
 .box12 {
-    width: 1200px;
-    height: 292px;
-    top: 768px;
-    left: 2620px;
+    width: 602px;
+    height: 256px;
+    top: 520px;
+    left: 1345px;
 }
 .test-text {
     position: fixed;
     left: 60%;
-    font-size: 60px;
+    font-size: 30px;
     color: red;
 }
 </style>

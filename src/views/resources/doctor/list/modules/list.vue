@@ -1,41 +1,20 @@
 <template>
     <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="userId" label="ID" width="120" fixed="left" />
-        <el-table-column prop="userName" label="姓名" width="180" />
-        <el-table-column prop="status" label="人员状态" width="180">
+        <el-table-column prop="id" label="ID" width="180" fixed="left" />
+        <el-table-column prop="volunteerName" label="姓名" width="180" />
+        <el-table-column prop="volunteerState" label="人员状态" width="180">
             <template #default="scope">
-                <el-tag :type="scope.row.status ? 'success' : 'warning'">
-                    {{ scope.row.status === '0' ? '开启' : '冻结' }}
+                <el-tag
+                    :type="scope.row.volunteerState ? 'success' : 'warning'"
+                >
+                    {{ scope.row.volunteerState === '0' ? '开启' : '冻结' }}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="roles" label="关联角色" width="180">
-            <template #default="scope">
-                <div>
-                    {{ scope.row.roles.join(',') }}
-                </div>
-            </template>
-        </el-table-column>
-        <el-table-column prop="phoneNumber" label="电话号" width="180" />
-        <el-table-column prop="email" label="邮箱" width="180" />
-
-        <el-table-column prop="sex" label="性别" width="120">
-            <template #default="scope">
-                <div>
-                    {{
-                        scope.row.sex === '1'
-                            ? '女'
-                            : scope.row.sex === '0'
-                            ? '男'
-                            : '--'
-                    }}
-                </div>
-            </template>
-        </el-table-column>
-        <el-table-column prop="hospital" label="所属机构" width="180" />
-        <el-table-column prop="homeAddress" label="家庭住址" width="180" />
-        <el-table-column prop="idiccid" label="身份证号" width="180" />
-        <el-table-column prop="createTime" label="创建时间" width="180" />
+        <el-table-column prop="volunteerOccupation" label="医院" width="180" />
+        <el-table-column prop="volunteerHomeAddress" label="科室" width="180" />
+        <el-table-column prop="rescueTimes" label="职称" width="180" />
+        <el-table-column prop="trainAddress" label="电话" width="180" />
         <el-table-column label="操作" fixed="right" width="180">
             <template #default="scope">
                 <el-button
@@ -45,7 +24,13 @@
                     @click="handleEdit(scope.row)"
                     >编辑</el-button
                 >
-
+                <el-button
+                    link
+                    type="primary"
+                    size="small"
+                    @click="handleDetail(scope.row)"
+                    >详情</el-button
+                >
                 <el-button
                     link
                     type="primary"
@@ -68,7 +53,7 @@
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
-import { userList, userRemove } from '@/network/user.js';
+import { volunteerList, volunteerRemove } from '@/network/volunteer.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
 const emit = defineEmits(['emitVolunteer']);
 const props = defineProps({
@@ -80,7 +65,7 @@ const props = defineProps({
 const router = useRouter();
 const tableData = ref();
 const pageParams = reactive({
-    pageSize: 10,
+    pageSize: 20,
     pageNum: 1,
     total: 0,
 });
@@ -92,8 +77,7 @@ const getList = async () => {
         pageSize: pageParams.pageSize,
         pageNum: pageParams.pageNum,
     };
-    const res = await userList(params);
-    console.log(res, '===resList');
+    const res = await volunteerList(params);
     tableData.value = res.list || [];
     pageParams.total = res.total || 0;
 };
@@ -106,13 +90,13 @@ const handleCurrentChange = (val) => {
 
 // 删除
 const handleDel = (item) => {
-    ElMessageBox.confirm('确定删除该用户吗?')
+    ElMessageBox.confirm('确定删除该人员吗?')
         .then(() => {
             const params = {
-                ids: item.userId,
+                ids: item.id,
             };
 
-            userRemove(params).then((res) => {
+            volunteerRemove(params).then((res) => {
                 if (res.code === 0) {
                     ElMessage({ type: 'success', message: '删除成功' });
                     getList();
@@ -130,6 +114,13 @@ const handleDel = (item) => {
 // 编辑
 const handleEdit = (item) => {
     emit('emitVolunteer', item);
+};
+// 查看详情
+const handleDetail = (item) => {
+    router.push({
+        name: 'doctorDetail',
+        query: { id: item.id },
+    });
 };
 
 defineExpose({ getList });

@@ -84,15 +84,15 @@ onMounted(() => {
     position: relative;
     color: #fff;
     box-sizing: border-box;
-    font-size: 28px;
+    font-size: 14px;
     font-weight: 900;
-    line-height: 42px;
+    line-height: 21px;
 
     &__item {
         position: absolute;
         display: inline-block;
-        width: 125px;
-        height: 88px;
+        width: 63px;
+        height: 44px;
         text-align: center;
         background: url('../assets/response-time-bg1.png');
         background-repeat: no-repeat;
@@ -101,7 +101,7 @@ onMounted(() => {
         justify-content: center;
 
         .item-box {
-            margin-left: -10px;
+            margin-left: -5px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -110,44 +110,44 @@ onMounted(() => {
 
         &-title {
             color: rgba(255, 255, 255, 0.65);
-            font-size: 14px;
+            font-size: 7px;
             font-weight: 400;
-            line-height: 21px;
+            line-height: 11px;
         }
     }
 
     .unit-style {
-        font-size: 18px;
+        font-size: 9px;
     }
 
     .item1 {
         top: 0px;
-        left: 82px;
+        left: 41px;
         color: #00ddff;
     }
     .item2 {
         top: 0px;
-        left: 385px;
+        left: 192px;
     }
     .item3 {
-        width: 376px;
-        height: 217px;
-        top: 40px;
+        width: 188px;
+        height: 109px;
+        top: 20px;
         left: 50%;
         transform: translateX(-50%);
         background-image: url('../assets/response-time-bg2.png');
         .item-box {
-            margin-top: 55px;
+            margin-top: 28px;
             margin-left: 0px;
         }
     }
     .item4 {
-        top: 145px;
-        left: 39px;
+        top: 72px;
+        left: 20px;
     }
     .item5 {
-        top: 145px;
-        left: 425px;
+        top: 73px;
+        left: 212px;
     }
 }
 </style>

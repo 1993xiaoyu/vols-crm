@@ -1,25 +1,13 @@
 <template>
     <div class="app-container" v-if="!isFullScreen">
-        <div class="main-container">
-            <leftSideBar
-                :sideBarConfig="sideBarConfig"
-                @handleSideBar="handleSideBar"
-            />
-        </div>
+        <leftSideBar
+            :sideBarConfig="sideBarConfig"
+            @handleSideBar="handleSideBar"
+        />
         <div class="content-container">
             <pageHeader :sideBarConfig="sideBarConfig" />
             <div class="content-detail">
-                <secondSideBar
-                    :secondSideBarConfig="secondSideBarConfig"
-                    @handleSideBar="handleSecondSideBar"
-                    v-if="secondSideBarConfig.list.length"
-                />
-                <div
-                    :class="{
-                        'content-detail-right': secondSideBarConfig.list.length,
-                        'content-detail-box': !secondSideBarConfig.list.length,
-                    }"
-                >
+                <div class="content-detail-box">
                     <router-view></router-view>
                 </div>
             </div>
@@ -36,33 +24,17 @@ import { useRouter } from 'vue-router';
 
 import leftSideBar from '@/components/left-sidebar/index.vue';
 import pageHeader from '@/components/page-header/index.vue';
-import secondSideBar from '@/components/second-sidebar/index.vue';
 import useSideBar from '@/composables/useSideBar';
 
-const {
-    sideBarConfig,
-    secondSideBarConfig,
-    setCurrSideBarName,
-    setSecondCurrSideBarName,
-    getMenuData,
-} = useSideBar();
+const { sideBarConfig, setCurrSideBarName, getMenuData } = useSideBar();
 const router = useRouter();
 
-const handleSideBar = (item) => {
+const handleSideBar = (item, sideData) => {
     if (!item) {
         return;
     }
 
-    setCurrSideBarName(item);
-    if (item.children && item.children.length) {
-        handleSecondSideBar(item.children[0]);
-    } else {
-        router.push({ name: item.name });
-    }
-};
-
-const handleSecondSideBar = (item) => {
-    setSecondCurrSideBarName(item);
+    setCurrSideBarName(sideData);
     router.push({ name: item.name });
 };
 
@@ -75,12 +47,6 @@ watch(
 
         if (name) {
             isFullScreen.value = meta.isFullScreen || false;
-            const { parentName } = meta;
-            const currParData = sideBarConfig.list.filter(
-                (item) => item.name === parentName
-            );
-
-            // setCurrSideBarName(currParData[0]);
         }
     },
     { immediate: true }
