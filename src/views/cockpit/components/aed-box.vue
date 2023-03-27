@@ -6,7 +6,7 @@
                 <div class="aed-box__detail-num">
                     {{ formatNum(aedObj[item.valueKey]) }}
                 </div>
-                <span class="aed-box__detail-title">{{ item.title }}</span>
+                <div class="aed-box__detail-title">{{ item.title }}</div>
             </div>
         </div>
     </div>
@@ -42,8 +42,11 @@ const aedObj = reactive({
     disconnectNum: 0,
     earlyWarningNum: 0,
 });
-const getCensusAedData = async () => {
-    const res = await getAedStatisticss();
+const getCensusAedData = async (data) => {
+    const params = {
+        ...data,
+    };
+    const res = await getAedStatisticss(params);
     const {
         total_cnt,
         normal_cnt,
@@ -59,9 +62,13 @@ const getCensusAedData = async () => {
     aedObj.disconnectNum = disconnectNum;
     aedObj.earlyWarningNum = earlyWarningNum;
 };
-onMounted(() => {
-    getCensusAedData();
-});
+onMounted(() => {});
+
+const init = (data) => {
+    getCensusAedData(data);
+};
+
+defineExpose({ init });
 </script>
 
 <style lang="less" scoped>
@@ -81,8 +88,7 @@ onMounted(() => {
 
     &__detail {
         color: #fff;
-        line-height: 10px;
-        font-size: 10px;
+
         &-num {
             font-size: 16px;
             line-height: 16px;
@@ -96,7 +102,10 @@ onMounted(() => {
             -webkit-text-fill-color: transparent;
         }
         &-title {
-            transform: scale(0.8);
+            font-size: 12px;
+            line-height: 12px;
+            transform: scale(0.5);
+            transform-origin: left top;
         }
     }
 }

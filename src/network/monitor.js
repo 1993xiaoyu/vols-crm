@@ -1,7 +1,7 @@
 // 封装一些用的API，不用把URL写在页面中，直接调用即可
 import net from '@/utils/request.js';
 
-const baseURL = 'http://test.forjhntech.online/api';
+const baseURL = `${location.protocol}//test.forjhntech.online/api`;
 
 export function getEventList(params) {
     return net.post(`${baseURL}/cockpit/eventList`, params);
@@ -21,4 +21,12 @@ export function getAedStatisticss(params) {
 
 export function getVolunteerStatistics(params) {
     return net.post(`${baseURL}/cockpit/volunteerStatistics`, params);
+}
+
+export function getStatusList(params) {
+    return net.post(`${baseURL}/cockpit/statusList`, params);
+}
+
+export function getVolunteerThermodynamics(params) {
+    return net.post(`${baseURL}/cockpit/volunteerThermodynamics`, params);
 }

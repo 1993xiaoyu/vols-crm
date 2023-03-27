@@ -5,8 +5,8 @@
         label-width="80px"
         :inline="true"
     >
-        <el-form-item label="关键字" prop="volunteerId">
-            <el-input v-model="ruleForm.volunteerId" />
+        <el-form-item label="手机号" prop="volunteerPhone">
+            <el-input v-model="ruleForm.volunteerPhone" />
         </el-form-item>
         <el-form-item prop="trainTime" label="加入时间">
             <el-date-picker
@@ -50,7 +50,7 @@ const emit = defineEmits(['editDialogShow', 'searchList']);
 
 const ruleFormRef = ref();
 const ruleForm = reactive({
-    volunteerId: '',
+    volunteerPhone: '',
     volunteerState: '',
     trainTime: '',
 });

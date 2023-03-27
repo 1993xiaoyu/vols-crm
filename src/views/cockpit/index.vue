@@ -1,62 +1,78 @@
 <template>
-    <div class="cockpit-box">
-        <div class="center-box">
-            <div class="center-box__title">5分钟急救圈信息驾驶舱平台</div>
+    <div class="full-box" v-loading.fullscreen.lock="fullscreenLoading">
+        <div
+            class="cockpit-box"
+            :style="{
+                transform: `scale(${scaleValue})`,
+            }"
+        >
+            <div class="center-box">
+                <div class="center-box__title">5分钟急救圈信息驾驶舱平台</div>
+            </div>
+            <div class="cockpit-detail">
+                <div class="ssv-box" v-if="userInfoRef.username">
+                    <SSV @handleTokenInfo="handleTokenInfo" />
+                </div>
+                <ContainerBox class="box1" title="志愿者统计">
+                    <VoluteerBox ref="voluteerBoxRef" />
+                </ContainerBox>
+
+                <ContainerBox class="box2" title="今日值班人员">
+                    <DutyBox />
+                </ContainerBox>
+
+                <ContainerBox class="box3" title="急救导师-急救专家">
+                    <DoctorBox />
+                </ContainerBox>
+
+                <ContainerBox class="box4" title="AED盘点">
+                    <AedBox ref="aedBoxRef" />
+                </ContainerBox>
+
+                <ContainerBox class="box5" title="响应系统状态">
+                    <WorkBox ref="workBoxRef" />
+                </ContainerBox>
+
+                <ContainerBox class="box6" title="响应异常清单">
+                    <AbnormalBox ref="abnormalBoxRef" />
+                </ContainerBox>
+
+                <ContainerBox title="实时救援监控" class="map-box box7">
+                    <DataDivisionBox />
+                    <!-- <MapData /> -->
+                </ContainerBox>
+
+                <ContainerBox class="box8" title="待响应事件">
+                    <RespondBox ref="respondBoxRef" />
+                </ContainerBox>
+
+                <ContainerBox title="紧急救援现场" class="scene-box box9">
+                    <SceneBox />
+                </ContainerBox>
+
+                <ContainerBox class="box10" title="响应时间统计">
+                    <ResponseTimeBox />
+                </ContainerBox>
+
+                <ContainerBox class="box11" title="累计疾病分类">
+                    <DiseaseBox />
+                </ContainerBox>
+
+                <ContainerBox class="box12" title="预警信息">
+                    <WaringBox ref="waringBoxRef" />
+                </ContainerBox>
+            </div>
+
+            <div class="test-text">测试版</div>
         </div>
-        <div class="cockpit-detail">
-            <ContainerBox class="box1" title="志愿者统计">
-                <VoluteerBox />
-            </ContainerBox>
-
-            <ContainerBox class="box2" title="今日值班人员">
-                <DutyBox />
-            </ContainerBox>
-
-            <ContainerBox class="box3" title="急救导师/专家">
-                <DoctorBox />
-            </ContainerBox>
-
-            <ContainerBox class="box4" title="AED盘点">
-                <AedBox />
-            </ContainerBox>
-
-            <ContainerBox class="box5" title="响应系统状态">
-                <WorkBox />
-            </ContainerBox>
-
-            <ContainerBox class="box6" title="响应异常清单">
-                <AbnormalBox />
-            </ContainerBox>
-
-            <ContainerBox title="实时救援监控" class="map-box box7">
-                <DataDivisionBox />
-            </ContainerBox>
-
-            <ContainerBox class="box8" title="待响应事件">
-                <RespondBox />
-            </ContainerBox>
-
-            <ContainerBox title="紧急救援现场" class="scene-box box9">
-                <SceneBox />
-            </ContainerBox>
-
-            <ContainerBox class="box10" title="反应时间统计">
-                <ResponseTimeBox />
-            </ContainerBox>
-
-            <ContainerBox class="box11" title="今日疾病分类">
-                <DiseaseBox />
-            </ContainerBox>
-
-            <ContainerBox class="box12" title="预警信息">
-                <WaringBox />
-            </ContainerBox>
-        </div>
-
-        <div class="test-text">测试版</div>
     </div>
 </template>
 <script setup>
+import { ref, onBeforeUnmount, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { getQuery } from '@/utils/common';
+
+import SSV from './components/ssv.vue';
 import ContainerBox from './components/container-box.vue';
 import VoluteerBox from './components/volunteer-box.vue';
 import DutyBox from './components/duty-box.vue';
@@ -70,145 +86,230 @@ import ResponseTimeBox from './components/response-time-box.vue';
 import DiseaseBox from './components/disease-box.vue';
 import AbnormalBox from './components/abnormal-box.vue';
 import SceneBox from './components/scene-box.vue';
+import MapData from './components/map.vue';
+
+const router = useRouter();
+
+const voluteerBoxRef = ref();
+const aedBoxRef = ref();
+const workBoxRef = ref();
+const abnormalBoxRef = ref();
+const respondBoxRef = ref();
+
+const tokenInfo = ref({});
+const INIT_CLIENT_WIDTH = 1920;
+const scaleValue = ref(1);
+const computedScaleValue = () => {
+    scaleValue.value = document.documentElement.clientWidth / INIT_CLIENT_WIDTH;
+};
+const TenantUserInfo = localStorage.getItem('TenantUserInfo');
+const userInfo = TenantUserInfo ? JSON.parse(TenantUserInfo) : {};
+const userInfoRef = ref({ ...userInfo });
+const fullscreenLoading = ref(false);
+
+const componentInit = () => {
+    const commonParams = {
+        access_token: tokenInfo.value.access_token || '',
+        expires_in: tokenInfo.value.expires_in || '',
+        refresh_token: tokenInfo.value.refresh_token || '',
+        uid: tokenInfo.value.uid || '',
+        tenant_id: tokenInfo.value.tenantId,
+        platform: tokenInfo.value.platform,
+        active: getQuery('env'),
+    };
+
+    voluteerBoxRef.value?.init(commonParams);
+    aedBoxRef.value?.init(commonParams);
+    abnormalBoxRef.value?.init(commonParams);
+    respondBoxRef.value?.init(commonParams);
+};
+
+let initTimer = null;
+
+const handleTokenInfo = (data) => {
+    tokenInfo.value = data;
+
+    fullscreenLoading.value = false;
+    componentInit();
+    if (!initTimer) {
+        initTimer = setInterval(() => {
+            componentInit();
+        }, 10000);
+    }
+};
+
+window.addEventListener('resize', computedScaleValue);
+
+onMounted(() => {
+    fullscreenLoading.value = true;
+    computedScaleValue();
+    if (!userInfoRef.value.username) {
+        router.push({ name: 'login' });
+    }
+});
+
+onBeforeUnmount(() => {
+    if (initTimer) {
+        clearInterval(initTimer);
+        initTimer = null;
+    }
+    window.removeEventListener('resize', computedScaleValue);
+});
 </script>
 
 <style lang="less">
 .cockpit-box {
-    // transform: scale(0.5);
-
     .anchorBL {
         display: none;
+    }
+    .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+        background-color: #080f22;
+    }
+    .el-table__empty-block {
+        background-color: #080f22;
     }
 }
 </style>
 <style lang="less" scoped>
-.cockpit-box {
+.full-box {
     width: 100%;
-    // min-width: 3840px;
-    // min-height: 1080px;
     height: 100%;
-    overflow: auto;
-    padding: 100px 20px 50px 20px;
-    box-sizing: border-box;
     background: linear-gradient(
         rgba(8, 15, 34, 1) 0%,
         rgba(11, 18, 39, 1) 27.286%,
         rgba(10, 17, 37, 1) 100%
     );
-    border: 1px solid rgb(151, 151, 151);
+    user-select: none;
+}
+.cockpit-box {
+    width: 1920px;
+    height: 670px;
+    overflow: auto;
+    transform-origin: left top;
+    box-sizing: border-box;
 
     .center-box {
         position: absolute;
         top: 0;
-        left: 50%;
-        margin-left: -400px;
-        width: 800px;
-        height: 270px;
+        left: 470px;
+        width: 980px;
+        height: 540px;
         background: url(./assets/center-bg.png);
         background-repeat: no-repeat;
         background-size: cover;
         &__title {
-            font-size: 30px;
-            line-height: 30px;
+            font-size: 18px;
+            line-height: 18px;
             color: #fff;
             position: absolute;
-            top: 20px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
         }
     }
+
+    .cockpit-detail {
+        position: absolute;
+        width: 1920px;
+        height: 540px;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
 }
 .box1 {
     width: 295px;
-    height: 240px;
-    top: 120px;
+    height: 220px;
     left: 10px;
 }
 
 .box2 {
-    width: 330px;
+    width: 295px;
     height: 91px;
-    top: 120px;
     left: 315px;
 }
 
 .box3 {
-    width: 330px;
-    height: 119px;
-    top: 240px;
+    width: 295px;
+    height: 120px;
+    top: 100px;
     left: 315px;
 }
 
 .box4 {
-    width: 637px;
+    width: 600px;
     height: 92px;
-    top: 392px;
+    top: 232px;
     left: 10px;
 }
 
 .box5 {
     width: 295px;
     height: 256px;
-    top: 520px;
+    top: 340px;
     left: 10px;
     background-color: rgba(10, 17, 37, 1);
 }
 
 .box6 {
-    width: 332px;
+    width: 295px;
     height: 256px;
-    top: 520px;
+    top: 340px;
     left: 315px;
     background-color: rgba(10, 17, 37, 1);
 }
 
 .box7 {
     width: 680px;
-    height: 365px;
-    top: 120px;
-    left: 655px;
+    height: 323px;
+    // top: 120px;
+    left: 620px;
 }
 
 .box8 {
     width: 680px;
     height: 256px;
-    top: 520px;
-    left: 655px;
+    top: 340px;
+    left: 620px;
     background-color: rgba(10, 17, 37, 1);
 }
 
 .box9 {
     width: 602px;
-    height: 170px;
-    top: 120px;
-    left: 1345px;
+    height: 156px;
+    // top: 120px;
+    left: 1310px;
 }
 
 .box10 {
     width: 295px;
-    height: 167px;
-    top: 317px;
-    left: 1345px;
+    height: 156px;
+    top: 167px;
+    left: 1310px;
 }
 
 .box11 {
     width: 295px;
-    height: 167px;
-    top: 317px;
-    left: 1650px;
+    height: 156px;
+    top: 167px;
+    left: 1615px;
     background-color: rgba(10, 17, 37, 1);
 }
 
 .box12 {
     width: 602px;
     height: 256px;
-    top: 520px;
-    left: 1345px;
+    top: 340px;
+    left: 1310px;
 }
 .test-text {
     position: fixed;
-    left: 60%;
+    left: 200px;
     font-size: 30px;
     color: red;
+}
+.ssv-box {
+    position: fixed;
+    z-index: 22;
 }
 </style>

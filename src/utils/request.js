@@ -1,6 +1,6 @@
 import axios from 'axios'; // 引入
 import { ElMessage } from 'element-plus';
-
+import { filterParams } from './common';
 const config = {
     // baseURL: baseURL,
     // 因为跨域了，所以这里如果写的话会自动拼接，会有两份，所以隐藏了
@@ -38,7 +38,9 @@ _axios.interceptors.response.use(
     (err) => {
         if (err) {
             // 在这里关闭请求时的loading动画效果
-            console.log('请求网络失败');
+            location.href = 'https://test.forjhntech.online/#/login';
+
+            console.log('请求网络失败ddd');
         }
         return Promise.reject(err);
     }
@@ -48,21 +50,17 @@ _axios.interceptors.response.use(
 // 按理来说应该也可以封装其他的方法
 const net = {
     get(url = '', params = {}) {
-        const tenantUserInfo = JSON.parse(
-            localStorage.getItem('TenantUserInfo') ||
-                '{"access_token":"czmfvx7MuVS0ywzBwUQtml16KbcBVlXeCXapXdo1","tenant_id":"bc18fdb4yyryy","uid":"1611370458219806720"}'
-        );
         return new Promise((resolve, reject) => {
             _axios({
                 url,
-                params: { ...params, ...tenantUserInfo },
+                params: { ...params },
                 headers: {
                     'content-type': 'application/json',
                 },
                 method: 'GET',
             })
                 .then((res) => {
-                    console.log(res, '===getRes');
+                    // console.log(res, '===getRes');
 
                     if (res.status === 200 && res.data.code === 0) {
                         resolve(res.data.data);
@@ -80,24 +78,25 @@ const net = {
         });
     },
     post(url = '', params = {}) {
-        const tenantUserInfo =
-            {} ||
-            JSON.parse(
-                localStorage.getItem('TenantUserInfo') ||
-                    '{"access_token":"czmfvx7MuVS0ywzBwUQtml16KbcBVlXeCXapXdo1","tenant_id":"bc18fdb4yyryy","uid":"1611370458219806720"}'
-            );
+        const currParams = filterParams(params);
+        let currUrl = url;
+        if (url.indexOf('/list') && currParams.pageSize) {
+            currUrl = `${url}?pageSize=${params.pageSize}&pageNum=${params.pageNum}`;
+
+            delete currParams.pageSize;
+            delete currParams.pageNum;
+        }
+
         return new Promise((resolve, reject) => {
             _axios({
-                url,
-                data: { ...params, ...tenantUserInfo },
+                url: currUrl,
+                data: { ...currParams },
                 headers: {
                     'content-type': 'application/json',
                 },
                 method: 'POST',
             })
                 .then((res) => {
-                    console.log(res, '===getRes');
-
                     if (res.status === 200 && res.data.code === 0) {
                         resolve({
                             ...res.data.data,

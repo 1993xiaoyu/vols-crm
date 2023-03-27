@@ -23,9 +23,9 @@ import { formatNum } from '@/utils/common.js';
 
 const doctorList = [
     { title: '总数', valueKey: 'totalNum' },
-    { title: '急救专家数量', valueKey: 'specialistNum' },
-    { title: '急救导师数量', valueKey: 'supervisorNum' },
-    { title: '已参与培训人数', valueKey: 'traineesNum' },
+    { title: '急救专家', valueKey: 'specialistNum' },
+    { title: '周新增导师', valueKey: 'supervisorNum' },
+    { title: '周出勤导师', valueKey: 'traineesNum' },
 ];
 
 const doctorObj = reactive({
@@ -49,7 +49,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .duty-box {
-    padding: 12px 10px 6px 10px;
+    padding: 18px 20px 0 20px;
     display: flex;
     flex-wrap: wrap;
 
@@ -58,7 +58,7 @@ onMounted(() => {
         justify-content: space-between;
         color: #ffffff;
         padding: 0 10px;
-        width: 149px;
+        width: 122px;
         box-sizing: border-box;
         line-height: 28px;
         height: 28px;

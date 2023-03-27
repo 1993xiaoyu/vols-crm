@@ -2,7 +2,7 @@
     <div class="disease-box">
         <div
             id="diseaseChart"
-            :style="{ width: `${290 / 196}rem`, height: `${150 / 196}rem` }"
+            :style="{ width: '280px', height: '130px' }"
         ></div>
     </div>
 </template>

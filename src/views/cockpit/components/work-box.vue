@@ -1,9 +1,6 @@
 <template>
     <div class="work-box">
-        <div
-            id="myEcharts"
-            :style="{ width: `${260 / 196}rem`, height: `${190 / 196}rem` }"
-        ></div>
+        <div id="myEcharts" :style="{ width: '260px', height: '190px' }"></div>
     </div>
 </template>
 
@@ -57,7 +54,7 @@ const initChart = () => {
             left: '1%',
             right: '5%',
             bottom: '3%',
-            top: '0px',
+            top: '20px',
             containLabel: true,
         },
         yAxis: {

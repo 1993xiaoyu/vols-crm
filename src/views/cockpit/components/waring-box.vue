@@ -57,14 +57,29 @@ const waringObj = reactive({
         },
     ],
 });
-const getCensusWaringData = async () => {
+const getCensusWaringData = async (data) => {
+    // const params = {
+    //     access_token: data.access_token || '',
+    //     expires_in: data.expires_in || '',
+    //     refresh_token: data.refresh_token || '',
+    //     uid: data.uid || '',
+    //     tenant_id: data.tenantId,
+    //     platform: data.platform,
+    // };
     const res = await getCensusWaring();
 
     waringObj.list = res.list || [];
 };
+
 onMounted(() => {
-    getCensusWaringData();
+    init();
 });
+
+const init = (data) => {
+    getCensusWaringData(data);
+};
+
+defineExpose({ init });
 </script>
 
 <style lang="less">

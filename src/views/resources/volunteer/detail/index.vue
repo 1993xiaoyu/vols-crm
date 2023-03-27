@@ -39,7 +39,9 @@ const detailObj = ref({});
 // 请求列表
 const getDetail = async () => {
     const params = {
-        ids: id,
+        id,
+        pageSize: 1,
+        pageNum: 1,
     };
     const res = await volunteerList(params);
     const currData = res.list || [];

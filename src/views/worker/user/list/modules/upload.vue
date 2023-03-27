@@ -27,7 +27,7 @@
                     </div>
 
                     <el-upload
-                        action="http://101.42.31.6/api/system/user/export"
+                        action="//test.forjhntech.online/api/system/user/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"

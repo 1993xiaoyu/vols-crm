@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        title="批量导入志愿者"
+        title="批量更新巡检信息"
         width="40%"
         class="upload-dialog"
     >
@@ -27,7 +27,7 @@
                     </div>
 
                     <el-upload
-                        action="//test.forjhntech.online/api/system/volunteer/importData"
+                        action="//test.forjhntech.online/api/system/aed/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"
@@ -55,7 +55,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { importTemplate } from '@/network/volunteer.js';
+import { importTemplate } from '@/network/aed.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeUploadDialogShow']);
 const uploadRef = ref();

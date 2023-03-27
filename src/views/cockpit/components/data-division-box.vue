@@ -14,7 +14,7 @@
     <div
         class="map-box"
         id="mapBox"
-        :style="{ width: `${680 / 196}rem`, height: `${330 / 196}rem` }"
+        :style="{ width: '680px', height: '330px' }"
     ></div>
 </template>
 
@@ -949,7 +949,7 @@ onMounted(() => {
         z-index: 100;
 
         &__item {
-            width: 90px;
+            width: 92px;
             height: 45px;
             display: inline-flex;
             flex-direction: column;
@@ -973,6 +973,10 @@ onMounted(() => {
             }
 
             &-title {
+                font-size: 12px;
+                line-height: 12px;
+                transform: scale(0.7);
+                transform-origin: center;
                 &::before {
                     content: '';
                     display: inline-block;

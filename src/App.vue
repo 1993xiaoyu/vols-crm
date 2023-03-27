@@ -78,6 +78,8 @@ onMounted(() => {
         padding: 30px 20px;
         display: flex;
         box-sizing: border-box;
+        height: 88vh;
+        overflow: scroll;
         &-box {
             width: 100%;
         }

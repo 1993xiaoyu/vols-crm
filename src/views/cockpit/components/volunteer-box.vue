@@ -8,7 +8,7 @@
         </div>
         <div class="voluteer-box__item item2">
             <div class="item-box">
-                <span class="voluteer-box__item-title">本月打卡人数</span>
+                <span class="voluteer-box__item-title">今日新增人数</span>
                 <span>{{ formatNum(voluteerObj.monthClockNum) }}</span>
             </div>
         </div>
@@ -36,7 +36,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 
-import { getCensusVoluteer } from '@/network/cockpit.js';
+import { getVolunteerStatistics } from '@/network/monitor.js';
 import { formatNum } from '@/utils/common.js';
 const voluteerObj = reactive({
     todayClockNum: '',
@@ -44,26 +44,28 @@ const voluteerObj = reactive({
     activedNum: '',
     monthClockNum: '',
     rescuedNum: '',
+    tenant_id: 1,
 });
-const getCensusVoluteerData = async () => {
-    const res = await getCensusVoluteer();
-    const {
-        todayClockNum,
-        totalVolunteerNum,
-        activedNum,
-        monthClockNum,
-        rescuedNum,
-    } = res;
-    voluteerObj.todayClockNum = todayClockNum;
-    voluteerObj.totalVolunteerNum = totalVolunteerNum;
-    voluteerObj.activedNum = activedNum;
-    voluteerObj.monthClockNum = monthClockNum;
-    voluteerObj.rescuedNum = rescuedNum;
-    console.log(res);
+const getCensusVoluteerData = async (data) => {
+    const params = {
+        ...data,
+    };
+    const res = await getVolunteerStatistics(params);
+    const { total_cnt, total_rescued_cnt } = res.data;
+
+    voluteerObj.todayClockNum = total_rescued_cnt;
+    voluteerObj.totalVolunteerNum = total_cnt;
+    voluteerObj.activedNum = 0;
+    voluteerObj.monthClockNum = 0;
+    voluteerObj.rescuedNum = 0;
 };
-onMounted(() => {
-    getCensusVoluteerData();
-});
+const init = (data) => {
+    getCensusVoluteerData(data);
+};
+
+onMounted(() => {});
+
+defineExpose({ init });
 </script>
 
 <style lang="less" scoped>
@@ -99,24 +101,25 @@ onMounted(() => {
         &-title {
             color: rgba(255, 255, 255, 0.65);
 
-            font-size: 8px;
-            font-weight: 400;
+            font-size: 12px;
             line-height: 12px;
+            transform: scale(0.7);
+            transform-origin: center;
         }
     }
 
     .item1 {
-        top: -10px;
+        top: -20px;
         left: 40px;
     }
     .item2 {
-        top: -10px;
+        top: -20px;
         left: 193px;
     }
     .item3 {
         width: 88px;
         height: 136px;
-        top: 30px;
+        top: 20px;
         left: 104px;
         background-image: url('../assets/voluteer-bg2.png');
         .item-box {
@@ -124,11 +127,11 @@ onMounted(() => {
         }
     }
     .item4 {
-        top: 90px;
+        top: 80px;
         left: 23px;
     }
     .item5 {
-        top: 90px;
+        top: 80px;
         left: 210px;
     }
 }

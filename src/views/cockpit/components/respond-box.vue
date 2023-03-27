@@ -12,7 +12,7 @@
             <el-table-column
                 prop="address"
                 label="救援事件地点"
-                width="180"
+                width="170"
                 show-overflow-tooltip
             >
             </el-table-column>
@@ -22,15 +22,37 @@
                 show-overflow-tooltip
             />
 
-            <el-table-column prop="emergency_status_str" label="响应状态" />
-            <el-table-column
+            <el-table-column prop="emergency_status_str" label="响应状态">
+                <template #default="scope">
+                    <span
+                        :class="
+                            scope.row.emergency_status_str === '已完成'
+                                ? 'status-succ'
+                                : 'status-load'
+                        "
+                    ></span>
+                    <span>{{ scope.row.emergency_status_str }}</span>
+                </template>
+            </el-table-column>
+
+            <!-- <el-table-column
                 prop="emergency_status_str"
                 label="志愿者状态"
                 width="150"
-            />
+            >
+                <template #default="scope">
+                    <span
+                        :class="
+                            scope.row.emergency_status_str === '已完成'
+                                ? 'status-succ'
+                                : 'status-load'
+                        "
+                    ></span>
+                    <span>{{ scope.row.emergency_status_str }}</span>
+                </template>
+            </el-table-column> -->
 
-            <el-table-column prop="duration" label="已呼救时长">
-            </el-table-column>
+            <el-table-column prop="duration" label="已呼救时长" />
         </el-table>
     </div>
 </template>
@@ -45,57 +67,43 @@ import {
 } from '@/network/monitor.js';
 
 const waringObj = reactive({
-    list: [
-        {
-            address: '福田站',
-            submit_time: 1675051390,
-            emergency_status_str: '已完成',
-            latitude: 22.53812218,
-            mobile: '18612518278',
-            img_cnt: 0,
-            duration: 67,
-            emergency_id: 'bc6a1sxhoyryy',
-            emergency_type: 4,
-            emergency_type_str: '视频呼救',
-            head_url:
-                'https://static-1307211266.cos.ap-shanghai.myqcloud.com/o6Dbe5TK-UVoapASMs4HmDi1t1U4/1663938331864572493_364_1663938331558',
-            emergency_status: 6,
-            name: 'yineima',
-            time_tag: '2023-01-30',
-            video_cnt: 2,
-            longitude: 114.05724335,
-        },
-    ],
+    list: [],
 });
-const getCensusRespondData = async () => {
-    const res = await getEventList({
+const getCensusRespondData = async (data) => {
+    const params = {
+        ...data,
         page: 1,
         size: 10,
-        c: '1611370458219806720',
-    });
+    };
+    const res = await getEventList(params);
 
     waringObj.list = res.data || [];
 };
 
 const handleRow = async (row) => {
-    const res = await getEventDetails({
-        emergency_id: row.emergency_id,
-        emergency_type: row.emergency_type,
-    });
+    // const res = await getEventDetails({
+    //     emergency_id: row.emergency_id,
+    //     emergency_type: row.emergency_type,
+    // });
 
     console.log(res, '===getEventDetails');
 };
 
-const getCensusStatistics = async () => {
-    const res = await getEventStatistics({ platform: 0 });
-
-    console.log(res, '===getEventStatistics');
+const getCensusStatistics = async (data) => {
+    const params = {
+        ...data,
+    };
+    const res = await getEventStatistics(params);
 };
 
-onMounted(() => {
-    getCensusRespondData();
-    getCensusStatistics();
-});
+onMounted(() => {});
+
+const init = (data) => {
+    getCensusRespondData(data);
+    // getCensusStatistics(data);
+};
+
+defineExpose({ init });
 </script>
 
 <style lang="less">
@@ -150,4 +158,18 @@ onMounted(() => {
 }
 </style>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.status-succ,
+.status-load {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: rgb(0, 201, 255);
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+.status-load {
+    background: rgb(255, 138, 61);
+}
+</style>

@@ -24,7 +24,7 @@ import Search from './modules/search.vue';
 import EditDialog from '../components/edit-dialog.vue';
 
 const searchData = reactive({
-    volunteerId: '',
+    volunteerPhone: '',
     volunteerState: '',
     trainTime: '',
 });
@@ -36,7 +36,7 @@ const volunteerDialogShow = (data) => {
 };
 
 const searchList = (data) => {
-    searchData.volunteerId = data.volunteerId || '';
+    searchData.volunteerPhone = data.volunteerPhone || '';
     searchData.volunteerState = data.volunteerState || '';
     searchData.trainTime = data.trainTime || '';
 

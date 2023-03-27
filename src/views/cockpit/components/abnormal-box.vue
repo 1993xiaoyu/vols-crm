@@ -7,19 +7,27 @@
             :border="false"
         >
             <el-table-column
-                prop="history"
+                prop="name"
                 label="社康/医院"
                 show-overflow-tooltip
             >
             </el-table-column>
-            <el-table-column prop="status" label="状态" width="50">
+            <el-table-column prop="status" label="状态" width="70">
+                <template #default="scope">
+                    <span>{{
+                        scope.row.status === 2 ? '不在线' : '在线'
+                    }}</span>
+                </template>
             </el-table-column>
             <el-table-column
-                prop="date"
+                prop="last_time"
                 label="上次上线时间"
-                width="125"
+                width="110"
                 show-overflow-tooltip
             >
+                <template #default="scope">
+                    <span>{{ parseDate(scope.row.last_time) }}</span>
+                </template>
             </el-table-column>
         </el-table>
     </div>
@@ -27,41 +35,30 @@
 
 <script setup>
 import { reactive, onMounted } from 'vue';
-
-import { getCensusAbnormal } from '@/network/cockpit.js';
+import dayjs from 'dayjs';
+import { getStatusList } from '@/network/monitor.js';
 
 const abnormalObj = reactive({
-    list: [
-        {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄',
-        },
-        {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄',
-        },
-        {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄',
-        },
-        {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄',
-        },
-    ],
+    list: [],
 });
-const getCensusAbnormalData = async () => {
-    const res = await getCensusAbnormal();
-
-    abnormalObj.list = res.list || [];
+const getCensusAbnormalData = async (data) => {
+    const params = {
+        ...data,
+    };
+    const res = await getStatusList(params);
+    abnormalObj.list = res.clients || [];
 };
-onMounted(() => {
-    getCensusAbnormalData();
-});
+const parseDate = (date, format = 'YYYY-MM-DD') => {
+    return date ? dayjs(date * 1000).format(format) : '--';
+};
+
+onMounted(() => {});
+
+const init = (data) => {
+    getCensusAbnormalData(data);
+};
+
+defineExpose({ init });
 </script>
 
 <style lang="less">

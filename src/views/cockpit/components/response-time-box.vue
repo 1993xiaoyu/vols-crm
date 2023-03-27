@@ -2,7 +2,7 @@
     <div class="respinseTime-box">
         <div class="respinseTime-box__item item1">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均响应</span>
+                <span class="respinseTime-box__item-title">系统响应</span>
                 <div>
                     {{ responseTimeObj.averageResponseTime
                     }}<span class="unit-style">秒</span>
@@ -11,7 +11,7 @@
         </div>
         <div class="respinseTime-box__item item2">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均出车</span>
+                <span class="respinseTime-box__item-title">志愿者响应</span>
                 <div>
                     {{ responseTimeObj.averageSetOutTime
                     }}<span class="unit-style">分钟</span>
@@ -21,7 +21,7 @@
 
         <div class="respinseTime-box__item item3">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均救援</span>
+                <span class="respinseTime-box__item-title">平均总救援</span>
                 <div>
                     {{ responseTimeObj.averageRescueTime
                     }}<span class="unit-style">分钟</span>
@@ -30,7 +30,7 @@
         </div>
         <div class="respinseTime-box__item item4">
             <div class="item-box">
-                <span class="respinseTime-box__item-title"> 平均到达</span>
+                <span class="respinseTime-box__item-title">社康响应</span>
                 <div>
                     {{ responseTimeObj.averageArriveTime
                     }}<span class="unit-style">分钟</span>
@@ -39,7 +39,7 @@
         </div>
         <div class="respinseTime-box__item item5">
             <div class="item-box">
-                <span class="respinseTime-box__item-title">平均到院</span>
+                <span class="respinseTime-box__item-title">驾驶舱响应</span>
                 <div>
                     {{ responseTimeObj.averageArriveHospitalTime
                     }}<span class="unit-style">分钟</span>
@@ -110,9 +110,11 @@ onMounted(() => {
 
         &-title {
             color: rgba(255, 255, 255, 0.65);
-            font-size: 7px;
             font-weight: 400;
-            line-height: 11px;
+            font-size: 12px;
+            line-height: 12px;
+            transform: scale(0.7);
+            transform-origin: center;
         }
     }
 

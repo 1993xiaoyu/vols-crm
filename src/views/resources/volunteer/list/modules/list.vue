@@ -11,6 +11,7 @@
                 </el-tag>
             </template>
         </el-table-column>
+        <el-table-column prop="volunteerPhone" label="联系方式" width="180" />
         <el-table-column prop="volunteerOccupation" label="职业" width="180" />
         <el-table-column
             prop="volunteerHomeAddress"
@@ -70,7 +71,7 @@ const props = defineProps({
 const router = useRouter();
 const tableData = ref();
 const pageParams = reactive({
-    pageSize: 20,
+    pageSize: 10,
     pageNum: 1,
     total: 0,
 });

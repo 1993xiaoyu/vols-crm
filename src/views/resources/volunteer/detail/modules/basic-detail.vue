@@ -93,6 +93,7 @@ const detailList = [
         display: inline-block;
         vertical-align: top;
         margin-bottom: 20px;
+        font-size: 14px;
 
         &-title {
             color: #707077;

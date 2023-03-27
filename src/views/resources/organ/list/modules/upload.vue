@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        title="批量导入志愿者"
+        title="批量导入机构"
         width="40%"
         class="upload-dialog"
     >
@@ -27,12 +27,10 @@
                     </div>
 
                     <el-upload
-                        action="//test.forjhntech.online/api/system/volunteer/importData"
+                        action="//test.forjhntech.online/api/system/mechanism/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"
-                        :on-success="handleSuccess"
-                        :on-error="handleError"
                         accept="xsxl"
                         :limit="1"
                         :multiple="false"
@@ -55,7 +53,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { importTemplate } from '@/network/volunteer.js';
+import { importTemplate } from '@/network/institution.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeUploadDialogShow']);
 const uploadRef = ref();
@@ -98,7 +96,9 @@ const handleChange = (uploadFile) => {
 
 const beforeUpload = () => {
     const file = fileList.value;
+    console.log(file, '==file');
     const typeAll = ['xlsx', 'XLSX'];
+
     const type = file.name.split('.')[1];
     const size = file.size / 1024 / 1024;
     let isRight = true;
@@ -129,21 +129,6 @@ const submitUpload = () => {
 const closeDialog = () => {
     fileList.value = '';
     emit('closeUploadDialogShow', false);
-};
-const handleSuccess = (res) => {
-    console.log(res, '===success');
-    ElMessage({
-        type: 'success',
-        message: '上传成功',
-    });
-    closeDialog();
-};
-const handleError = (res) => {
-    ElMessage({
-        type: 'waring',
-        message: '请检查文件，上传失败',
-    });
-    console.log(res, '===error');
 };
 </script>
 

@@ -36,24 +36,20 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .duty-box {
-    padding: 14px 10px 10px;
+    padding: 19px 10px;
     display: flex;
 
     &__item {
         display: inline-flex;
         flex: 1;
-        img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
+        align-items: center;
+
         .duty-box__avatar {
             display: inline-block;
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 5px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -73,16 +69,19 @@ onMounted(() => {
 
     &__detail {
         color: #fff;
-        line-height: 9px;
-        font-size: 9px;
+        font-size: 12px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         &-tip {
-            font-size: 6px;
-            line-height: 1.2;
             color: rgba(255, 255, 255, 0.65);
-            margin-top: 5px;
+            transform: scale(0.7);
+            font-size: 12px;
+            line-height: 12px;
+            transform-origin: left top;
+            white-space: nowrap; //让文本不换行，在同一行里面
+            overflow: hidden; //让超出的范围进行隐藏
+            text-overflow: ellipsis; //超出的部分用省略号表示
         }
     }
 }
