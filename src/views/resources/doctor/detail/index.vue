@@ -1,7 +1,7 @@
 <template>
     <div class="voluteeer-detail">
         <div class="voluteeer-detail-title">
-            志愿者详情 - {{ detailObj.volunteerName }}
+            医护人员 - {{ detailObj.tutorName }}
             <div>
                 <el-button @click="goBack">返回</el-button>
             </div>
@@ -14,21 +14,15 @@
             <el-tab-pane label="基础信息" name="1">
                 <BasicDetail :detailObj="detailObj" />
             </el-tab-pane>
-            <el-tab-pane label="打卡记录" name="2">
-                <Attendance :detailObj="detailObj" />
-            </el-tab-pane>
-            <el-tab-pane label="救援记录" name="3">
-                <Rescue :detailObj="detailObj" />
-            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 <script setup>
 import { getCurrentInstance, onMounted, ref } from 'vue';
-import { volunteerList } from '@/network/volunteer.js';
+
+import { tutorList } from '@/network/tutor.js';
+
 import BasicDetail from './modules/basic-detail.vue';
-import Attendance from './modules/attendance.vue';
-import Rescue from './modules/rescue.vue';
 
 const instance = getCurrentInstance();
 const { $router, $route } = instance.appContext.config.globalProperties;
@@ -41,7 +35,7 @@ const getDetail = async () => {
     const params = {
         ids: id,
     };
-    const res = await volunteerList(params);
+    const res = await tutorList(params);
     const currData = res.list || [];
     detailObj.value = currData[0] || {};
 };

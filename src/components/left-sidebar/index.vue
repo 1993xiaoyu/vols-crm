@@ -139,6 +139,7 @@ const isCollapse = ref(false);
 }
 .left-sidebar__collapse {
     width: 240px;
+    overflow: scroll;
 }
 .left-sidebar-item-alone {
     .el-sub-menu__icon-arrow {

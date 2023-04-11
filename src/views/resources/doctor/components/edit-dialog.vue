@@ -3,77 +3,143 @@
         v-model="dialogVisible"
         :title="currDialogType === 'add' ? '新增医护人员' : '编辑医护人员'"
         width="60%"
-        class="volunteer-dialog"
+        class="tutor-dialog"
     >
         <el-form
             ref="ruleFormRef"
             :model="ruleForm"
-            :rules="rules"
             label-width="100px"
             status-icon
             :inline="true"
         >
-            <div class="volunteer-dialog__title">基本信息</div>
-            <el-form-item label="姓名" prop="volunteerName" required>
-                <el-input v-model="ruleForm.volunteerName" />
+            <el-form-item
+                label="姓名"
+                prop="tutorName"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.tutorName" />
             </el-form-item>
-            <el-form-item label="状态" prop="volunteerState">
+            <el-form-item label="状态" prop="tutorState">
                 <el-switch
-                    v-model="ruleForm.volunteerState"
+                    v-model="ruleForm.tutorState"
                     active-value="0"
                     inactive-value="1"
                 />
             </el-form-item>
-            <el-form-item label="性别" prop="volunteerSex">
-                <el-radio-group v-model="ruleForm.volunteerSex">
+            <el-form-item label="性别" prop="tutorSex">
+                <el-radio-group v-model="ruleForm.tutorSex">
                     <el-radio label="0">男</el-radio>
                     <el-radio label="1">女</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="手机号" prop="volunteerPhone" required>
-                <el-input v-model="ruleForm.volunteerPhone" />
-            </el-form-item>
-
-            <el-form-item label="医院" prop="volunteerOccupation" required>
+            <el-form-item
+                label="学历"
+                prop="tutorEducation"
+                required
+                :show-message="false"
+            >
                 <el-select
-                    v-model="ruleForm.volunteerOccupation"
+                    v-model="ruleForm.tutorEducation"
+                    placeholder="请选择学历"
+                >
+                    <el-option
+                        :label="item.qualification"
+                        :value="item.id"
+                        v-for="item in qualificationList"
+                    />
+                </el-select>
+            </el-form-item>
+            <el-form-item
+                label="医院"
+                prop="tutorHospital"
+                required
+                :show-message="false"
+            >
+                <el-select
+                    v-model="ruleForm.tutorHospital"
                     placeholder="请选择医院"
+                    filterable
                 >
-                    <el-option label="教师" value="1" />
-                    <el-option label="医生" value="2" />
+                    <el-option
+                        :label="item.hospital"
+                        :value="item.id"
+                        :key="item.id"
+                        v-for="item in hospitalList"
+                    />
                 </el-select>
             </el-form-item>
-
-            <el-form-item label="科室" prop="volunteerEducation" required>
+            <el-form-item
+                label="科室"
+                prop="tutorDepartment"
+                required
+                :show-message="false"
+            >
                 <el-select
-                    v-model="ruleForm.volunteerEducation"
+                    v-model="ruleForm.tutorDepartment"
                     placeholder="请选择科室"
+                    filterable
                 >
-                    <el-option label="博士" value="1" />
-                    <el-option label="研究生" value="2" />
-                    <el-option label="本科" value="3" />
-                    <el-option label="大专" value="4" />
-                    <el-option label="其它" value="5" />
+                    <el-option
+                        :label="item.department"
+                        :value="item.id"
+                        :key="item.id"
+                        v-for="item in departmentList"
+                    />
+                </el-select>
+            </el-form-item>
+            <el-form-item
+                label="职称"
+                prop="tutorTitle"
+                required
+                :show-message="false"
+                filterable
+            >
+                <el-select
+                    v-model="ruleForm.tutorTitle"
+                    placeholder="请选择职称"
+                >
+                    <el-option
+                        :label="item.title"
+                        :value="item.id"
+                        :key="item.id"
+                        v-for="item in titleList"
+                    />
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="职称" prop="volunteerStreet" required>
-                <el-input v-model="ruleForm.volunteerStreet" />
+            <el-form-item
+                label="手机号"
+                prop="tutorPhone"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.tutorPhone" />
             </el-form-item>
 
-            <el-form-item label="家庭住址" prop="volunteerHomeAddress">
-                <el-input v-model="ruleForm.volunteerHomeAddress" />
+            <el-form-item
+                label="出生日期"
+                prop="tutorBirthday"
+                required
+                :show-message="false"
+            >
+                <el-date-picker
+                    v-model="ruleForm.tutorBirthday"
+                    type="date"
+                    placeholder="请选择培训日期"
+                    style="width: 100%"
+                    value-format="YYYY-MM-DD"
+                />
+            </el-form-item>
+            <el-form-item
+                label="家庭地址"
+                prop="tutorHomeAddress"
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.tutorHomeAddress" />
             </el-form-item>
 
-            <el-form-item label="身份证号" prop="volunteerIdiccid">
-                <el-input v-model="ruleForm.volunteerIdiccid" />
-            </el-form-item>
-
-            <el-form-item label="公司地址" prop="volunteerCompanyAddress">
-                <el-input v-model="ruleForm.volunteerCompanyAddress" />
-            </el-form-item>
-
-            <div class="volunteer-dialog__btns">
+            <div class="tutor-dialog__btns">
                 <el-button type="primary" @click="submitForm(ruleFormRef)"
                     >确定</el-button
                 >
@@ -84,9 +150,27 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue';
-import { volunteerAdd, volunteerEdit } from '@/network/volunteer.js';
+import { ref, computed } from 'vue';
+import { tutorAdd, tutorEdit } from '@/network/tutor.js';
 import { ElMessage } from 'element-plus';
+import useEnum from '@/composables/enum';
+
+const {
+    qualificationList,
+    hospitalList,
+    departmentList,
+    titleList,
+    getQualificationData,
+    getHospitalData,
+    getDepartmentData,
+    getTitleData,
+} = useEnum();
+
+getQualificationData();
+getHospitalData();
+getDepartmentData();
+getTitleData();
+
 const emit = defineEmits(['closeEditDialogShow', 'refreshList']);
 
 const props = defineProps({
@@ -98,67 +182,18 @@ const props = defineProps({
 
 const ruleFormRef = ref();
 const defData = {
-    volunteerName: '',
-    volunteerState: '0',
-    volunteerSex: '0',
-    volunteerOccupation: '',
-    volunteerEducation: '',
-    volunteerPhone: '',
-    volunteerStreet: '',
-    volunteerHomeAddress: '',
-    volunteerCompanyName: '',
-    volunteerCompanyAddress: '',
-    volunteerIdiccid: '',
+    tutorBirthday: '',
+    tutorName: '',
+    tutorState: '0',
+    tutorSex: '0',
+    tutorEducation: '',
+    tutorHospital: '',
+    tutorDepartment: '',
+    tutorTitle: '',
+    tutorPhone: '',
+    tutorHomeAddress: '',
 };
 const ruleForm = ref({});
-
-const rules = reactive({
-    volunteerName: [
-        {
-            required: true,
-            message: '请填写姓名',
-            trigger: 'blur',
-        },
-    ],
-    volunteerOccupation: [
-        {
-            required: true,
-            message: '请选择科室',
-            trigger: 'blur',
-        },
-    ],
-    volunteerEducation: [
-        {
-            required: true,
-            message: '请选择医院',
-            trigger: 'blur',
-        },
-    ],
-
-    classNo: [
-        {
-            required: true,
-            message: '请填写手机号',
-            trigger: 'blur',
-        },
-    ],
-
-    trainHospital: [
-        {
-            required: true,
-            message: '请填写职称',
-            trigger: 'blur',
-        },
-    ],
-
-    trainAddress: [
-        {
-            required: true,
-            message: '请填写志愿者培训地址',
-            trigger: 'blur',
-        },
-    ],
-});
 
 const currDialogType = ref('add');
 
@@ -167,11 +202,9 @@ const submitForm = async (formEl) => {
     await formEl.validate((valid) => {
         if (valid) {
             const currFun =
-                currDialogType.value === 'add' ? volunteerAdd : volunteerEdit;
+                currDialogType.value === 'add' ? tutorAdd : tutorEdit;
             currFun({
                 ...ruleForm.value,
-                trainTime:
-                    ruleForm.value.startTime + '~' + ruleForm.value.endTime,
             }).then((res) => {
                 if (res.code === 0) {
                     ElMessage({ type: 'success', message: '操作成功' });
@@ -190,7 +223,7 @@ const submitForm = async (formEl) => {
 };
 
 const closeDialog = () => {
-    initDialog();
+    //  initDialog();
     emit('closeEditDialogShow', false);
     // if (!formEl) return;
     // formEl.resetFields();
@@ -206,26 +239,26 @@ const dialogVisible = computed({
         return props.show;
     },
     set(val) {
-        initDialog();
         return val;
     },
 });
 
-const setDialogData = (item) => {
-    const trainTime = item.trainTime.split('~') || [];
-    ruleForm.value = {
-        ...item,
-        startTime: trainTime[0] || '',
-        endTime: trainTime[1] || '',
-    };
-    currDialogType.value = 'edit';
+const setDialogData = (item, type) => {
+    if (type === 'add') {
+        ruleForm.value = defData;
+    } else {
+        ruleForm.value = {
+            ...item,
+        };
+    }
+    currDialogType.value = type;
 };
 
 defineExpose({ setDialogData });
 </script>
 
 <style lang="less" scoped>
-.volunteer-dialog {
+.tutor-dialog {
     .el-form-item {
         width: 45%;
     }

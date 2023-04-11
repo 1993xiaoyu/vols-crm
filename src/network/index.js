@@ -13,3 +13,7 @@ export function login(params) {
 export function getMenu(params) {
     return net.post(`${baseURL}/system/menu/allList`, params);
 }
+
+export function getRoleMenuTree(params) {
+    return net.get(`${baseURL}/system/menu/roleMenuTreeData`, params);
+}

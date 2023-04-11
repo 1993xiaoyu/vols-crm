@@ -24,7 +24,7 @@ const props = defineProps({
 const detailList = [
     {
         title: '学员编号',
-        key: 'volunteerId',
+        key: 'classNo',
     },
     {
         title: '姓名',

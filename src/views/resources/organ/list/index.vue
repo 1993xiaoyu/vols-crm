@@ -17,9 +17,9 @@ import Search from './modules/search.vue';
 import EditDialog from '../components/edit-dialog.vue';
 
 const searchData = reactive({
-    organId: '',
-    organState: '',
-    trainTime: '',
+    mechanismName: '',
+    status: '',
+    organizationType: '',
 });
 const listRef = ref();
 const editDialogRef = ref();
@@ -29,9 +29,9 @@ const organDialogShow = (data) => {
 };
 
 const searchList = (data) => {
-    searchData.organId = data.organId || '';
-    searchData.organState = data.organState || '';
-    searchData.trainTime = data.trainTime || '';
+    searchData.mechanismName = data.mechanismName || '';
+    searchData.status = data.status || '';
+    searchData.organizationType = data.organizationType || '';
 
     listRef.value.getList();
 };

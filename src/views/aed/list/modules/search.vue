@@ -6,7 +6,7 @@
         :inline="true"
     >
         <el-form-item label="设备ID" prop="name">
-            <el-input v-model="ruleForm.name" />
+            <el-input v-model="ruleForm.name" placeholder="请输入" />
         </el-form-item>
         <el-form-item prop="date1" label="安装时间">
             <el-date-picker

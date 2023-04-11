@@ -12,7 +12,7 @@
                     :class="{
                         'aedStatus-normal': scope.row.aedStatus === '正常',
                         'aedStatus-error':
-                            scope.row.aedStatus.indexOf('失败') > -1,
+                            scope.row.aedStatus.indexOf('故障') > -1,
                         'aedStatus-warn':
                             scope.row.aedStatus.indexOf('预警') > -1,
                     }"
@@ -65,7 +65,7 @@
 
         <el-table-column prop="time" label="安装时间" width="180" />
         <el-table-column prop="preTime" label="上次使用时间" width="180" />
-        <el-table-column prop="manage" label="设备管理员" width="180" />
+        <el-table-column prop="manager" label="设备管理员" width="180" />
         <el-table-column label="操作" fixed="right" width="180">
             <template #default="scope">
                 <el-button
@@ -108,7 +108,7 @@ import { ref, reactive, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
 import { aedRemove, aedList } from '@/network/aed.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
-const emit = defineEmits(['emitOrgan']);
+const emit = defineEmits(['emitAed']);
 const props = defineProps({
     searchData: {
         type: Object,
@@ -166,7 +166,7 @@ const handleDel = (item) => {
 
 // 编辑
 const handleEdit = (item) => {
-    emit('emitOrgan', item);
+    emit('emitAed', item);
 };
 // 查看详情
 const handleDetail = (item) => {

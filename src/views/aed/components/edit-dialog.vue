@@ -1,79 +1,206 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        :title="currDialogType === 'add' ? '新增医护人员' : '编辑医护人员'"
+        :title="currDialogType === 'add' ? '新增设备' : '编辑设备'"
         width="60%"
-        class="volunteer-dialog"
+        class="aed-dialog"
     >
         <el-form
             ref="ruleFormRef"
             :model="ruleForm"
-            :rules="rules"
-            label-width="100px"
+            label-width="150px"
             status-icon
             :inline="true"
         >
-            <div class="volunteer-dialog__title">基本信息</div>
-            <el-form-item label="姓名" prop="volunteerName" required>
-                <el-input v-model="ruleForm.volunteerName" />
+            <el-form-item
+                label="设备序列号"
+                prop="aedNumber"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.aedNumber" />
             </el-form-item>
-            <el-form-item label="状态" prop="volunteerState">
-                <el-switch
-                    v-model="ruleForm.volunteerState"
-                    active-value="0"
-                    inactive-value="1"
+
+            <el-form-item
+                label="品牌"
+                prop="pinPai"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.pinPai" />
+            </el-form-item>
+            <el-form-item
+                label="保修时间"
+                prop="warranty"
+                required
+                :show-message="false"
+            >
+                <el-date-picker
+                    v-model="ruleForm.warranty"
+                    type="date"
+                    placeholder="请选择保修日期"
+                    style="width: 100%"
+                    value-format="YYYY-MM-DD"
                 />
             </el-form-item>
-            <el-form-item label="性别" prop="volunteerSex">
-                <el-radio-group v-model="ruleForm.volunteerSex">
-                    <el-radio label="0">男</el-radio>
-                    <el-radio label="1">女</el-radio>
+
+            <el-form-item
+                label="设备状态"
+                prop="aedStatus"
+                required
+                :show-message="false"
+            >
+                <el-radio-group v-model="ruleForm.aedStatus">
+                    <el-radio label="0">正常</el-radio>
+                    <el-radio label="1">异常</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="手机号" prop="volunteerPhone" required>
-                <el-input v-model="ruleForm.volunteerPhone" />
+
+            <el-form-item
+                label="电池状态"
+                prop="batteryStatus"
+                required
+                :show-message="false"
+            >
+                <el-radio-group v-model="ruleForm.batteryStatus">
+                    <el-radio label="0">正常</el-radio>
+                    <el-radio label="1">异常</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item
+                label="电池电量"
+                prop="aedLevel"
+                required
+                :show-message="false"
+            >
+                <el-input
+                    v-model="ruleForm.aedLevel"
+                    placeholder="现有电量/总电量"
+                />
+            </el-form-item>
+            <el-form-item
+                label="电极片状态"
+                prop="electrodeStatus"
+                required
+                :show-message="false"
+            >
+                <el-radio-group v-model="ruleForm.electrodeStatus">
+                    <el-radio label="0">正常</el-radio>
+                    <el-radio label="1">异常</el-radio>
+                </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="医院" prop="volunteerOccupation" required>
-                <el-select
-                    v-model="ruleForm.volunteerOccupation"
-                    placeholder="请选择医院"
-                >
-                    <el-option label="教师" value="1" />
-                    <el-option label="医生" value="2" />
-                </el-select>
+            <el-form-item
+                label="所属街道"
+                prop="stree"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.stree" />
             </el-form-item>
 
-            <el-form-item label="科室" prop="volunteerEducation" required>
-                <el-select
-                    v-model="ruleForm.volunteerEducation"
-                    placeholder="请选择科室"
-                >
-                    <el-option label="博士" value="1" />
-                    <el-option label="研究生" value="2" />
-                    <el-option label="本科" value="3" />
-                    <el-option label="大专" value="4" />
-                    <el-option label="其它" value="5" />
-                </el-select>
+            <el-form-item
+                label="所属社区"
+                prop="community"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.community" />
+            </el-form-item>
+            <el-form-item
+                label="安装厂商"
+                prop="manufacturer"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.manufacturer" />
+            </el-form-item>
+            <el-form-item
+                label="安装地址"
+                prop="aedPosition"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.aedPosition" />
+            </el-form-item>
+            <el-form-item
+                label="安装地址精度"
+                prop="aedLongitude"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.aedLongitude" />
+            </el-form-item>
+            <el-form-item
+                label="安装地址维度"
+                prop="aedLatitude"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.aedLatitude" />
             </el-form-item>
 
-            <el-form-item label="职称" prop="volunteerStreet" required>
-                <el-input v-model="ruleForm.volunteerStreet" />
+            <el-form-item
+                label="安装时间"
+                prop="installationTime"
+                required
+                :show-message="false"
+            >
+                <el-date-picker
+                    v-model="ruleForm.installationTime"
+                    type="date"
+                    placeholder="请选择保修日期"
+                    style="width: 100%"
+                    value-format="YYYY-MM-DD"
+                />
             </el-form-item>
 
-            <el-form-item label="家庭住址" prop="volunteerHomeAddress">
-                <el-input v-model="ruleForm.volunteerHomeAddress" />
+            <el-form-item
+                label="资金来源"
+                prop="capital"
+                required
+                :show-message="false"
+            >
+                <el-radio-group v-model="ruleForm.capital">
+                    <el-radio label="0">正常</el-radio>
+                    <el-radio label="1">异常</el-radio>
+                </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="身份证号" prop="volunteerIdiccid">
-                <el-input v-model="ruleForm.volunteerIdiccid" />
+            <el-form-item
+                label="AED柜号"
+                prop="aedNo"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.aedNo" />
+            </el-form-item>
+            <el-form-item
+                label="设备管理员"
+                prop="manager"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.manager" />
+            </el-form-item>
+            <el-form-item
+                label="管理员手机"
+                prop="managerPhone"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.managerPhone" />
+            </el-form-item>
+            <el-form-item
+                label="管理单位座机"
+                prop="managerTel"
+                required
+                :show-message="false"
+            >
+                <el-input v-model="ruleForm.managerTel" />
             </el-form-item>
 
-            <el-form-item label="公司地址" prop="volunteerCompanyAddress">
-                <el-input v-model="ruleForm.volunteerCompanyAddress" />
-            </el-form-item>
-
-            <div class="volunteer-dialog__btns">
+            <div class="aed-dialog__btns">
                 <el-button type="primary" @click="submitForm(ruleFormRef)"
                     >确定</el-button
                 >
@@ -85,7 +212,7 @@
 
 <script setup>
 import { reactive, ref, computed } from 'vue';
-import { volunteerAdd, volunteerEdit } from '@/network/volunteer.js';
+import { aedAdd, aedEdit } from '@/network/aed.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeEditDialogShow', 'refreshList']);
 
@@ -98,80 +225,39 @@ const props = defineProps({
 
 const ruleFormRef = ref();
 const defData = {
-    volunteerName: '',
-    volunteerState: '0',
-    volunteerSex: '0',
-    volunteerOccupation: '',
-    volunteerEducation: '',
-    volunteerPhone: '',
-    volunteerStreet: '',
-    volunteerHomeAddress: '',
-    volunteerCompanyName: '',
-    volunteerCompanyAddress: '',
-    volunteerIdiccid: '',
+    aedNumber: '',
+    aedStatus: '',
+    aedLevel: '',
+    aedPosition: '',
+    aedNo: '',
+    manager: '',
+    managerPhone: '',
+    pinPai: '',
+    warranty: '',
+    batteryStatus: '',
+    electrodeStatus: '',
+    stree: '',
+    community: '',
+    manufacturer: '',
+    installationTime: '',
+    capital: '',
+    managerTel: '',
+    aedLatitude: '',
+    aedLongitude: '',
 };
 const ruleForm = ref({});
-
-const rules = reactive({
-    volunteerName: [
-        {
-            required: true,
-            message: '请填写姓名',
-            trigger: 'blur',
-        },
-    ],
-    volunteerOccupation: [
-        {
-            required: true,
-            message: '请选择科室',
-            trigger: 'blur',
-        },
-    ],
-    volunteerEducation: [
-        {
-            required: true,
-            message: '请选择医院',
-            trigger: 'blur',
-        },
-    ],
-
-    classNo: [
-        {
-            required: true,
-            message: '请填写手机号',
-            trigger: 'blur',
-        },
-    ],
-
-    trainHospital: [
-        {
-            required: true,
-            message: '请填写职称',
-            trigger: 'blur',
-        },
-    ],
-
-    trainAddress: [
-        {
-            required: true,
-            message: '请填写志愿者培训地址',
-            trigger: 'blur',
-        },
-    ],
-});
 
 const currDialogType = ref('add');
 
 const submitForm = async (formEl) => {
     if (!formEl) return;
     await formEl.validate((valid) => {
+        console.log('=====', valid);
+
         if (valid) {
-            const currFun =
-                currDialogType.value === 'add' ? volunteerAdd : volunteerEdit;
+            const currFun = currDialogType.value === 'add' ? aedAdd : aedEdit;
             currFun({
                 ...ruleForm.value,
-                trainTime:
-                    ruleForm.value.startTime + '~' + ruleForm.value.endTime,
             }).then((res) => {
                 if (res.code === 0) {
                     ElMessage({ type: 'success', message: '操作成功' });
@@ -192,8 +278,6 @@ const submitForm = async (formEl) => {
 const closeDialog = () => {
     initDialog();
     emit('closeEditDialogShow', false);
-    // if (!formEl) return;
-    // formEl.resetFields();
 };
 
 const initDialog = () => {
@@ -212,11 +296,8 @@ const dialogVisible = computed({
 });
 
 const setDialogData = (item) => {
-    const trainTime = item.trainTime.split('~') || [];
     ruleForm.value = {
         ...item,
-        startTime: trainTime[0] || '',
-        endTime: trainTime[1] || '',
     };
     currDialogType.value = 'edit';
 };
@@ -225,7 +306,7 @@ defineExpose({ setDialogData });
 </script>
 
 <style lang="less" scoped>
-.volunteer-dialog {
+.aed-dialog {
     .el-form-item {
         width: 45%;
     }

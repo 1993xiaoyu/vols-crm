@@ -8,9 +8,10 @@
         </div>
         <div class="login-box__right">
             <el-form
+                ref="loginFormRef"
+                :model="loginForm"
                 label-position="top"
                 label-width="80px"
-                :model="loginForm"
                 class="login-box__right-form"
             >
                 <el-form-item label="账号">
@@ -26,13 +27,17 @@
                     <el-checkbox v-model="loginForm.rememberMe"
                         >记住密码</el-checkbox
                     >
-                    <!-- <span class="login-box__right-fp">忘记密码</span> -->
                 </el-form-item>
                 <el-form-item>
                     <el-button
+                        :loading="loading"
                         type="primary"
                         @click="onSubmit()"
                         class="login-box__right-btn"
+                        :class="{
+                            'submit-btn__disable':
+                                !loginForm.username || !loginForm.password,
+                        }"
                         >登录</el-button
                     >
                 </el-form-item>
@@ -41,12 +46,16 @@
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
+import { ElMessage } from 'element-plus';
 import { login } from '@/network/index.js';
 import { useRouter } from 'vue-router';
 import { getQuery } from '@/utils/common';
+import { Base64 } from 'js-base64';
+// import JSEncrypt from 'jsencrypt';
 
 const router = useRouter();
+const loginFormRef = ref();
 
 const loginForm = reactive({
     username: '',
@@ -54,33 +63,61 @@ const loginForm = reactive({
     rememberMe: false,
 });
 
-const onSubmit = async () => {
-    const { username, password, rememberMe } = loginForm;
-    if (!username) {
-        return;
-    }
-    if (!password) {
-        return;
-    }
+const loading = ref(false);
 
+// 存储账号密码
+const setUserNameAndPsw = () => {
+    if (loginForm.rememberMe) {
+        const password = Base64.encode(loginForm.password); // base64加密
+        localStorage.setItem('username', loginForm.username);
+        localStorage.setItem('password', password);
+    } else {
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+    }
+};
+
+const getUserNameAndPassword = () => {
+    if (localStorage.getItem('username') && localStorage.getItem('password')) {
+        loginForm.username = localStorage.getItem('username');
+        loginForm.password = Base64.decode(localStorage.getItem('password')); //解密
+        loginForm.rememberMe = true;
+        console.log(loginForm);
+    }
+};
+
+const onSubmit = async () => {
+    const { username, password } = loginForm;
+    if (!username || !password || loading.value) {
+        return;
+    }
+    loading.value = true;
+    setUserNameAndPsw();
+
+    // let encrypt = new JSEncrypt();
+    // encrypt.setPublicKey(publicKey);
+    // let password = encrypt.encrypt(loginForm.password);
     const res = await login({
         username,
         password,
-        rememberMe,
     });
-    if (!res.code) {
-        const env = getQuery('env') === 'test' ? 'test' : 'master';
+    loading.value = false;
+    console.log(res, '===');
+    if (res.code === 0) {
+        const env = getQuery('env') === 'test' ? 'test' : 'online';
         const tenantUserInfo = {
             password,
             username,
             env,
         };
         localStorage.setItem('TenantUserInfo', JSON.stringify(tenantUserInfo));
-        router.push({ name: 'cockpit', query: { env: env } });
-    } else {
-        alertMessage = res.message || '请检查账号密码';
+        router.push({ name: 'list', query: { env: env } });
     }
 };
+
+onMounted(() => {
+    getUserNameAndPassword();
+});
 </script>
 
 <style lang="less">
@@ -181,6 +218,10 @@ const onSubmit = async () => {
             color: #f7f9fd;
             font-size: 30px;
             line-height: 30px;
+        }
+        .submit-btn__disable {
+            background: #c9c9c9;
+            border: 1px solid #c9c9c9;
         }
     }
 }

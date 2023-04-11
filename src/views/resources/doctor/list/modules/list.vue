@@ -1,20 +1,18 @@
 <template>
     <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="id" label="ID" width="180" fixed="left" />
-        <el-table-column prop="volunteerName" label="姓名" width="180" />
-        <el-table-column prop="volunteerState" label="人员状态" width="180">
+        <el-table-column prop="tutorName" label="姓名" width="180" />
+        <el-table-column prop="tutorStateName" label="人员状态" width="180">
             <template #default="scope">
-                <el-tag
-                    :type="scope.row.volunteerState ? 'success' : 'warning'"
-                >
-                    {{ scope.row.volunteerState === '0' ? '开启' : '冻结' }}
+                <el-tag :type="scope.row.tutorState ? 'success' : 'warning'">
+                    {{ scope.row.tutorStateName }}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="volunteerOccupation" label="医院" width="180" />
-        <el-table-column prop="volunteerHomeAddress" label="科室" width="180" />
-        <el-table-column prop="rescueTimes" label="职称" width="180" />
-        <el-table-column prop="trainAddress" label="电话" width="180" />
+        <el-table-column prop="tutorHospital" label="医院" width="180" />
+        <el-table-column prop="tutorDepartment" label="科室" width="180" />
+        <el-table-column prop="tutorTitle" label="职称" width="180" />
+        <el-table-column prop="tutorPhone" label="电话" width="180" />
         <el-table-column label="操作" fixed="right" width="180">
             <template #default="scope">
                 <el-button
@@ -53,9 +51,9 @@
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
-import { volunteerList, volunteerRemove } from '@/network/volunteer.js';
+import { tutorList, tutorRemove } from '@/network/tutor.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
-const emit = defineEmits(['emitVolunteer']);
+const emit = defineEmits(['emittutor']);
 const props = defineProps({
     searchData: {
         type: Object,
@@ -77,7 +75,7 @@ const getList = async () => {
         pageSize: pageParams.pageSize,
         pageNum: pageParams.pageNum,
     };
-    const res = await volunteerList(params);
+    const res = await tutorList(params);
     tableData.value = res.list || [];
     pageParams.total = res.total || 0;
 };
@@ -96,7 +94,7 @@ const handleDel = (item) => {
                 ids: item.id,
             };
 
-            volunteerRemove(params).then((res) => {
+            tutorRemove(params).then((res) => {
                 if (res.code === 0) {
                     ElMessage({ type: 'success', message: '删除成功' });
                     getList();
@@ -113,7 +111,7 @@ const handleDel = (item) => {
 
 // 编辑
 const handleEdit = (item) => {
-    emit('emitVolunteer', item);
+    emit('emittutor', item, 'edit');
 };
 // 查看详情
 const handleDetail = (item) => {

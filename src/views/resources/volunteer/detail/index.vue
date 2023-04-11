@@ -77,4 +77,8 @@ onMounted(() => {
         margin-bottom: 30px;
     }
 }
+.tipStyle {
+    color: red;
+    margin-bottom: 20px;
+}
 </style>

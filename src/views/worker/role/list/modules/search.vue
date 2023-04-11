@@ -6,7 +6,7 @@
         :inline="true"
     >
         <el-form-item label="角色名" prop="roleName">
-            <el-input v-model="ruleForm.roleName" />
+            <el-input v-model="ruleForm.roleName" placeholder="请输入" />
         </el-form-item>
 
         <el-form-item label="状态" prop="status">
@@ -17,7 +17,7 @@
         </el-form-item>
 
         <div class="btn-box">
-            <el-button type="primary" @click="submitForm">查询</el-button>
+            <el-button @click="submitForm" type="primary">查询</el-button>
             <el-button @click="resetForm(ruleFormRef)">重置</el-button>
             <el-button @click="dialogShow" type="primary">新增角色</el-button>
         </div>

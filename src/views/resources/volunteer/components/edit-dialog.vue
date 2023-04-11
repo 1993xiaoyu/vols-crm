@@ -46,11 +46,11 @@
                     v-model="ruleForm.volunteerEducation"
                     placeholder="请选择学历"
                 >
-                    <el-option label="博士" value="1" />
-                    <el-option label="研究生" value="2" />
-                    <el-option label="本科" value="3" />
-                    <el-option label="大专" value="4" />
-                    <el-option label="其它" value="5" />
+                    <el-option
+                        :label="item.qualification"
+                        :value="item.id"
+                        v-for="item in qualificationList"
+                    />
                 </el-select>
             </el-form-item>
 
@@ -136,6 +136,12 @@
 import { reactive, ref, computed } from 'vue';
 import { volunteerAdd, volunteerEdit } from '@/network/volunteer.js';
 import { ElMessage } from 'element-plus';
+import useEnum from '@/composables/enum';
+
+const { getQualificationData, qualificationList } = useEnum();
+
+getQualificationData();
+
 const emit = defineEmits(['closeEditDialogShow', 'refreshList']);
 
 const props = defineProps({

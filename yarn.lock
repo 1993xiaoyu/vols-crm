@@ -3014,10 +3014,20 @@ isarray@^2.0.1:
   resolved "https://registry.npmmirror.com/isarray/-/isarray-2.0.5.tgz#8af1e4c1221244cc62459faf38940d4e644a5723"
   integrity sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==
 
+js-base64@^3.7.5:
+  version "3.7.5"
+  resolved "https://registry.npmmirror.com/js-base64/-/js-base64-3.7.5.tgz#21e24cf6b886f76d6f5f165bfcd69cc55b9e3fca"
+  integrity sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://registry.npmmirror.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
+
+jsencrypt@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.npmmirror.com/jsencrypt/-/jsencrypt-3.3.2.tgz#b0f1a2278810c7ba1cb8957af11195354622df7c"
+  integrity sha512-arQR1R1ESGdAxY7ZheWr12wCaF2yF47v5qpB76TtV64H1pyGudk9Hvw8Y9tb/FiTIaaTRUyaSnm5T/Y53Ghm/A==
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"

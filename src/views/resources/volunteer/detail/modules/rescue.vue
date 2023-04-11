@@ -1,4 +1,6 @@
 <template>
+    <div class="tipStyle">暂无此模块，需跟随 腾讯运营活动</div>
+
     <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="id" label="关联救援事件" />
         <el-table-column prop="volunteerName" label="救援时间" />
@@ -64,5 +66,9 @@ onMounted(() => {
 .el-pagination {
     margin-top: 30px;
     justify-content: flex-end;
+}
+.tipStyle {
+    color: red;
+    margin-bottom: 20px;
 }
 </style>

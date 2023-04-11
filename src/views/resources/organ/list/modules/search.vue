@@ -5,20 +5,23 @@
         label-width="80px"
         :inline="true"
     >
-        <el-form-item label="关键字" prop="name">
-            <el-input v-model="ruleForm.name" />
+        <el-form-item label="关键字" prop="mechanismName">
+            <el-input v-model="ruleForm.mechanismName" />
         </el-form-item>
 
-        <el-form-item label="状态" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择">
-                <el-option label="上海" value="shagn" />
-                <el-option label="北京" value="beijing" />
+        <el-form-item label="状态" prop="stauts">
+            <el-select v-model="ruleForm.stauts" placeholder="请选择">
+                <el-option label="注册" value="1" />
+                <el-option label="变更" value="2" />
             </el-select>
         </el-form-item>
-        <el-form-item label="机构类型" prop="region1">
-            <el-select v-model="ruleForm.region" placeholder="请选择">
-                <el-option label="上海" value="shagn" />
-                <el-option label="北京" value="beijing" />
+        <el-form-item label="机构类型" prop="organizationType">
+            <el-select v-model="ruleForm.organizationType" placeholder="请选择">
+                <el-option
+                    :label="item.management"
+                    :value="item.id"
+                    v-for="item in managementList"
+                />
             </el-select>
         </el-form-item>
 
@@ -44,13 +47,19 @@ import Upload from './upload.vue';
 import { exportData } from '@/network/institution.js';
 import { ElMessage } from 'element-plus';
 
+import useEnum from '@/composables/enum';
+
+const { getManagementData, managementList } = useEnum();
+
+getManagementData();
+
 const emit = defineEmits(['editDialogShow', 'searchList']);
 
 const ruleFormRef = ref();
 const ruleForm = reactive({
-    userName: '',
+    mechanismName: '',
     status: '',
-    hospital: '',
+    organizationType: '',
 });
 
 const uploadDialogShow = ref(false);

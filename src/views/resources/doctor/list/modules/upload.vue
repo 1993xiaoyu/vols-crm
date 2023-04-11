@@ -27,7 +27,7 @@
                     </div>
 
                     <el-upload
-                        action="//test.forjhntech.online/api/system/volunteer/importData"
+                        action="//test.forjhntech.online/api/system/tutor/importData"
                         ref="uploadRef"
                         class="upload-demo"
                         :on-change="handleChange"
@@ -55,7 +55,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { importTemplate } from '@/network/volunteer.js';
+import { importTemplate } from '@/network/tutor.js';
 import { ElMessage } from 'element-plus';
 const emit = defineEmits(['closeUploadDialogShow']);
 const uploadRef = ref();

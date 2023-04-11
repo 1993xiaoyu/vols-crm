@@ -5,19 +5,52 @@
         label-width="80px"
         :inline="true"
     >
-        <el-form-item label="关键字" prop="volunteerId">
-            <el-input v-model="ruleForm.volunteerId" />
+        <el-form-item label="姓名" prop="tutorName">
+            <el-input
+                v-model="ruleForm.tutorName"
+                placeholder="请输入"
+                clearable
+            />
         </el-form-item>
-        <el-form-item label="医院" prop="volunteerState">
-            <el-select v-model="ruleForm.volunteerState" placeholder="请选择">
+        <el-form-item label="状态" prop="tutorState">
+            <el-select
+                v-model="ruleForm.tutorState"
+                placeholder="请选择"
+                clearable
+            >
                 <el-option label="开启" value="0" />
                 <el-option label="冻结" value="1" />
             </el-select>
         </el-form-item>
-        <el-form-item label="科室" prop="volunteerState">
-            <el-select v-model="ruleForm.volunteerState" placeholder="请选择">
-                <el-option label="开启" value="0" />
-                <el-option label="冻结" value="1" />
+
+        <el-form-item label="医院" prop="tutorHospital">
+            <el-select
+                v-model="ruleForm.tutorHospital"
+                placeholder="请选择医院"
+                filterable
+                clearable
+            >
+                <el-option
+                    :label="item.hospital"
+                    :value="item.hospital"
+                    :key="item.id"
+                    v-for="item in hospitalList"
+                />
+            </el-select>
+        </el-form-item>
+        <el-form-item label="科室" prop="tutorDepartment">
+            <el-select
+                v-model="ruleForm.tutorDepartment"
+                placeholder="请选择科室"
+                filterable
+                clearable
+            >
+                <el-option
+                    :label="item.department"
+                    :value="item.department"
+                    :key="item.id"
+                    v-for="item in departmentList"
+                />
             </el-select>
         </el-form-item>
 
@@ -40,16 +73,24 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import Upload from './upload.vue';
-import { exportData } from '@/network/volunteer.js';
+import { exportData } from '@/network/tutor.js';
 import { ElMessage } from 'element-plus';
+import useEnum from '@/composables/enum';
 
-const emit = defineEmits(['editDialogShow', 'searchList']);
+const { hospitalList, departmentList, getHospitalData, getDepartmentData } =
+    useEnum();
+
+getHospitalData();
+getDepartmentData();
+
+const emit = defineEmits(['editDialogShow', 'searchList', 'emittutor']);
 
 const ruleFormRef = ref();
 const ruleForm = reactive({
-    volunteerId: '',
-    volunteerState: '',
-    trainTime: '',
+    tutorName: '',
+    tutorHospital: '',
+    tutorDepartment: '',
+    tutorState: '',
 });
 
 const uploadDialogShow = ref(false);
@@ -63,7 +104,8 @@ const resetForm = (formEl) => {
 };
 
 const volunteerDialogShow = () => {
-    emit('editDialogShow', true);
+    //emit('editDialogShow', true);
+    emit('emittutor', {}, 'add');
 };
 
 const handleUpload = () => {
@@ -98,5 +140,11 @@ const handleExport = async () => {
 .btn-box {
     text-align: right;
     margin-bottom: 60px;
+}
+.el-form-item {
+    width: 300px;
+}
+.el-select {
+    width: 100%;
 }
 </style>

@@ -38,9 +38,7 @@ _axios.interceptors.response.use(
     (err) => {
         if (err) {
             // 在这里关闭请求时的loading动画效果
-            location.href = 'https://test.forjhntech.online/#/login';
-
-            console.log('请求网络失败ddd');
+            location.href = `${location.origin}/#/login`;
         }
         return Promise.reject(err);
     }
@@ -60,17 +58,20 @@ const net = {
                 method: 'GET',
             })
                 .then((res) => {
-                    // console.log(res, '===getRes');
-
                     if (res.status === 200 && res.data.code === 0) {
-                        resolve(res.data.data);
+                        resolve({
+                            ...res.data.data,
+                            code: res.data.code,
+                            message: res.data.msg,
+                        });
                     } else {
                         ElMessage({
                             type: 'error',
                             message: res.data.msg || '系统异常，稍后再试',
                         });
                     }
-                    return res;
+                    // return res;
+                    return resolve(res.data.data);
                 })
                 .catch((error) => {
                     reject(error);
@@ -100,6 +101,7 @@ const net = {
                     if (res.status === 200 && res.data.code === 0) {
                         resolve({
                             ...res.data.data,
+                            code: res.data.code,
                             message: res.data.msg,
                         });
                     } else {
@@ -108,7 +110,8 @@ const net = {
                             message: res.data.msg || '系统异常，稍后再试',
                         });
                     }
-                    return res;
+                    // return res;
+                    return resolve(res.data.data);
                 })
                 .catch((error) => {
                     reject(error);

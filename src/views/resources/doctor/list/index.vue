@@ -1,14 +1,7 @@
 <template>
     <div class="voluteeer-box">
-        <Search
-            @editDialogShow="volunteerDialogShow"
-            @searchList="searchList"
-        />
-        <List
-            ref="listRef"
-            :searchData="searchData"
-            @emitVolunteer="emitVolunteer"
-        />
+        <Search @emittutor="emittutor" @searchList="searchList" />
+        <List ref="listRef" :searchData="searchData" @emittutor="emittutor" />
         <EditDialog
             v-model="editDialogShow"
             ref="editDialogRef"
@@ -24,9 +17,9 @@ import Search from './modules/search.vue';
 import EditDialog from '../components/edit-dialog.vue';
 
 const searchData = reactive({
-    volunteerId: '',
-    volunteerState: '',
-    trainTime: '',
+    tutorName: '',
+    tutorHospital: '',
+    tutorDepartment: '',
 });
 const listRef = ref();
 const editDialogRef = ref();
@@ -36,9 +29,9 @@ const volunteerDialogShow = (data) => {
 };
 
 const searchList = (data) => {
-    searchData.volunteerId = data.volunteerId || '';
-    searchData.volunteerState = data.volunteerState || '';
-    searchData.trainTime = data.trainTime || '';
+    searchData.tutorName = data.tutorName || '';
+    searchData.tutorDepartment = data.tutorDepartment || '';
+    searchData.tutorHospital = data.tutorHospital || '';
 
     listRef.value.getList();
 };
@@ -46,9 +39,9 @@ const searchList = (data) => {
 const refreshList = () => {
     listRef.value.getList();
 };
-const emitVolunteer = (data) => {
+const emittutor = (type, data) => {
     editDialogShow.value = true;
-    editDialogRef.value.setDialogData(data);
+    editDialogRef.value.setDialogData(type, data);
 };
 onMounted(() => {
     listRef.value.getList();

@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { getMenu } from '@/network/index.js';
+import { getMenu, getRoleMenuTree } from '@/network/index.js';
 
 import WorkIcon from '@/assets/work.png';
 import WorkCheckedIcon from '@/assets/work-checkd.png';
@@ -100,7 +100,11 @@ export default function useSideBar() {
 
     const getMenuData = async () => {
         const res = await getMenu();
-        console.log(res, '===res');
+    };
+
+    const getRoleMenuTreeData = async () => {
+        const res = await getRoleMenuTree();
+        console.log(res, '====getRoleMenuTreeData');
     };
 
     const getSecondLevelSideBar = () => {
@@ -142,5 +146,7 @@ export default function useSideBar() {
         setSecondCurrSideBarName,
 
         getMenuData,
+
+        getRoleMenuTreeData,
     };
 }

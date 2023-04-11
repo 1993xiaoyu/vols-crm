@@ -23,64 +23,38 @@ const props = defineProps({
 
 const detailList = [
     {
-        title: '学员编号',
-        key: 'volunteerId',
-    },
-    {
         title: '姓名',
-        key: 'volunteerName',
+        key: 'tutorName',
     },
     {
         title: '性别',
-        key: 'volunteerSex',
+        key: 'tutorSex',
     },
     {
-        title: '职业',
-        key: 'volunteerOccupation',
-    },
-    {
-        title: '学历',
-        key: 'volunteerEducation',
+        title: '医院',
+        key: 'tutorHospital',
     },
     {
         title: '手机号',
-        key: 'volunteerPhone',
+        key: 'tutorPhone',
+    },
+
+    {
+        title: '科室',
+        key: 'tutorDepartment',
     },
     {
-        title: '所在街道',
-        key: 'trainAddress',
+        title: '职称',
+        key: 'tutorEducation',
+    },
+
+    {
+        title: '出生日期',
+        key: 'tutorBirthday',
     },
     {
-        title: '家庭住址',
-        key: 'volunteerHomeAddress',
-    },
-    {
-        title: '公司名称',
-        key: 'volunteerCompanyName',
-    },
-    {
-        title: '公司地址',
-        key: 'volunteerCompanyAddress',
-    },
-    {
-        title: '身份证号',
-        key: 'volunteerIdiccid',
-    },
-    {
-        title: '班级编号',
-        key: 'classNo',
-    },
-    {
-        title: '培训医院',
-        key: 'trainHospital',
-    },
-    {
-        title: '培训地点',
-        key: 'trainAddress',
-    },
-    {
-        title: '培训日期',
-        key: 'trainDate',
+        title: '家庭地址',
+        key: 'tutorHomeAddress',
     },
 ];
 </script>

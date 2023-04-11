@@ -26,7 +26,8 @@ import leftSideBar from '@/components/left-sidebar/index.vue';
 import pageHeader from '@/components/page-header/index.vue';
 import useSideBar from '@/composables/useSideBar';
 
-const { sideBarConfig, setCurrSideBarName, getMenuData } = useSideBar();
+const { sideBarConfig, setCurrSideBarName, getMenuData, getRoleMenuTreeData } =
+    useSideBar();
 const router = useRouter();
 
 const handleSideBar = (item, sideData) => {
@@ -53,7 +54,8 @@ watch(
 );
 
 onMounted(() => {
-    getMenuData();
+    // getMenuData();
+    // getRoleMenuTreeData();
 });
 </script>
 <style lang="less" scoped>

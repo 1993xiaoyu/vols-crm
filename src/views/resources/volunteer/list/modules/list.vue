@@ -13,12 +13,8 @@
         </el-table-column>
         <el-table-column prop="volunteerPhone" label="联系方式" width="180" />
         <el-table-column prop="volunteerOccupation" label="职业" width="180" />
-        <el-table-column
-            prop="volunteerHomeAddress"
-            label="家庭地址"
-            width="180"
-        />
-        <el-table-column prop="rescueTimes" label="救援次数" width="180" />
+        <!-- 
+        <el-table-column prop="rescueTimes" label="救援次数" width="180" /> -->
         <el-table-column prop="trainAddress" label="培训地点" width="180" />
         <el-table-column prop="trainDate" label="培训日期" width="180" />
         <el-table-column label="操作" fixed="right" width="180">

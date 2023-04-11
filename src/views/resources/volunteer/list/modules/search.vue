@@ -5,8 +5,8 @@
         label-width="80px"
         :inline="true"
     >
-        <el-form-item label="手机号" prop="volunteerPhone">
-            <el-input v-model="ruleForm.volunteerPhone" />
+        <el-form-item label="姓名" prop="volunteerName">
+            <el-input v-model="ruleForm.volunteerName" placeholder="请输入" />
         </el-form-item>
         <el-form-item prop="trainTime" label="加入时间">
             <el-date-picker
@@ -18,7 +18,11 @@
             />
         </el-form-item>
         <el-form-item label="人员状态" prop="volunteerState">
-            <el-select v-model="ruleForm.volunteerState" placeholder="请选择">
+            <el-select
+                v-model="ruleForm.volunteerState"
+                placeholder="请选择"
+                clearable
+            >
                 <el-option label="开启" value="0" />
                 <el-option label="冻结" value="1" />
             </el-select>
@@ -50,7 +54,7 @@ const emit = defineEmits(['editDialogShow', 'searchList']);
 
 const ruleFormRef = ref();
 const ruleForm = reactive({
-    volunteerPhone: '',
+    volunteerName: '',
     volunteerState: '',
     trainTime: '',
 });
